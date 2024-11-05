@@ -1,0 +1,69 @@
+.section1{
+    margin-bottom: 100px;
+    height: auto;
+}
+
+.tenChucNang {
+    margin-top: 100px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+.tenChucNang_cuthe{
+    width: 30%;
+    background-color: #D6E4FF;
+    color: black; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 20px; 
+}
+
+.them {
+    margin-top: 50px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.them_cuthe{
+    width: 20%;
+    background-color: #D6E4FF;
+    color: black; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 20px; 
+}
+.them_cuthe a{
+    color: black;
+    text-decoration: none;
+}
+
+#form1 table{
+    margin-bottom: 50px;
+}
+.title{
+    background-color: #D6E4FF;
+}
+
+.sua input[type="submit"]{
+    width: 50px;
+    height: 25px;
+    background-color: #D6E4FF; 
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button input[type="submit"]{
+    width: 120px;
+    height: 40px;
+    background-color: #D6E4FF; 
+    border: none;
+    margin: 0px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.button{
+    text-align: center;
+}

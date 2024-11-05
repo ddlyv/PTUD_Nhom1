@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiển Thị Đơn Thuốc</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+
+        .form-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .section-header {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #007bff;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .medication-item {
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Hiển Thị Đơn Thuốc</h1>
+
+        <!-- Patient Information Section -->
+        <div class="form-section">
+            <div class="section-header">Thông Tin Bệnh Nhân</div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Bệnh nhân:</label>
+                    <p class="form-control-static">Faker</p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Bác sĩ:</label>
+                    <p class="form-control-static">T1</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label>Ngày:</label>
+                    <p class="form-control-static">2024-11-10</p>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Triệu chứng:</label>
+                    <p class="form-control-static">Đau cổ tay</p>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Lời khuyên:</label>
+                    <p class="form-control-static">Hạn Chế</p>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Chẩn đoán:</label>
+                    <p class="form-control-static">Chấn thương</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Tái khám:</label>
+                    <p class="form-control-static">2024-11-10</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medication Details Section -->
+        <div class="form-section">
+            <div class="section-header">Chi Tiết Đơn Thuốc</div>
+            <div class="medication-item">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>Thuốc:</label>
+                        <p class="form-control-static">Paracetamol</p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Cách dùng:</label>
+                        <p class="form-control-static">Uống</p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Số lượng:</label>
+                        <p class="form-control-static">10</p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Số ngày uống:</label>
+                        <p class="form-control-static">5</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label>Sáng:</label>
+                        <p class="form-control-static">2 viên</p>
+                    </div>
+                    <div class="col">
+                        <label>Trưa:</label>
+                        <p class="form-control-static">1 viên</p>
+                    </div>
+                    <div class="col">
+                        <label>Chiều:</label>
+                        <p class="form-control-static">0 viên</p>
+                    </div>
+                    <div class="col">
+                        <label>Tối:</label>
+                        <p class="form-control-static">1 viên</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat .medication-item for additional medications -->
+        </div>
+
+        <!-- Back Button -->
+        <div class="text-center mt-4">
+            <a href="danhSachDonThuoc.html" class="btn btn-primary">Quay lại danh sách</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

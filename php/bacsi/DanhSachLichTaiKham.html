@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Tái Khám</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Danh Sách Lịch Tái Khám</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ Tên</th>
+                        <th>Ngày Tái Khám</th>
+                        <th>Giờ Tái Khám</th>
+                        <th>Ghi Chú</th>
+                        <th>Trạng Thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Keria</td>
+                        <td>2024-12-11</td>
+                        <td>9h30</td>
+                        <td>aaaa</td>
+                        <td><button type="button" class="btn btn-success">Đã khám</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Faker</td>
+                        <td>2024-12-11</td>
+                        <td>9h30</td>
+                        <td>aaaa</td>
+                        <td><button type="button" class="btn btn-success">Đã khám</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Zeus</td>
+                        <td>2024-12-11</td>
+                        <td>9h30</td>
+                        <td>aaaa</td>
+                        <td><button type="button" class="btn btn-success">Đã khám</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Oner</td>
+                        <td>2024-12-11</td>
+                        <td>9h30</td>
+                        <td>aaaa</td>
+                        <td><button type="button" class="btn btn-success">Đã khám</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Gumayusi</td>
+                        <td>2024-12-11</td>
+                        <td>9h30</td>
+                        <td>aaaa</td>
+                        <td><button type="button" class="btn btn-success">Đã khám</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Upload Modal for "Nhập kết quả" -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Nhập kết quả</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="fileUpload">Tải file lên</label>
+                            <input type="file" class="form-control-file" id="fileUpload"
+                                onchange="handleFileUpload(event)" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveFile()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Result Modal for "Xem kết quả" -->
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewModalLabel">Xem kết quả</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="fileContent">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        let uploadedFile = null;
+
+        function handleFileUpload(event) {
+            uploadedFile = event.target.files[0];
+        }
+
+        function saveFile() {
+            if (uploadedFile) {
+                alert("File đã được lưu thành công!");
+            } else {
+                alert("Vui lòng tải lên file trước khi lưu.");
+            }
+        }
+
+        function viewResult() {
+            if (!uploadedFile) {
+                alert("Chưa có file kết quả nào để xem.");
+                return;
+            }
+
+            const fileContent = document.getElementById("fileContent");
+
+            if (uploadedFile.type.includes("image")) {
+                const img = document.createElement("img");
+                img.src = URL.createObjectURL(uploadedFile);
+                img.className = "img-fluid";
+                fileContent.innerHTML = "";
+                fileContent.appendChild(img);
+            } else if (uploadedFile.type === "application/pdf") {
+                const pdfViewer = document.createElement("embed");
+                pdfViewer.src = URL.createObjectURL(uploadedFile);
+                pdfViewer.type = "application/pdf";
+                pdfViewer.width = "100%";
+                pdfViewer.height = "500px";
+                fileContent.innerHTML = "";
+                fileContent.appendChild(pdfViewer);
+            } else {
+                fileContent.innerHTML = "<p>Không thể xem loại file này.</p>";
+            }
+
+            $('#viewModal').modal('show');
+        }
+    </script>
+
+</body>
+
+</html>
