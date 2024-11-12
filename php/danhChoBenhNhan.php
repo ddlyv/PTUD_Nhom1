@@ -10,7 +10,7 @@
             <div class="grid-item">
                 <a href="chinhSuaThongTin.php">
                     <i class="fa-solid fa-heart"></i>
-                    <p>Chỉnh sửa thông tin cá nhân</p>
+                    <p>Chỉnh sửa thông tin</p>
                 </a>
             </div>
             <div class="grid-item">

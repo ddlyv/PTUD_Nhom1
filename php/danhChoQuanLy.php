@@ -10,7 +10,25 @@
             <div class="grid-item">
                 <a href="loaiXetNghiem.php">
                     <i class="fa-solid fa-heart"></i>
-                    <p>Loại xét nghiệm</p>
+                    <p>Quản lý loại xét nghiệm</p>
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="#">
+                    <i class="fa-solid fa-heart"></i>
+                    <p>Quản lý lịch hẹn</p>
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="#">
+                    <i class="fa-solid fa-heart"></i>
+                    <p>Quản lý lịch khám</p>
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="#">
+                    <i class="fa-solid fa-heart"></i>
+                    <p>Quản lý tài khoản</p>
                 </a>
             </div>
             

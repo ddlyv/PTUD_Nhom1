@@ -12,7 +12,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/mau.css">
     <!-- Thêm Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -20,20 +19,20 @@
 
 </head>
 <body>
-    <div class="container">
+    <div class="containerr">
         <header>
             <div class="header">
                 <div class="logo">MED<span class="highlight">DICAL</span>
                 </div>
                 <div class="contact-info">
                     <div class="info">
-                        <span class="icon">📞</span> HOTLINE <p>(237) 681-812-255</p>
+                        <span class="icon">📞</span> HOTLINE <br>(237) 681-812-255</br>
                     </div>
                     <div class="info">
-                        <span class="icon">⏰</span> GIỜ LÀM VIỆC <p>09:00 - 20:00 Everyday</p>
+                        <span class="icon">⏰</span> GIỜ LÀM VIỆC <br>09:00 - 20:00 Everyday</br>
                     </div>
                     <div class="info">
-                        <span class="icon">📍</span> ĐỊA CHỈ <p>0123 Some Place</p>
+                        <span class="icon">📍</span> ĐỊA CHỈ <br>0123 Some Place</br>
                     </div>
                     <div class="user">
                         <span class="icon-user">👤</span>

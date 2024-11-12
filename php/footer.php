@@ -57,5 +57,32 @@
             </div>
         </footer>
     </div>
+    <script>
+    // Lấy vai trò từ PHP để sử dụng trong JavaScript
+    
+    let userRole = "<?php echo isset($_SESSION['vaiTro']) ? $_SESSION['vaiTro'] : ''; ?>";
+    document.getElementById("backButton").onclick = function () {
+        window.history.back(); // Quay lại trang trước
+    };
+
+    document.getElementById("finishButton").onclick = function () {
+        // Kiểm tra vai trò và điều hướng đến trang phù hợp
+        switch (userRole) {
+            case 'Bệnh nhân':
+                window.location.href = "danhChoBenhNhan.php";
+                break;
+            case 'Bác sĩ':
+                window.location.href = "danhChoBacSi.php";
+                break;
+            case 'Quản lý':
+                window.location.href = "danhChoQuanLy.php";
+                break;
+            default:
+                alert("Vai trò không hợp lệ!");
+                break;
+        }
+    };
+ 
+</script>
 </body>
 </html>
