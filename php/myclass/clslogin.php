@@ -1,7 +1,7 @@
 <?php
-	class login
-	{
-		public function connectlogin()
+class login
+{
+    public function connectlogin()
 		{
 			$con=mysql_connect("localhost","root","");
 			if(!$con)
@@ -49,16 +49,31 @@
 			}
 			
 		}	
-		
-		// public function confirmlogin($id,$user,$pass)
-		// {
-		// 	$sql="select id_user from taikhoan where id_user='$id' and username='$user' and password='$pass' limit 1";
-		// 	$link=$this->connectlogin();
-		// 	$ketqua=mysql_query($sql,$link);
-		// 	if(mysql_num_rows($ketqua)!=1)
-		// 	{
-		// 		header('location:login/');	
-		// 	}
-		// }
-	}
+
+    public function register($username, $phone, $password, $role)
+    {
+        $link = $this ->connectlogin();
+
+        // Kiểm tra trùng số điện thoại
+        $check_sql = "SELECT * FROM taikhoan WHERE soDienThoai = '$phone'";
+        $check_result = mysql_query($check_sql, $link);
+        if (mysql_num_rows($check_result) > 0) {
+            return "Số điện thoại đã tồn tại!";
+        }
+
+        // Mã hóa mật khẩu
+        $hashed_password = md5($password);
+
+        // Thêm tài khoản mới
+        $sql = "INSERT INTO taikhoan (tenTaiKhoan, soDienThoai, password, vaiTro) 
+                VALUES ('$username', '$phone', '$hashed_password', '$role')";
+        $result = mysql_query($sql, $link);
+
+        if ($result) {
+            return true;
+        } else {
+            return "Có lỗi xảy ra trong quá trình đăng ký!";
+        }
+    }
+}
 ?>
