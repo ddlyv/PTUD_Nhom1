@@ -10,7 +10,10 @@
         <div class="them">
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalthem">THÊM PHIẾU XÉT NGHIỆM</button>
         </div>
-        
+        <div class="search-container" align="right" style="margin-bottom: 20px;">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm..." class="form-control h-25 d-inline-block" style="width: auto; display: inline-block;">
+            <button id="searchButton" class="btn btn-primary">Tìm kiếm</button>
+        </div>
         <table class="table table-hover">
             <thead>
                 <tr>

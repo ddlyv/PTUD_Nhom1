@@ -4,20 +4,20 @@
 	include ("myclass/clslogin.php");
 	$c=new login();
 		
-
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ </title>
+    <title>Document</title>
     <link rel="stylesheet" href="../css/mau.css">
     <!-- Thêm Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-
+</head>
 <body>
     <div class="container">
         <header>
@@ -45,7 +45,7 @@
                                 else
                                 {
                                     echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="register/register.php" class ="user-link">Đăng ký</a>';
+                                    echo '<a href="#" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -91,7 +91,7 @@
         
 
         <div class="section1">
-           
+            <p>Nội dung</p>
         </div>
 
         <div class="contact">

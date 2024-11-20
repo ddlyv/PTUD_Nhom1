@@ -3,7 +3,14 @@
     error_reporting(0);
 	include ("myclass/clslogin.php");
 	$c=new login();
-		
+    if(isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['vaiTro']))
+    {
+        $c->confirmlogin($_SESSION['id'],$_SESSION['user'],$_SESSION['pass'],$_SESSION['vaiTro']);
+    }
+    else
+    {
+        header('location:login/');	
+    }
 	
 ?>
 <!DOCTYPE html>
@@ -22,7 +29,7 @@
     <div class="containerr">
         <header>
             <div class="header">
-                <div class="logo">MED<span class="highlight">DICAL</span>
+                <div class="logo"><a style="text-decoration: none; color: black;" href="index.php">MED<span class="highlight">DICAL</a></span>
                 </div>
                 <div class="contact-info">
                     <div class="info">
