@@ -4,7 +4,7 @@
 	include ("myclass/clslogin.php");
 	$c=new login();
 		
-
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-
+</head>
 <body>
     <div class="container">
         <header>
@@ -44,8 +44,8 @@
                                 } 
                                 else
                                 {
-                                    echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="register/register.php" class ="user-link">Đăng ký</a>';
+                                    echo '<a href="login/login.php" class="user-link">Đăng nhập</a> / ';
+                                    echo '<a href="register/register.php" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -91,7 +91,7 @@
         
 
         <div class="section1">
-           
+            
         </div>
 
         <div class="contact">
