@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Đơn Thuốc</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .action-links a {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Danh Sách Đơn Thuốc</h3>
+            <button class="btn btn-success" onclick="window.location.href='ThemDonThuoc.html'">Tạo Mới</button>
+        </div>
+
+        <!-- Search bar -->
+        <div class="search-bar">
+            <input type="text" class="form-control mr-2" placeholder="Nhập từ khóa" style="width: 200px;">
+            <button class="btn btn-primary">Tìm kiếm</button>
+        </div>
+
+        <!-- Prescription List Table -->
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Mã đơn thuốc</th>
+                    <th>Ngày</th>
+                    <th>Bác sĩ</th>
+                    <th>Bệnh nhân</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PR-5009</td>
+                    <td>2024-10-16</td>
+                    <td>T1</td>
+                    <td>Zeus</td>
+                    <td class="action-links">
+                        <a href="HienThiDonThuoc.html">Xem</a> |
+                        <a href="SuaDonThuoc.html">Sửa</a> |
+                        <a href="#" onclick="confirmDelete(this)">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PR-2255</td>
+                    <td>2024-10-19</td>
+                    <td>T1</td>
+                    <td>Oner</td>
+                    <td class="action-links">
+                        <a href="HienThiDonThuoc.html">Xem</a> |
+                        <a href="SuaDonThuoc.html">Sửa</a> |
+                        <a href="#" onclick="confirmDelete(this)">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PR-1376</td>
+                    <td>2024-10-15</td>
+                    <td>T1</td>
+                    <td>Gumayusi</td>
+                    <td class="action-links">
+                        <a href="HienThiDonThuoc.html">Xem</a> |
+                        <a href="SuaDonThuoc.html">Sửa</a> |
+                        <a href="#" onclick="confirmDelete(this)">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PR-1517</td>
+                    <td>2024-10-15</td>
+                    <td>T1</td>
+                    <td>Keria</td>
+                    <td class="action-links">
+                        <a href="HienThiDonThuoc.html">Xem</a> |
+                        <a href="SuaDonThuoc.html">Sửa</a> |
+                        <a href="#" onclick="confirmDelete(this)">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PR-102</td>
+                    <td>2024-10-15</td>
+                    <td>T1</td>
+                    <td>Faker</td>
+                    <td class="action-links">
+                        <a href="HienThiDonThuoc.html">Xem</a> |
+                        <a href="SuaDonThuoc.html">Sửa</a> |
+                        <a href="#" onclick="confirmDelete(this)">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        function confirmDelete(link) {
+            const isConfirmed = confirm("Bạn có muốn xóa đơn thuốc này không?");
+            if (isConfirmed) {
+                const row = link.closest('tr');
+                row.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>
