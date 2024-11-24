@@ -44,7 +44,7 @@
                                 } 
                                 else
                                 {
-                                    echo '<a href="login/login.php" class="user-link">Đăng nhập</a> / ';
+                                    echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
                                     echo '<a href="register/register.php" class="user-link">Đăng ký</a>';
                                 }
                             ?>

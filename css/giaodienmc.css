@@ -126,3 +126,26 @@ input:focus {
     background-color: #e22b2b;
     color: white;
 }
+
+.pagination{
+    margin-top: 50px;
+    display: block;
+    text-align: center;
+}
+.pagination .page_item {
+    display: inline; /* Để các nút nằm ngang */
+    padding: 5px 10px; /* Khoảng cách bên trong */
+    margin: 5px; /* Khoảng cách giữa các nút */
+    /* background-color: #007bff; Màu nền */
+    color: rgb(0, 0, 0); /* Màu chữ */
+    text-decoration: none; /* Bỏ gạch chân */
+    border-radius: 5px; /* Bo góc */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.pagination .page_item:hover {
+    background-color:#8fa8db; /* Màu nền khi hover */
+    color: rgb(255, 255, 255);
+}
+
+

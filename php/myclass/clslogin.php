@@ -1,9 +1,10 @@
 <?php
 class login
 {
-    public function connectlogin()
+
+		public function connectlogin()
 		{
-			$con=mysql_connect("localhost","root","");
+			$con=mysqli_connect("localhost","root","","benhvien");
 			if(!$con)
 			{
 				echo 'Không thể kết nối đến database !';
@@ -11,8 +12,7 @@ class login
 			}	
 			else
 			{
-				mysql_select_db("benhvien");
-				mysql_query("SET NAMES UTF8");
+				mysqli_set_charset($con, "utf8");
 				return $con;	
 			}
 		}
@@ -22,10 +22,10 @@ class login
 			//$pass=md5($pass);
 			$sql="select * from taikhoan where soDienThoai='$user' and password='$pass' limit 1";
 			$link=$this->connectlogin();
-			$kq=mysql_query($sql,$link);
-			if(mysql_num_rows($kq)==1)
+			$kq=mysqli_query($link,$sql);
+			if(mysqli_num_rows($kq)==1)
 			{
-				while($row=mysql_fetch_array($kq))
+				while($row=mysqli_fetch_array($kq))
 				{
 					$id=$row['maTaiKhoan'];
                     $ten=$row['tenTaiKhoan'];
@@ -48,6 +48,17 @@ class login
 				return 0;	
 			}
 			
+		}	
+		
+		public function confirmlogin($id,$user,$pass,$vaiTro)
+		{
+			$sql="select maTaiKhoan from taikhoan where maTaiKhoan='$id' and soDienThoai='$user' and password='$pass' and vaiTro='$vaiTro' limit 1";
+			$link=$this->connectlogin();
+			$ketqua=mysqli_query($link,$sql);
+			if(mysqli_num_rows($ketqua)!=1)
+			{
+				header('location:login/');	
+			}
 		}	
 
     public function register($username, $phone, $password, $role)
