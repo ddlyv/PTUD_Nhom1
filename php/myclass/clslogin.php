@@ -73,11 +73,11 @@ class login
         }
 
         // Mã hóa mật khẩu
-        $hashed_password = md5($password);
+        //$hashed_password = md5($password);
 
         // Thêm tài khoản mới
         $sql = "INSERT INTO taikhoan (tenTaiKhoan, soDienThoai, password, vaiTro) 
-                VALUES ('$username', '$phone', '$hashed_password', '$role')";
+                VALUES ('$username', '$phone', '$password', '$role')";
         $result = mysql_query($sql, $link);
 
         if ($result) {
