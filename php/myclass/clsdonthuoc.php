@@ -53,54 +53,39 @@ class Clsdonthuoc {
     }
 
     public function layDanhSachDonThuocTheoHoSo($maHoSo, $offset, $limit)
-{
-    $link = $this->con;
-    $sql = "
-        SELECT 
-            DonThuoc.maDonThuoc, 
-            DonThuoc.ngayKeDon, 
-            CONCAT(BacSi.hoTenDem, ' ', BacSi.ten) AS tenBacSi, 
-            CONCAT(BenhNhan.hoTenDem, ' ', BenhNhan.ten) AS tenBenhNhan
-        FROM 
-            donthuoc
-        INNER JOIN 
-            HoSoBenhAn ON DonThuoc.maHoSo = HoSoBenhAn.maHoSo
-        INNER JOIN 
-            BacSi ON HoSoBenhAn.maBacSi = BacSi.maBacSi
-        INNER JOIN 
-            BenhNhan ON HoSoBenhAn.maBenhNhan = BenhNhan.maBenhNhan
-        WHERE HoSoBenhAn.maHoSo = '$maHoSo'
-        LIMIT $offset, $limit
-    ";
-    
-    $result = mysqli_query($link, $sql);
-    $data = [];
-    if ($result) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
-        }
-    } else {
-        // In ra lỗi nếu truy vấn thất bại
-        die("Query failed: " . mysqli_error($link));
-    }
-    return $data;
-}
-
-    public function layTongSoDonThuoc($maBacSi) {
+    {
         $link = $this->con;
         $sql = "
-            SELECT COUNT(*) as total
-            FROM donthuoc
-            WHERE maBacSi = '$maBacSi'
+            SELECT 
+                DonThuoc.maDonThuoc, 
+                DonThuoc.ngayKeDon, 
+                CONCAT(BacSi.hoTenDem, ' ', BacSi.ten) AS tenBacSi, 
+                CONCAT(BenhNhan.hoTenDem, ' ', BenhNhan.ten) AS tenBenhNhan
+            FROM 
+                donthuoc
+            INNER JOIN 
+                HoSoBenhAn ON DonThuoc.maHoSo = HoSoBenhAn.maHoSo
+            INNER JOIN 
+                BacSi ON HoSoBenhAn.maBacSi = BacSi.maBacSi
+            INNER JOIN 
+                BenhNhan ON HoSoBenhAn.maBenhNhan = BenhNhan.maBenhNhan
+            WHERE HoSoBenhAn.maHoSo = '$maHoSo'
+            LIMIT $offset, $limit
         ";
         
         $result = mysqli_query($link, $sql);
+        $data = [];
         if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            return $row['total'];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+        } else {
+            // In ra lỗi nếu truy vấn thất bại
+            die("Query failed: " . mysqli_error($link));
         }
-        return 0;
+        return $data;
     }
+
 
 }
 ?>

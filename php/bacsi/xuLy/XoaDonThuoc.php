@@ -1,5 +1,5 @@
 <?php
-require_once '../myclass/clsdonthuoc.php';
+require_once '../../myclass/clsdonthuoc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);

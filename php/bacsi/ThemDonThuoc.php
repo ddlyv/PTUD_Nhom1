@@ -64,7 +64,7 @@ $dsThuoc = $hoSo->layDanhSachThuoc();
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Thêm Đơn Thuốc</h1>
-    <form id="prescriptionForm" method="POST" action="LuuDonThuoc.php">
+    <form id="prescriptionForm" method="POST" action="./xuly/LuuDonThuoc.php">
         <div class="form-section">
             <div class="section-header">Thông Tin Bệnh Nhân</div>
                 <input type="hidden" name="hoSoId" value="<?= htmlspecialchars($hoSoId) ?>">
@@ -93,10 +93,6 @@ $dsThuoc = $hoSo->layDanhSachThuoc();
                     <div class="form-group col-md-3">
                         <label for="diagnosis">Ghi chú</label>
                         <input type="text" class="form-control" name="ghiChu" placeholder="Vui lòng nhập ghi chú" required>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="followUp">Tái khám</label>
-                        <input type="date" class="form-control" name="ngayTaiKham" id="followUp">
                     </div>
                 </div>
         </div>

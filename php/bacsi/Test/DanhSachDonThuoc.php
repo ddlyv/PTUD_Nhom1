@@ -173,7 +173,7 @@
     function deleteDonThuoc(maDonThuoc) {
         const isConfirmed = confirm("Bạn có muốn xóa đơn thuốc này không?");
         if (isConfirmed) {
-            fetch('XoaDonThuoc.php', {
+            fetch('../xuLy/XoaDonThuoc.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

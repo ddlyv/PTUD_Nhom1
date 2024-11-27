@@ -21,7 +21,7 @@ function addMedication() {
             const baseName = name.split("[")[0];
             input.setAttribute("name", `${baseName}[${currentIndex}]`);
         }
-        input.value = "";  // Reset the value for the new cloned item
+        input.value = "";
     });
     medicationList.appendChild(newMedication);
 }
@@ -34,19 +34,3 @@ function removeMedication() {
     }
 }
 
-function printFormData() {
-    // Get the form element
-    const form = document.getElementById("prescriptionForm");
-
-    // Create a FormData object to gather all form values
-    const formData = new FormData(form);
-    console.log("Form Data:");
-
-    // Iterate over the form data and log each key-value pair
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
-
-    // For testing, submit the form here if needed (comment this out after testing)
-    // form.submit();
-}

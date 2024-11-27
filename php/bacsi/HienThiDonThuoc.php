@@ -21,8 +21,7 @@ $sql = "
         DonThuoc.ngayKeDon,
         CONCAT(BacSi.hoTenDem, ' ', BacSi.ten) AS tenBacSi,
         CONCAT(BenhNhan.hoTenDem, ' ', BenhNhan.ten) AS tenBenhNhan,
-        HoSoBenhAn.chuanDoan AS chuanDoan,
-        DonThuoc.ngayTaiKham AS taiKham
+        HoSoBenhAn.chuanDoan AS chuanDoan
     FROM DonThuoc
     INNER JOIN HoSoBenhAn ON DonThuoc.maHoSo = HoSoBenhAn.maHoSo
     INNER JOIN BacSi ON HoSoBenhAn.maBacSi = BacSi.maBacSi
@@ -118,21 +117,7 @@ $medications = $donThuoc->laydulieu($sqlChiTiet);
                            value="<?= htmlspecialchars($details['chuanDoan']) ?>" disabled>
                 </div>
             </div>
-            <div class="form-row align-items-center">
-                <div class="form-group col-md-4">
-                    <label for="followUp">Tái khám</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox" id="followUpCheck" 
-                                       <?= $details['taiKham'] ? 'checked' : '' ?> onclick="toggleFollowUpDate()" disabled>
-                            </div>
-                        </div>
-                        <input type="date" class="form-control" id="followUp" name="followUp" 
-                               value="<?= htmlspecialchars($details['taiKham']) ?>" disabled>
-                    </div>
-                </div>
-            </div>
+            
     </div>
 
     <div class="form-section">

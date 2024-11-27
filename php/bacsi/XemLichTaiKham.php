@@ -1,4 +1,26 @@
-<?php include '../layout/header.php'; ?>
+<?php 
+
+include '../layout/header.php'; 
+require_once '../myclass/clslichtaikham.php';
+require_once '../myclass/clsbacsi.php';
+
+session_start();
+
+if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
+    die("Bạn không có quyền truy cập vào trang này.");
+}
+
+$taikhoanId = $_SESSION['id'];
+$bacsi = new ClsBacSi();
+$maBacSi = $bacsi->laycot("SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId");
+$lichTaiKham = new ClsLichTaiKham();
+$limit = 5;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * $limit;
+$pageCount = ceil($lichTaiKham->layTongSoLichTaiKham($maBacSi) / $limit);
+$dsLichTaiKham = $lichTaiKham->layDanhSachLichTaiKham($maBacSi, $offset, $limit);
+
+?>
 
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <style>
@@ -17,6 +39,50 @@
 
         .status-unchecked {
             background-color: #dc3545;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+        .action-links a {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .pagination .page-item .page-link {
+            background-color: #f8f9fa; 
+            color: #007bff;
+            border: 1px solid #dee2e6;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff; 
+        }
+
+        .pagination .page-item .page-link:hover {
+            background-color: #e9ecef;
+            color: #0056b3;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            background-color: #f8f9fa;
         }
     </style>
 
@@ -40,35 +106,31 @@
                     <th scope="col">Bác sĩ</th>
                     <th scope="col">Ngày khám</th>
                     <th scope="col">Thời gian</th>
-                    <th scope="col">Triệu chứng</th>
                     <th scope="col">Trạng Thái</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>AP-4482</td>
-                    <td>Faker</td>
-                    <td>2024-10-11</td>
-                    <td>Nam</td>
-                    <td>0123456789</td>
-                    <td>T1</td>
-                    <td>2024-10-11</td>
-                    <td>08:30 - 09:00</td>
-                    <td>123</td>
-                    <td><button type="button" class="btn btn-success">Đã khám</button>
-                </tr>
-                <tr>
-                    <td>AP-4482</td>
-                    <td>Zeus</td>
-                    <td>2024-10-15</td>
-                    <td>Nam</td>
-                    <td>0147852369</td>
-                    <td>T1</td>
-                    <td>2024-10-15</td>
-                    <td>09:30 - 10:00</td>
-                    <td>123</td>
-                    <td><button class="btn btn-secondary">Chưa khám</button></td>
-                </tr>
+                <?php foreach ($dsLichTaiKham as $lichTaiKham) : ?>
+                    <tr>
+                        <td><?= $lichTaiKham['maLichHen'] ?></td>
+                        <td><?= $lichTaiKham['hoTenBenhNhan'] ?></td>
+                        <td><?= $lichTaiKham['ngaySinh'] ?></td>
+                        <td><?= $lichTaiKham['gioiTinh'] ?></td>
+                        <td><?= $lichTaiKham['soDienThoai'] ?></td>
+                        <td><?= $lichTaiKham['hoTenBacSi'] ?></td>
+                        <td><?= $lichTaiKham['ngayDatLich'] ?></td>
+                        <td><?= $lichTaiKham['gioDatLich'] ?></td>
+                        <td>  
+                            <?php if ($lichTaiKham['trangThai'] === 'Đang chờ') : ?>
+                                <button type="button" class="btn btn-warning">Đang chờ</button>
+                            <?php elseif ($lichTaiKham['trangThai'] === 'Hoàn thành') : ?>
+                                <button type="button" class="btn btn-success">Hoàn thành</button>
+                            <?php else : ?>
+                                <button type="button" class="btn btn-danger">Hủy</button>
+                            <?php endif; ?>  
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

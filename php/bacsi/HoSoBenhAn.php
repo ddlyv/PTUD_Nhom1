@@ -2,6 +2,7 @@
 include '../layout/header.php';
 require_once '../myclass/Clsdonthuoc.php';
 require_once '../myclass/clsHoSoBenhAn.php';
+require_once '../myclass/clsBacSi.php';
 
 session_start();
 
@@ -10,10 +11,12 @@ if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
 }
 
 $taikhoanId = $_SESSION['id'];
+$bacsi = new ClsBacSi();
+$sqlGetMaBacSi = "SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId";
+
+$maBacSi = $bacsi->laycot($sqlGetMaBacSi);
 
 $hoSo = new clsHoSoBenhAn();
-$maBacSi = $hoSo->laycot("SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId");
-$sqlGetMaBacSi = "SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId";
 $dsHoSo = $hoSo->layDanhSachHoSo($maBacSi);
 ?>
 
@@ -75,13 +78,13 @@ $dsHoSo = $hoSo->layDanhSachHoSo($maBacSi);
                                 <a href="ThemDonThuoc.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Đơn Thuốc</a><br>
                                 <a href="TaoYeuCauXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Yêu Cầu Xét Nghiệm</a><br>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a>
-                            <?php elseif ($hoSo['trangThai'] === 'Hoàn Thành') : ?>
+                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
+                                <?php elseif ($hoSo['trangThai'] === 'Hoàn Thành') : ?>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a>
+                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
                             <?php else : ?>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a>
+                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
                             <?php endif; ?>
                             
                         </td>

@@ -15,11 +15,12 @@ $sql = "
         CONCAT(BacSi.hoTenDem, ' ', BacSi.ten) AS tenBacSi,
         CONCAT(BenhNhan.hoTenDem, ' ', BenhNhan.ten) AS tenBenhNhan,
         HoSoBenhAn.chuanDoan AS chuanDoan,
-        DonThuoc.ngayTaiKham AS taiKham
+        LichTaiKham.ngayTaiKham AS taiKham
     FROM DonThuoc
     INNER JOIN HoSoBenhAn ON DonThuoc.maHoSo = HoSoBenhAn.maHoSo
     INNER JOIN BacSi ON HoSoBenhAn.maBacSi = BacSi.maBacSi
     INNER JOIN BenhNhan ON HoSoBenhAn.maBenhNhan = BenhNhan.maBenhNhan
+    INNER JOIN LichTaiKham ON HoSoBenhAn.maHoSo = LichTaiKham.maHoSo
     WHERE DonThuoc.maDonThuoc = $maDonThuoc";
 
 $data = $donThuoc->laydulieu($sql);
