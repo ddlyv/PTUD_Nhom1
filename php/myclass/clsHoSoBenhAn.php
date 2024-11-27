@@ -81,6 +81,23 @@ class clsHoSoBenhAn
         return $data;
     }
     
+    public function themxoasua($sql) {
+        return mysqli_query($this->con, $sql);
+    }
+
+     public function laydulieu($sql) {
+        $ketqua = mysqli_query($this->con, $sql);
+        if (!$ketqua) {
+            die('Lỗi truy vấn: ' . mysqli_error($this->con));
+        }
+        $data = [];
+        if (mysqli_num_rows($ketqua) > 0) {
+            while ($row = mysqli_fetch_array($ketqua, MYSQLI_ASSOC)) {
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
 
 }
 ?>

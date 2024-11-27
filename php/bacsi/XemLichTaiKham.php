@@ -1,24 +1,24 @@
 <?php 
 
-include '../layout/header.php'; 
-require_once '../myclass/clslichtaikham.php';
-require_once '../myclass/clsbacsi.php';
+    include '../layout/header.php'; 
+    require_once '../myclass/clslichtaikham.php';
+    require_once '../myclass/clsbacsi.php';
 
-session_start();
+    session_start();
 
-if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
-    die("Bạn không có quyền truy cập vào trang này.");
-}
+    if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
+        die("Bạn không có quyền truy cập vào trang này.");
+    }
 
-$taikhoanId = $_SESSION['id'];
-$bacsi = new ClsBacSi();
-$maBacSi = $bacsi->laycot("SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId");
-$lichTaiKham = new ClsLichTaiKham();
-$limit = 5;
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$offset = ($page - 1) * $limit;
-$pageCount = ceil($lichTaiKham->layTongSoLichTaiKham($maBacSi) / $limit);
-$dsLichTaiKham = $lichTaiKham->layDanhSachLichTaiKham($maBacSi, $offset, $limit);
+    $taikhoanId = $_SESSION['id'];
+    $bacsi = new ClsBacSi();
+    $maBacSi = $bacsi->laycot("SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId");
+    $lichTaiKham = new ClsLichTaiKham();
+    $limit = 5;
+    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $offset = ($page - 1) * $limit;
+    $pageCount = ceil($lichTaiKham->layTongSoLichTaiKham($maBacSi) / $limit);
+    $dsLichTaiKham = $lichTaiKham->layDanhSachLichTaiKham($maBacSi, $offset, $limit);
 
 ?>
 
@@ -89,11 +89,6 @@ $dsLichTaiKham = $lichTaiKham->layDanhSachLichTaiKham($maBacSi, $offset, $limit)
 
     <div class="container mt-5">
         <h2 class="mb-4">Danh Sách Lịch Tái Khám</h2>
-
-        <div class="d-flex justify-content-end mb-3">
-            <input type="text" class="form-control me-2" placeholder="Nhập từ khóa" style="width: 200px;">
-            <button class="btn btn-primary">Tìm kiếm</button>
-        </div>
 
         <table class="table table-bordered">
             <thead class="table-light">
