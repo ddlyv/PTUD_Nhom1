@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include '../layout/header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khám bệnh</title>
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
 
     <style>
@@ -18,9 +13,7 @@
             margin-bottom: 15px;
         }
     </style>
-</head>
 
-<body>
 
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -122,6 +115,4 @@
     </div>
 
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+<?php include '../layout/footer.php'; ?>

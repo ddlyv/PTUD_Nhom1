@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include '../layout/header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem Lịch Tái Khám</title>
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <style>
         .status-btn {
@@ -24,9 +19,7 @@
             background-color: #dc3545;
         }
     </style>
-</head>
 
-<body>
 
     <div class="container mt-5">
         <h2 class="mb-4">Danh Sách Lịch Tái Khám</h2>
@@ -81,6 +74,4 @@
     </div>
 
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+<?php include '../layout/footer.php'; ?>

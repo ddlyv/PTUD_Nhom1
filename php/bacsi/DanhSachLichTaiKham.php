@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include '../layout/header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch Tái Khám</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-</head>
-
-<body>
 
     <div class="container my-4">
         <h2 class="text-center mb-4">Danh Sách Lịch Tái Khám</h2>
@@ -124,8 +116,6 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
     <script>
@@ -173,6 +163,4 @@
         }
     </script>
 
-</body>
-
-</html>
+<?php include '../layout/footer.php'; ?>

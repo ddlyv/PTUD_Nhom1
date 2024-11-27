@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include '../layout/header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo yêu cầu xét nghiệm</title>
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-</head>
-
-<body>
 
     <div class="container mt-5">
         <div class="card" style="max-width: 500px; margin: 0 auto;">
@@ -48,6 +40,4 @@
     </div>
 
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+<?php include '../layout/footer.php'; ?>
