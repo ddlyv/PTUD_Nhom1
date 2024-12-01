@@ -126,15 +126,6 @@ button[type="button"] {
     transform: translateY(-30%); /* Dịch chuyển lên 30% chiều cao của khung chứa */
 }
 
-.section1{
-    width: 100%;
-    height: 300px;
-}
-
-
-
-
-
 
 /* Contact Section */
 .contact{
