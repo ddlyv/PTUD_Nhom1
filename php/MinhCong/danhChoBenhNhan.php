@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-    <link rel="stylesheet" href="../css/vaitro.css">
+    <link rel="stylesheet" href="../../css/vaitro.css">
     <div class="section1">
         <div class="tenChucNang">
             <p class="tenChucNang_cuthe">DÀNH CHO BỆNH NHÂN</p>
@@ -8,19 +8,19 @@
         <div class="grid-container">
             <div class="grid-item">
                 <a href="chinhSuaThongTin.php">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
                     <p>Chỉnh sửa thông tin</p>
                 </a>
             </div>
             <div class="grid-item">
                 <a href="hoSoBenhAn.php">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
                     <p>Xem hồ sơ bệnh án</p>
                 </a>
             </div>
             <div class="grid-item">
                 <a href="lichHenKham.php">
-                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
                     <p>Xem lịch hẹn khám</p>
                 </a>
             </div>

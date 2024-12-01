@@ -1,6 +1,6 @@
 <?php include 'header.php'; ?>
 
-    <link rel="stylesheet" href="../css/vaitro.css">
+    <link rel="stylesheet" href="../../css/vaitro.css">
     <div class="section1">
         <div class="tenChucNang">
             <p class="tenChucNang_cuthe">DÀNH CHO QUẢN LÝ</p>

@@ -19,7 +19,7 @@ class login
 		
 		public function mylogin($user,$pass)
 		{
-			//$pass=md5($pass);
+			$pass=md5($pass);
 			$sql="select * from taikhoan where soDienThoai='$user' and password='$pass' limit 1";
 			$link=$this->connectlogin();
 			$kq=mysqli_query($link,$sql);
@@ -40,7 +40,7 @@ class login
 					$_SESSION['pass']=$mypass;
                     $_SESSION['vaiTro']=$vaiTro;
 					echo'<script>alert("Đăng nhập thành công")</script>';
-					echo'<script>window.location="../index.php"</script>';
+					echo'<script>window.location="../MinhCong/"</script>';
 				}
 			}
 			else
@@ -57,7 +57,7 @@ class login
 			$ketqua=mysqli_query($link,$sql);
 			if(mysqli_num_rows($ketqua)!=1)
 			{
-				header('location:login/');	
+				header('location:../login/');	
 			}
 		}	
 
@@ -73,11 +73,11 @@ class login
         }
 
         // Mã hóa mật khẩu
-        //$hashed_password = md5($password);
+        $hashed_password = md5($password);
 
         // Thêm tài khoản mới
         $sql = "INSERT INTO taikhoan (tenTaiKhoan, soDienThoai, password, vaiTro) 
-                VALUES ('$username', '$phone', '$password', '$role')";
+                VALUES ('$username', '$phone', '$hashed_password', '$role')";
         $result = mysql_query($sql, $link);
 
         if ($result) {
