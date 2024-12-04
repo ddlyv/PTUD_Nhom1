@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include '../layout/header.php'; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Success Creation</title>
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
@@ -82,9 +77,7 @@
             }
         }
     </style>
-</head>
 
-<body>
     <div class="container min-vh-100 d-flex align-items-center justify-content-center">
         <div class="success-card bg-white rounded-4 shadow-lg p-4 p-md-5 text-center" role="alert" aria-live="polite">
             <div class="success-icon mb-4">
@@ -93,10 +86,13 @@
                     <div class="circle-outline"></div>
                 </div>
             </div>
-            <h2 class="mb-3 fw-bold text-success">Thêm Yêu Cầu Xét Nghiệm Thành Công</h2>
+            <h2 class="mb-3 fw-bold text-success">Sửa đơn thuốc thành công</h2>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                <button class="btn btn-success btn-lg px-4 gap-3" onclick="window.location.href='HienThiDonThuoc.html'">
+                    <i class="bi bi-eye me-2"></i>Xem chi tiết
+                </button>
                 <button class="btn btn-outline-success btn-lg px-4"
-                    onclick="window.location.href='DanhSachXetNghiem.html'">
+                    onclick="window.location.href='DanhSachDonThuoc.html'">
                     <i class="bi bi-list-ul me-2"></i>Đến trang danh sách
                 </button>
             </div>
@@ -110,6 +106,4 @@
         </div>
     </div>
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+<?php include '../layout/footer.php'; ?>
