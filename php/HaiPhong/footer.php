@@ -57,6 +57,9 @@
             </div>
         </footer>
     </div>
+
+
+
     <script>
     // Lấy vai trò từ PHP để sử dụng trong JavaScript
     
@@ -83,6 +86,9 @@
         }
     };
  
+ 
 </script>
+
+
 </body>
 </html>

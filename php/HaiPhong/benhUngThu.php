@@ -41,10 +41,10 @@
                             if(isset($_SESSION['ten'])){
                                 $ten = $_SESSION['ten'];
                                 echo '<span style="margin-right: 10px;">' . $ten . '</span>';
-                                echo '<a href="../../logout/index.php" class="user-link">Đăng xuất</a>';
+                                echo '<a href="../logout/index.php" class="user-link">Đăng xuất</a>';
                             } else {
-                                echo '<a href="../../login/index.php" class="user-link">Đăng nhập</a> / ';
-                                echo '<a href="../../register/register.php" class="user-link">Đăng ký</a>';
+                                echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
+                                echo '<a href="../register/register.php" class="user-link">Đăng ký</a>';
                             }
                         ?>
                     </div>
@@ -190,7 +190,7 @@
         <!-- Contact Section -->
         <div class="contact">
             <div class="contact-section">
-                <h1> Liên Hệ </h1>
+                <h1> Contact </h1>
                 <div class="contact-info-1">
                     <div class="contact-box">
                         <i class="fas fa-phone-alt"></i>

@@ -41,10 +41,10 @@
                             if(isset($_SESSION['ten'])){
                                 $ten = $_SESSION['ten'];
                                 echo '<span style="margin-right: 10px;">' . $ten . '</span>';
-                                echo '<a href="logout/index.php" class="user-link">Đăng xuất</a>';
+                                echo '<a href="../logout/index.php" class="user-link">Đăng xuất</a>';
                             } else {
-                                echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
-                                echo '<a href="register/register.php" class="user-link">Đăng ký</a>';
+                                echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
+                                echo '<a href="../register/register.php" class="user-link">Đăng ký</a>';
                             }
                         ?>
                     </div>
@@ -152,7 +152,7 @@
             <img src="../../img/tim2.jpg" alt="Hình ảnh người bệnh tiểu đường đang đo đường huyết">
             </div>
             <h2>Chẩn đoán và điều trị</h2>
-            <h4> Những phương pháp điều trị bệnh tiểu đường</h4>
+            <h4> Những phương pháp điều trị bệnh tim mạch </h4>
             <img src="../../img/tim3.jpg" alt="Hình ảnh người bệnh tiểu đường đang đo đường huyết">
             <p> Ăn uống lành mạnh: Bạn sẽ cần tập trung vào chế độ ăn nhiều trái cây, rau, protein nạc và ngũ cốc nguyên hạt. Đồng thời, cắt giảm chất béo bão hòa, carbohydrate tinh chế và đồ ngọt.</p>
             
@@ -191,7 +191,7 @@
         <!-- Contact Section -->
         <div class="contact">
             <div class="contact-section">
-                <h1> Liên Hệ </h1>
+                <h1> Contact</h1>
                 <div class="contact-info-1">
                     <div class="contact-box">
                         <i class="fas fa-phone-alt"></i>

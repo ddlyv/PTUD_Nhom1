@@ -1,6 +1,5 @@
 <?php include 'phanQuyen.php'; // Tự động kiểm tra quyền ?>
 
-
 <?php include 'header.php'; ?>
 
     <link rel="stylesheet" href="../../css/vaitro.css">
@@ -10,22 +9,12 @@
         </div>
         <div class="grid-container">
             <div class="grid-item">
-                <a href="chinhSuaThongTin.php">
+                <a href="benhNhanXemDonThuoc.php">
                     <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
-                    <p>Chỉnh sửa thông tin</p>
+                    <p> Đơn Thuốc Của Bạn </p>
                 </a>
             </div>
-            <div class="grid-item">
-                <a href="hoSoBenhAn.php">
-                    <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
-                    <p>Xem hồ sơ bệnh án</p>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a href="lichHenKham.php">
-                    <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
-                    <p>Xem lịch hẹn khám</p>
-                </a>
+    
             </div>
             
         </div>

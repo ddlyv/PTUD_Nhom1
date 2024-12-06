@@ -9,8 +9,8 @@ if (session_status() == PHP_SESSION_NONE) {
 // Cấu hình quyền truy cập cho các vai trò
 $permissions = [
     'Bác sĩ' => ['index.php', 'danhChoBacSi.php','xemThongTinBenhNhan.php'],
-    'Bệnh nhân' => ['index.php', 'danhChoBenhNhan.php'],
-    'Quản lý' => ['../HaiPhong/index.php','danhChoQuanLy.php'],  
+    'Bệnh nhân' => ['index.php', 'danhChoBenhNhan.php','benhNhanXemDonThuoc.php'],
+    'Quản lý' => ['index.php','danhChoQuanLy.php'],  
 ];
 
 // Hàm kiểm tra quyền truy cập
@@ -35,3 +35,8 @@ function checkAccess()
 // Gọi hàm kiểm tra quyền
 checkAccess();
 ?>
+
+
+
+
+

@@ -2,7 +2,7 @@
 
 <?php include 'header.php'; ?>
 
-    <link rel="stylesheet" href="../../css/vaitro.css">
+<link rel="stylesheet" href="../../css/vaitro.css">
     <div class="section1">
         <div class="tenChucNang">
             <p class="tenChucNang_cuthe">DÀNH CHO BÁC SĨ</p>
@@ -11,7 +11,7 @@
             <div class="grid-item">
                 <a href="xemThongTinBenhNhan.php">
                     <i class="fa-solid fa-heart"></i>
-                    <p> Xem Thông Tin Bệnh Nhân Chuẩn Bị Khám </p>
+                    <p> Xem Thông Tin Bệnh Nhân </p>
                 </a>
             </div>
             

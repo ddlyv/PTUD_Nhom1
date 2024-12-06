@@ -201,7 +201,7 @@
         <!-- Contact Section -->
         <div class="contact">
             <div class="contact-section">
-                <h1> Liên Hệ </h1>
+                <h1> Contact</h1>
                 <div class="contact-info-1">
                     <div class="contact-box">
                         <i class="fas fa-phone-alt"></i>

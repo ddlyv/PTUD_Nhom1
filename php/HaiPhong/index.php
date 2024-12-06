@@ -145,44 +145,44 @@
 
 
         /* CSS sửa đổi cho dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%; /* Đặt menu xuống dưới mục "Tin tức" */
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-    width: 200px;
-}
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* Đặt menu xuống dưới mục "Tin tức" */
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            width: 200px;
+        }
 
-.dropdown:hover .dropdown-menu {
-    display: block; /* Hiển thị menu khi hover vào "Tin tức" */
-}
+        .dropdown:hover .dropdown-menu {
+            display: block; /* Hiển thị menu khi hover vào "Tin tức" */
+        }
 
-.dropdown-menu li {
-    list-style-type: none;
-    padding: 8px 12px;
-}
+        .dropdown-menu li {
+            list-style-type: none;
+            padding: 8px 12px;
+        }
 
-.dropdown-menu li a {
-    text-decoration: none;
-    color: black;
-}
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: black;
+        }
 
-.dropdown-menu li a:hover {
-    background-color: #ddd;
-}
+        .dropdown-menu li a:hover {
+            background-color: #ddd;
+        }
 
 
 
-    </style>
-</head>
+        </style>
+    </head>
 <body>
     <div class="container">
         <header>
