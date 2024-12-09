@@ -8,8 +8,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Cấu hình quyền truy cập cho các vai trò
 $permissions = [
-    'Bác sĩ' => ['index.php', 'danhChoBacSi.php','xemThongTinBenhNhan.php'],
-    'Bệnh nhân' => ['index.php', 'danhChoBenhNhan.php','benhNhanXemDonThuoc.php'],
+    'Bác sĩ' => ['index.php', 'danhChoBacSi.php','xemThongTinBenhNhan.php','xemLichLam.php'],
+    'Bệnh nhân' => ['index.php', 'danhChoBenhNhan.php','benhNhanXemDonThuoc.php','datLichKham.php'],
     'Quản lý' => ['index.php','danhChoQuanLy.php'],  
 ];
 

@@ -6,7 +6,7 @@
 
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../../css/xemttbn.css">
+<link rel="stylesheet" href="../../css/xemtt.css">
 <div class="section1">
         <div class="tenChucNang">
             <p class="tenChucNang_cuthe">THÔNG TIN BỆNH NHÂN </p>

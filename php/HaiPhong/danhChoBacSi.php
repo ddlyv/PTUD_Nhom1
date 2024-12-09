@@ -14,9 +14,21 @@
                     <p> Xem Thông Tin Bệnh Nhân </p>
                 </a>
             </div>
-            
+
+
+            <div class="grid-item">
+                <a href="xemLichLam.php">
+                    <i class="fa-solid fa-heart"></i>
+                    <p> Xem Lịch Làm Việc </p>
+                </a>
+            </div>
+
         </div>
-    </div>
+
+       
+        </div>
+
+  
 
 
 <?php include 'footer.php'; ?>

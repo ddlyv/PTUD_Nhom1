@@ -102,5 +102,48 @@ class xembenhnhan {
             echo "Không có dữ liệu bệnh nhân.";
         }
     }
+
+    public function xemDanhSachLichHen($maTaiKhoanBacSi) {
+        $link = $this->connectdb();
+        $sql = "SELECT lichhen.ngayDatLich, lichhen.gioDatLich, benhnhan.hoTenDem, benhnhan.ten 
+                FROM lichhen 
+                INNER JOIN benhnhan ON lichhen.maBenhNhan = benhnhan.maBenhNhan 
+                WHERE lichhen.maBacSi = (SELECT maBacSi FROM bacsi WHERE maTaiKhoan = $maTaiKhoanBacSi)
+                ORDER BY lichhen.ngayDatLich ASC, lichhen.gioDatLich ASC";
+
+        $ketqua = mysqli_query($link, $sql);
+
+        if ($ketqua && mysqli_num_rows($ketqua) > 0) {
+            echo '<table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Ngày Đặt Lịch</th>
+                            <th>Giờ Đặt Lịch</th>
+                            <th>Tên Bệnh Nhân</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+            $count = 1;
+            while ($row = mysqli_fetch_array($ketqua)) {
+                // Kết hợp họ tên đầy đủ
+                $hoTenBenhNhan = trim($row['hoTenDem'] . ' ' . $row['ten']);
+
+                echo '<tr>';
+                echo '<td>' . $count . '</td>';
+                echo '<td>' . date('d/m/Y', strtotime($row['ngayDatLich'])) . '</td>';
+                echo '<td>' . $row['gioDatLich'] . '</td>';
+                echo '<td>' . htmlspecialchars($hoTenBenhNhan) . '</td>';
+                echo '</tr>';
+                $count++;
+            }
+            echo '</tbody></table>';
+        } else {
+            echo "<p>Không có lịch hẹn nào.</p>";
+        }
+
+        mysqli_close($link);
+    }
+
 }
 ?>
