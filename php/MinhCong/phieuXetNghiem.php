@@ -1,7 +1,7 @@
 <title>Phiếu xét nghiệm</title>
     <?php include 'header.php'; ?>
     <?php
-        include '../myclass/clsbacsi.php';
+        include '../myclass/clsbacsi_mc.php';
         $p=new bacsi();
     ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
