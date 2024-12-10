@@ -1,3 +1,4 @@
+    <title>Hồ sơ bệnh án</title>
     <?php 
         include 'header.php'; 
     ?>
@@ -13,7 +14,7 @@
             <p class="tenChucNang_cuthe">HỒ SƠ BỆNH ÁN</p>
         </div>
         <div class="search-container" align="right" style="margin-bottom: 20px;">
-            <input type="text" id="searchInput" placeholder="Tìm kiếm..." class="form-control h-25 d-inline-block" style="width: auto; display: inline-block;">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm..." class="form-control d-inline-block" style="width: auto; display: inline-block;">
             <button id="searchButton" class="btn btn-primary">Tìm kiếm</button>
         </div>
         <!-- <div class="date-filter" align="right" style="margin-bottom: 20px;">
@@ -61,7 +62,7 @@
                                 FROM hoSoBenhAn
                                 JOIN benhnhan ON hoSoBenhAn.maBenhNhan = benhnhan.maBenhNhan
                                 JOIN bacsi ON hoSoBenhAn.maBacSi = bacsi.maBacSi
-                                WHERE benhnhan.maTaiKhoan = $id_benhnhan");
+                                WHERE benhnhan.maTaiKhoan = $id_benhnhan ");
             $totalsql=$totalsql->num_rows;
             //ceil làm tròn 1.5 ==> 2
             $totalpages=ceil($totalsql/$inf_per_page);
@@ -78,7 +79,7 @@
                                 FROM hoSoBenhAn
                                 JOIN benhnhan ON hoSoBenhAn.maBenhNhan = benhnhan.maBenhNhan
                                 JOIN bacsi ON hoSoBenhAn.maBacSi = bacsi.maBacSi
-                                WHERE benhnhan.maTaiKhoan = $id_benhnhan
+                                WHERE benhnhan.maTaiKhoan = $id_benhnhan 
                                 ORDER BY hoSoBenhAn.ngayTaoHoSo DESC limit $inf_per_page offset $offset;
                             ",$current_page,$inf_per_page);
     
@@ -91,6 +92,4 @@
                 <input type="submit" name="nut" id="finishButton" value="Xong">
         </div>
     </div>
-
-
 <?php include 'footer.php'; ?>

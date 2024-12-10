@@ -1,3 +1,4 @@
+<title>Dành cho quản lý</title>
 <?php include 'header.php'; ?>
 
     <link rel="stylesheet" href="../../css/vaitro.css">

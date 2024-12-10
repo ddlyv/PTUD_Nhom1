@@ -111,7 +111,19 @@
                                             SET hoTenDem = '$txthotendem', ten = '$txtten', email = '$txtemail', diaChi = '$txtdiachi', soDienThoai = '$txtsdt', 
                                             ngaySinh = '$ngaysinh', gioiTinh = '$gioitinh'
                                             WHERE maTaiKhoan = '$id_user'")==1) {
-                                        echo '<script>alert("Cập nhật thông tin thành công");</script>';
+
+                                            if($p->themxoasua("UPDATE taikhoan 
+                                                                SET hoTenDem='$txthotendem',tenTaiKhoan='$txtten',soDienThoai='$txtsdt'
+                                                                WHERE maTaiKhoan='$id_user'")==1)
+                                            {
+                                                echo '<script>alert("Cập nhật thông tin thành công");
+                                                    window.location="danhChoBenhNhan.php" ;   
+                                            </script>';
+                                            }
+                                            else{
+                                                echo '<script>alert("Cập nhật thông tin vào tài khoản không thành công");</script>';
+                                            }
+                                        
                                     } else {
                                         echo '<script>alert("Cập nhật thông tin không thành công");</script>';
                                     }
@@ -122,7 +134,5 @@
                 ?>
             </div>
         </form>
-    
-        
     </div>
 <?php include 'footer.php'; ?>

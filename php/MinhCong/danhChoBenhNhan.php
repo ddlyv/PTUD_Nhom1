@@ -1,3 +1,4 @@
+<title>Dành cho bệnh nhân</title>
 <?php include 'header.php'; ?>
 
     <link rel="stylesheet" href="../../css/vaitro.css">

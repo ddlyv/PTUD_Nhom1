@@ -32,7 +32,7 @@
                     $maBenhNhan=$row['maBenhNhan'];
                     $maBacSi=$row['maBacSi'];
                     // Chuyển đổi chuỗi thành đối tượng DateTime
-                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $ngayTaoHoSo);
+                    $date = DateTime::createFromFormat('Y-m-d', $ngayTaoHoSo);
                     // Định dạng lại thành DD/MM/YYYY
                     $formattedDate = $date->format('d/m/Y');
                     echo'<tr>
@@ -83,10 +83,10 @@
                     $trangThai=$row['trangThai'];  
                     $maBenhNhan=$row['maBenhNhan'];
 
-                    $date_NgayDatLich = DateTime::createFromFormat('Y-m-d H:i:s', $ngayDatLich);
+                    $date_NgayDatLich = DateTime::createFromFormat('Y-m-d', $ngayDatLich);
                     $format_date_NgayDatLich= $date_NgayDatLich->format('d/m/Y');
                     
-                    $date_ngayTaoLichHen=DateTime::createFromFormat('Y-m-d H:i:s',$ngayTaoLichHen);
+                    $date_ngayTaoLichHen=DateTime::createFromFormat('Y-m-d',$ngayTaoLichHen);
                     $format_date_ngayTaoLichHen=$date_ngayTaoLichHen->format('d/m/Y');
 
                     echo'

@@ -51,18 +51,28 @@
     margin: 0px 10px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: bold;
     border-radius: 8px;
+}
+
+.button input[type="submit"]:hover{
+    background-color: #008CBA; 
+    cursor: pointer;
+    color: white;
     font-weight: bold;
 }
+
+
 .button{
     text-align: center;
     margin-top: 50px;
 
 }
 input[type="text"],
-input[type="date"],
+input[type="datetime"],
 input[type="file"],
 input[type="time"],
+input[type="date"],
 select {
     border: none;
     border-radius: 8px;
@@ -119,7 +129,8 @@ input:focus {
 #nut_xoa{
     background-color: #D6E4FF;
     font-weight: bold;
-    padding: 8px 15px;
+    border-radius: 3px;
+    padding: 4px 8px;
     font-size: 14px;
 }
 #nut_xoa:hover{

@@ -1,5 +1,9 @@
-<?php include 'header.php'; ?>
-
+<title>Phiếu xét nghiệm</title>
+    <?php include 'header.php'; ?>
+    <?php
+        include '../myclass/clsbacsi.php';
+        $p=new bacsi();
+    ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../css/giaodienmc.css">
@@ -7,165 +11,73 @@
         <div class="tenChucNang">
             <p class="tenChucNang_cuthe">PHIẾU XÉT NGHIỆM</p>
         </div>
-        <div class="them">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalthem">THÊM PHIẾU XÉT NGHIỆM</button>
-        </div>
-        <div class="search-container" align="right" style="margin-bottom: 20px;">
-            <input type="text" id="searchInput" placeholder="Tìm kiếm..." class="form-control h-25 d-inline-block" style="width: auto; display: inline-block;">
-            <button id="searchButton" class="btn btn-primary">Tìm kiếm</button>
-        </div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Mã phiếu</th>
-                    <th>Tên bệnh nhân</th>
-                    <th>Tên loại xét nghiệm</th>
-                    <th>Kết quả xét nghiệm</th>
-                    <th>Ngày xét nghiệm</th>
-                    <th>Giờ xét nghiệm</th>
-                    <th>Ngày tạo</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="pt-3">1</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="pt-3">&nbsp;</td>
-                    <td class="text" align="right">
-                    <!-- nut modal sua -->
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalSua">Sửa</button>
-                        <input id="nut_xoa" type="submit" name="nut" class="btn " value="Xóa">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-            <div class="button">
+        
+        <form action="" method="post">
+            <div class="search-container" align="right" style="margin-bottom: 20px;">
+                <input type="text" id="searchInput" name="txtsearch" placeholder="Tìm kiếm..." class="form-control d-inline-block" style="width: auto; display: inline-block;">
+                <input type="submit" name="nut" class="btn btn-primary" value="Tìm kiếm">
+            </div>
+            <div class="them">
+                <a href="themPhieuXetNghiem.php"><button type="button" class="btn btn-success">THÊM PHIẾU XÉT NGHIỆM</button></a>
+            </div>
+
+            <?php
+                $id_user=$_SESSION['id'];
+                //xử lý phân trang
+                $inf_per_page=!empty($_REQUEST['per_page'])?$_REQUEST['per_page']:10;
+                $current_page=!empty($_REQUEST['page'])?$_REQUEST['page']:1;
+                $offset=($current_page-1) * $inf_per_page;
+                $totalsql=mysqli_query($p->connectdb(),"SELECT * FROM phieuxetnghiem ");
+                $totalsql=$totalsql->num_rows;
+                $totalpages=ceil($totalsql/$inf_per_page);
+                // search
+                if(!empty($_REQUEST['txtsearch']) && isset($_REQUEST['nut'])=='Tìm kiếm')
+                {
+                    $p->search("SELECT pxn.maPhieu, concat(bn.hoTenDem, ' ', bn.ten) as  hoTenBenhNhan, lxn.tenLoai as tenLoaiXetNghiem, pxn.ketQuaXetNghiem,
+                                    pxn.ngayXetNghiem,pxn.gioXetNghiem,pxn.ngayTaoPhieu
+                                    FROM loaixetnghiem lxn
+                                        JOIN phieuxetnghiem pxn on lxn.maLoai= pxn.maLoai
+                                        JOIN hosobenhan hsbn on pxn.maHoSo = hsbn.maHoSo
+                                        JOIN benhnhan bn on hsbn.maBenhNhan=bn.maBenhNhan
+                                    where concat(bn.hoTenDem, ' ', bn.ten) like '%".$_REQUEST['txtsearch']."%'
+                                    ORDER BY pxn.ngayTaoPhieu DESC");
+                }
+                else 
+                {
+                    $p->xemPhieuXetNghiem("SELECT pxn.maPhieu, concat(bn.hoTenDem, ' ', bn.ten) as  hoTenBenhNhan, lxn.tenLoai as tenLoaiXetNghiem, pxn.ketQuaXetNghiem,
+                                    pxn.ngayXetNghiem,pxn.gioXetNghiem,pxn.ngayTaoPhieu
+                                    FROM loaixetnghiem lxn
+                                        JOIN phieuxetnghiem pxn on lxn.maLoai= pxn.maLoai
+                                        JOIN hosobenhan hsbn on pxn.maHoSo = hsbn.maHoSo
+                                        JOIN benhnhan bn on hsbn.maBenhNhan=bn.maBenhNhan
+                                    ORDER BY pxn.ngayTaoPhieu DESC limit $inf_per_page offset $offset",$inf_per_page,$current_page);
+                    echo "<div class='pagination'>";
+                        include 'pagination.php';
+                    echo"</div>";
+                }
+            ?>
+            <div align='center'>
+                <?php
+                    if($_REQUEST['nut']=='Xóa')
+                    {
+                        $maPhieu=$_REQUEST['idxoa_maPhieu'];
+                        if($p->themxoasua("DELETE FROM phieuxetnghiem WHERE maPhieu='$maPhieu'")==1)
+                        {
+                            echo'<script>
+                                alert("Xóa thành công.");
+                                window.location="phieuXetNghiem.php";
+                            </script>';
+                        }
+                        else{
+                            echo'<script>alert("Xóa không thành công.")</script>';
+                        }
+                    }
+                ?>
+            </div>
+        </form>
+        <div class="button">
                 <input type="submit" name="nut" id="backButton" value="Quay lại">
                 <input type="submit" name="nut" id="finishButton" value="Xong">
-            </div>
+        </div>    
     </div>
-<!-- modal sửa phiếu đẩy dữ liệu lên từ CSDL và cập nhập trạng thái và nhập kết quả -->
-<div class="modal fade" id="modalSua">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-        <!-- Modal Header -->
-            <div class="modal-header w-75">
-                <h4 style="padding-left:80px" class="modal-title">SỬA PHIẾU XÉT NGHIỆM</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body w-75">
-                <form id="formmodalthem" name="formmodalthem" method="post">
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Tên bệnh nhân</label>
-                        <input class="col-9 " name="txttenbenhnhan" type="text" id="txttenbenhnhan" placeholder="Nhập tên bệnh nhân">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Tên loại</label>
-                        <input class="col-9 " name="txttenloaixetnghiem" type="text" id="txttenloaixetnghiem" placeholder="Nhập tên loại xét nghiệm">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Kết quả</label>
-                        <input class="col-9 " name="txtkqxn" type="text" id="txtkqxn" placeholder="Nhập kết quả xét nghiệm (nếu có)">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Ngày xét nghiệm</label>
-                        <input class="col-9 " name="date" type="date" id="date">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Giờ xét nghiệm</label>
-                        <input class="col-9 " name="time" type="time" id="time">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Ngày tạo</label>
-                        <input class="col-9 " name="date2" type="date" id="date2">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Trạng thái</label>
-                        <select class="col-9 " name="select" id="select">
-                            <option value="1">Đang xử lý</option>
-                            <option value="2" selected="selected">Hoàn thành</option>
-                            <option value="3">Hủy bỏ</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-
-                <!-- Modal footer -->
-            <div class="modal-footer w-75">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
-                <input id="modalSua_luu" type="submit" name="nut" class="btn " value="Lưu">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal thêm phiếu xét nghiệm -->
-<div class="modal fade" id="modalthem">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-        <!-- Modal Header -->
-            <div class="modal-header w-75">
-                <h4 style="padding-left:80px" class="modal-title">THÊM PHIẾU XÉT NGHIỆM</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body w-75">
-                <form id="formmodalthem" name="formmodalthem" method="post">
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Tên bệnh nhân</label>
-                        <input class="col-9 " name="txttenbenhnhan" type="text" id="txttenbenhnhan" placeholder="Nhập tên bệnh nhân">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Tên loại</label>
-                        <input class="col-9 " name="txttenloaixetnghiem" type="text" id="txttenloaixetnghiem" placeholder="Nhập tên loại xét nghiệm">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Kết quả</label>
-                        <input class="col-9 " name="txtkqxn" type="text" id="txtkqxn" placeholder="Nhập kết quả xét nghiệm (nếu có)">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Ngày xét nghiệm</label>
-                        <input class="col-9 " name="date" type="date" id="date">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Giờ xét nghiệm</label>
-                        <input class="col-9 " name="time" type="time" id="time">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Ngày tạo</label>
-                        <input class="col-9 " name="date2" type="date" id="date2">
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-3 pt-2" class="form-label">Trạng thái</label>
-                        <select class="col-9 " name="select" id="select">
-                            <option value="1">Đang xử lý</option>
-                            <option value="2" selected="selected">Hoàn thành</option>
-                            <option value="3">Hủy bỏ</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-
-                <!-- Modal footer -->
-            <div class="modal-footer w-75">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
-                <input id="modalSua_luu" type="submit" name="nut" class="btn " value="Lưu">
-            </div>
-        </div>
-    </div>
-</div>
-
 <?php include 'footer.php'; ?>
