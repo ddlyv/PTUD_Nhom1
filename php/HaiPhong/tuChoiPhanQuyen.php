@@ -7,7 +7,7 @@
 <body>
     <h1>Yêu cầu bị từ chối </h1>
     <p>Bạn không có quyền truy cập trang này.</p>
-    <a href="../HaiPhong/index.php">Quay về Trang Chủ</a>
+    <a href="../index.php">Quay về Trang Chủ</a>
 
 </body>
 </html>

@@ -11,10 +11,10 @@
         <div class="tenChucNang">
             <p class="tenChucNang_cuthe">LỊCH HẸN KHÁM</p>
         </div>
-        <div class="search-container" align="right" style="margin-bottom: 20px;">
+        <!-- <div class="search-container" align="right" style="margin-bottom: 20px;">
             <input type="text" id="searchInput" placeholder="Tìm kiếm..." class="form-control d-inline-block" style="width: auto; display: inline-block;">
             <button id="searchButton" class="btn btn-primary">Tìm kiếm</button>
-        </div>
+        </div> -->
         <!-- <table class="table table-hover">
             <thead>
             <tr>

@@ -1,7 +1,7 @@
 <?php
 	session_start();
     error_reporting(0);
-	include ("../myclass/clslogin.php");
+	include ("myclass/clslogin.php");
 	$c=new login();
 		
 	
@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ </title>
-    <link rel="stylesheet" href="../../css/mau.css">
+    <link rel="stylesheet" href="../css/mau.css">
     <!-- Thêm Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -205,12 +205,12 @@
                                 if(isset($_SESSION['ten'])){
                                     $ten=$_SESSION['ten'];
                                     echo'<span style="margin-right: 10px;">'.$ten.'</span>';
-                                    echo '<a href="../logout/index.php" class="user-link">Đăng xuất</a>';
+                                    echo '<a href="logout/index.php" class="user-link">Đăng xuất</a>';
                                 } 
                                 else
                                 {
-                                    echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="../register/register.php" class="user-link">Đăng ký</a>';
+                                    echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
+                                    echo '<a href="register/register.php" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -230,7 +230,7 @@
                 <div class="dropdown" id="toggle-news">
                     <a href="#">Tin tức</a>
                     <ul class="dropdown-menu" id="news-menu">
-                        <li><a href="tinTucBenhHoc.php">Bệnh Học</a></li>
+                        <li><a href="HaiPhong/tinTucBenhHoc.php">Bệnh Học</a></li>
                         <li><a href="#">Tạp chí</a></li>
                         <li><a href="#">Hội nghị - Hội thảo</a></li>
                         <li><a href="#">Đào tạo</a></li>
@@ -243,26 +243,26 @@
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="MinhCong/danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }
                 ?>
                 <div class="search-booking">
              <span class="icon">🔍</span>
-            <a href="datLichKham.php"><button type="button">Đặt lịch</button></a>
+            <a href="HaiPhong/datLichKham.php"><button type="button">Đặt lịch</button></a>
             </div>
             </div>
         </nav>
         
         <div class="Picture">
-            <img src="../../img/anhbia.jpg" alt="Cover Image" class="cover-image" alt="">
+            <img src="../img/anhbia.jpg" alt="Cover Image" class="cover-image" alt="">
         </div>
         
 
@@ -270,7 +270,7 @@
             <!-- Giới thiệu -->
             <div class="gioithieu">
                 <div class="image">
-                    <img src="../../img/trangchu1.jpg" alt="Libra Health" />
+                    <img src="../img/trangchu1.jpg" alt="Libra Health" />
                 </div>
                 <div class="content">
                     <h2>Giới thiệu</h2>
@@ -288,19 +288,19 @@
                 <h2>Dịch vụ nổi bật</h2>
                 <div class="services">
                     <div class="service">
-                        <img src="../../img/kskdk.jpg" alt="Khám sức khỏe định kỳ" />
+                        <img src="../img/kskdk.jpg" alt="Khám sức khỏe định kỳ" />
                         <p>Khám sức khỏe định kỳ</p>
                     </div>
                     <div class="service">
-                        <img src="../../img/kskthn.php" alt="Khám sức khỏe tiền hôn nhân" />
+                        <img src="../img/kskthn.php" alt="Khám sức khỏe tiền hôn nhân" />
                         <p>Khám sức khỏe tiền hôn nhân</p>
                     </div>
                     <div class="service">
-                        <img src="../../img/ktstm.jpg" alt="Khám tầm soát tim mạch" />
+                        <img src="../img/ktstm.jpg" alt="Khám tầm soát tim mạch" />
                         <p>Khám tầm soát tim mạch</p>
                     </div>
                     <div class="service">
-                        <img src="../../img/xntyc.jpg" alt="Xét nghiệm theo yêu cầu" />
+                        <img src="../img/xntyc.jpg" alt="Xét nghiệm theo yêu cầu" />
                         <p>Xét nghiệm theo yêu cầu</p>
                     </div>
                 </div>
@@ -310,25 +310,25 @@
             <h2 class="section-title">Chia sẻ kinh nghiệm</h2>
             <div class="chia-se-kinh-nghiem">
                 <div class="article">
-                    <img src="../../img/kn1.jpg" alt="Kiết lỵ: nguyên nhân, triệu chứng">
+                    <img src="../img/kn1.jpg" alt="Kiết lỵ: nguyên nhân, triệu chứng">
                     <h3>Kiết lỵ: nguyên nhân, triệu chứng</h3>
                     <p class="date">22/09/2018</p>
                     <p class="excerpt">Bệnh kiết lỵ, là do vi khuẩn shigella gây viêm toàn bộ...</p>
                 </div>
                 <div class="article">
-                    <img src="../../img/kn2.jpg" alt="Chữa ung thư vòm họng ở đâu?">
+                    <img src="../img/kn2.jpg" alt="Chữa ung thư vòm họng ở đâu?">
                     <h3>Chữa ung thư vòm họng ở đâu?</h3>
                     <p class="date">22/09/2018</p>
                     <p class="excerpt">Nên chữa ung thư vòm họng ở đâu? Ung thư vòm họng là...</p>
                 </div>
                 <div class="article">
-                    <img src="../../img/kn3.jpg" alt="Ung thư tuyến giáp nên ăn gì">
+                    <img src="../img/kn3.jpg" alt="Ung thư tuyến giáp nên ăn gì">
                     <h3>Ung thư tuyến giáp nên ăn gì</h3>
                     <p class="date">22/09/2018</p>
                     <p class="excerpt">Rau lá xanh đóng vai trò quan trọng trong quá trình trao...</p>
                 </div>
                 <div class="article">
-                    <img src="../../img/kn4.jpg" alt="Nguyên nhân và triệu chứng bệnh loãng xương">
+                    <img src="../img/kn4.jpg" alt="Nguyên nhân và triệu chứng bệnh loãng xương">
                     <h3>Nguyên nhân và triệu chứng bệnh loãng xương</h3>
                     <p class="date">22/09/2018</p>
                     <p class="excerpt">Nguyên nhân của hiện tượng loãng xương Các nguyên nhân chính dẫn đến...</p>
