@@ -40,7 +40,7 @@ class login
 					$_SESSION['pass']=$mypass;
                     $_SESSION['vaiTro']=$vaiTro;
 					echo'<script>alert("Đăng nhập thành công")</script>';
-					echo'<script>window.location="../MinhCong/"</script>';
+					echo'<script>window.location="../"</script>';
 				}
 			}
 			else

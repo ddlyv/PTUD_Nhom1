@@ -29,7 +29,7 @@
     <div class="containerr">
         <header>
             <div class="header">
-                <div class="logo"><a style="text-decoration: none; color: black;" href="index.php">MED<span class="highlight">DICAL</a></span>
+                <div class="logo"><a style="text-decoration: none; color: black;" href="../index.php">MED<span class="highlight">DICAL</a></span>
                 </div>
                 <div class="contact-info">
                     <div class="info">
@@ -63,7 +63,7 @@
         </header>
         <nav>
             <div class="navbar">
-                <a href="index.php">Trang chủ</a>
+                <a href="../index.php">Trang chủ</a>
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
