@@ -15,8 +15,9 @@
                             <th>Họ tên</th>
                             <th>Bác sĩ khám</th>
                             <th>Chuẩn đoán</th>
+                            <th>Tên xét nghiệm</th>
                             <th>Kết luận</th>
-                            <th>Trạng thái</th>
+                            <th style="width: 130px;">Trạng thái</th>
                             <th>Ngày tạo</th>
                         </tr>
                         </thead>
@@ -27,6 +28,7 @@
                     $maHoSo=$row['maHoSo'];
                     $chuanDoan=$row['chuanDoan'];
                     $ketLuan=$row['ketLuan'];
+                    $tenLoai=$row['tenLoai'];
                     $trangThai=$row['trangThai'];
                     $ngayTaoHoSo=$row['ngayTaoHoSo'];
                     $maBenhNhan=$row['maBenhNhan'];
@@ -36,13 +38,14 @@
                     // Định dạng lại thành DD/MM/YYYY
                     $formattedDate = $date->format('d/m/Y');
                     echo'<tr>
-                            <td>'.$count.'</td>
-                            <td>'.$row['hoTenBenhNhan'].'</td>
-                            <td>'.$row['hoTenBacSi'].'</td>
-                            <td>'.$chuanDoan.'</td>
-                            <td>'.$ketLuan.'</td>
-                            <td>'.$trangThai.'</td>
-                            <td>'.$formattedDate.'</td>
+                            <td align="center" valign="middle">'.$count.'</td>
+                            <td align="center" valign="middle">'.$row['hoTenBenhNhan'].'</td>
+                            <td align="center" valign="middle">'.$row['hoTenBacSi'].'</td>
+                            <td align="center" valign="middle">'.$chuanDoan.'</td>
+                            <td align="center" valign="middle">'.$tenLoai.'</td>
+                            <td align="center" valign="middle">'.$ketLuan.'</td>
+                            <td align="center" valign="middle">'.$trangThai.'</td>
+                            <td align="center" valign="middle">'.$formattedDate.'</td>
                         </tr>';
                     $count++;
                 }
@@ -91,12 +94,12 @@
 
                     echo'
                         <tr>
-                            <td>'.$count.'</td>
-                            <td>'.$hoTenBenhNhan.'</td>
-                            <td>'.$format_date_NgayDatLich.'</td>
-                            <td>'.$gioDatLich.'</td>
-                            <td>'.$format_date_ngayTaoLichHen.'</td>
-                            <td>'.$trangThai.'</td>
+                            <td align="center" valign="middle">'.$count.'</td>
+                            <td align="center" valign="middle">'.$hoTenBenhNhan.'</td>
+                            <td align="center" valign="middle">'.$format_date_NgayDatLich.'</td>
+                            <td align="center" valign="middle">'.$gioDatLich.'</td>
+                            <td align="center" valign="middle">'.$format_date_ngayTaoLichHen.'</td>
+                            <td align="center" valign="middle">'.$trangThai.'</td>
                         </tr>
                         ';
                         $count++;

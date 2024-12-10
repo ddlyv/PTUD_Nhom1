@@ -59,10 +59,12 @@
             // công thức tính cho offset (bắt đầu từ 0)
             $offset=($current_page-1)*$inf_per_page;
             $totalsql=mysqli_query($p->connectdb(),"SELECT *
-                                FROM hoSoBenhAn
-                                JOIN benhnhan ON hoSoBenhAn.maBenhNhan = benhnhan.maBenhNhan
-                                JOIN bacsi ON hoSoBenhAn.maBacSi = bacsi.maBacSi
-                                WHERE benhnhan.maTaiKhoan = $id_benhnhan ");
+                                FROM hosobenhan
+                                JOIN benhnhan ON hosobenhan.maBenhNhan = benhnhan.maBenhNhan
+                                JOIN bacsi ON hosobenhan.maBacSi = bacsi.maBacSi
+                                LEFT JOIN phieuxetnghiem ON hosobenhan.maHoSo = phieuxetnghiem.maHoSo
+                                LEFT JOIN loaixetnghiem ON phieuxetnghiem.maLoai = loaixetnghiem.maLoai
+                                WHERE benhnhan.maTaiKhoan = $id_benhnhan");
             $totalsql=$totalsql->num_rows;
             //ceil làm tròn 1.5 ==> 2
             $totalpages=ceil($totalsql/$inf_per_page);
@@ -70,17 +72,20 @@
             //var_dump($totalsql);exit;
 
             $p->xemHoSoBenhAn("SELECT 
-                                    CONCAT(benhnhan.hoTenDem, ' ', benhnhan.ten) AS hoTenBenhNhan,
-                                    CONCAT(bacsi.hoTenDem, ' ', bacsi.ten) AS hoTenBacSi,
-                                    hoSoBenhAn.chuanDoan,
-                                    hoSoBenhAn.ketLuan,
-                                    hoSoBenhAn.trangThai,
-                                    hoSoBenhAn.ngayTaoHoSo
-                                FROM hoSoBenhAn
-                                JOIN benhnhan ON hoSoBenhAn.maBenhNhan = benhnhan.maBenhNhan
-                                JOIN bacsi ON hoSoBenhAn.maBacSi = bacsi.maBacSi
-                                WHERE benhnhan.maTaiKhoan = $id_benhnhan 
-                                ORDER BY hoSoBenhAn.ngayTaoHoSo DESC limit $inf_per_page offset $offset;
+                                CONCAT(benhnhan.hoTenDem, ' ', benhnhan.ten) AS hoTenBenhNhan,
+                                CONCAT(bacsi.hoTenDem, ' ', bacsi.ten) AS hoTenBacSi,
+                                hosobenhan.chuanDoan,
+                                loaixetnghiem.tenLoai,
+                                hosobenhan.ketLuan,
+                                hosobenhan.trangThai,
+                                hosobenhan.ngayTaoHoSo
+                            FROM hosobenhan
+                            JOIN benhnhan ON hosobenhan.maBenhNhan = benhnhan.maBenhNhan
+                            JOIN bacsi ON hosobenhan.maBacSi = bacsi.maBacSi
+                            LEFT JOIN phieuxetnghiem ON hosobenhan.maHoSo = phieuxetnghiem.maHoSo
+                            LEFT JOIN loaixetnghiem ON phieuxetnghiem.maLoai = loaixetnghiem.maLoai
+                            WHERE benhnhan.maTaiKhoan = $id_benhnhan
+                            ORDER BY hoSoBenhAn.ngayTaoHoSo DESC limit $inf_per_page offset $offset;
                             ",$current_page,$inf_per_page);
     
         ?>

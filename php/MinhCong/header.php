@@ -23,7 +23,11 @@
     <!-- Thêm Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
+<style>
+    .search-booking a:hover{
+            border-bottom: none;
+        }
+</style>
 </head>
 <body>
     <div class="containerr">
@@ -51,8 +55,8 @@
                                 } 
                                 else
                                 {
-                                    echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="#" class="user-link">Đăng ký</a>';
+                                    echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
+                                    echo '<a href="../register/" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -67,7 +71,7 @@
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
-                <a href="#">Tin tức</a>
+                <a href="../HaiPhong/tinTucBenhHoc.php">Tin tức</a>
                 <a href="#">Liên lạc</a>
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
@@ -87,7 +91,7 @@
                 ?>
                 <div class="search-booking">
                     <span class="icon">🔍</span>
-                    <button type="button">Đặt lịch</button>
+                    <a href="../HaiPhong/datLichKham.php"><button type="button">Đặt lịch</button></a>
                 </div>
             </div>
         </nav>
@@ -95,3 +99,5 @@
         <div class="Picture">
             <img src="../../img/anhbia.jpg" alt="Cover Image" class="cover-image" alt="">
         </div>
+        
+<?php include '../HaiPhong/phanQuyen.php';?>

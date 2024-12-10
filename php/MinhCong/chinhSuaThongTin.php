@@ -1,5 +1,6 @@
 <title>Chỉnh sửa thông tin </title>
 <?php include 'header.php'; ?>
+
 <?php 
     include '../myclass/clsbenhnhan.php'; 
     $p=new benhnhan();
@@ -70,7 +71,7 @@
                 </div>
             </div>
             <?php if (!empty($anhDaiDien)) { ?>
-                    <img src="../../img/<?php echo $anhDaiDien; ?>" alt="Ảnh đại diện" style="max-width: 200px; max-height: 200px; margin-top: 10px;"/>
+                    <img src="../../img/anhDaiDien_bn/<?php echo $anhDaiDien; ?>" alt="Ảnh đại diện" style="max-width: 200px; max-height: 200px; margin-top: 10px;"/>
             <?php } ?>
             <div class="button">
                 <input type="submit" name="nut" id="backButton" value="Quay lại">
@@ -93,12 +94,15 @@
                             $tmp_name=$_FILES['file']['tmp_name'];
                             $default_name = $_SESSION['id'].".jpg";
                             if(isset($file_name) && $file_name != '') {
-                                if ($p->uploadfile($file_name,$tmp_name,$default_name, "../../img")) {
+                                if ($p->uploadfile($file_name,$tmp_name,$default_name, "../../img/anhDaiDien_bn")) {
                                     if ($p->themxoasua("UPDATE benhnhan 
                                             SET hoTenDem = '$txthotendem', ten = '$txtten', email = '$txtemail', diaChi = '$txtdiachi', soDienThoai = '$txtsdt', 
                                             ngaySinh = '$ngaysinh', gioiTinh = '$gioitinh', anhDaiDien = '$default_name'
                                             WHERE maTaiKhoan = '$id_user'")==1) {
-                                        echo '<script>alert("Cập nhật thông tin và ảnh thành công");</script>';
+                                        echo '<script>
+                                            alert("Cập nhật thông tin và ảnh thành công");
+                                            window.location="danhChoBenhNhan.php";
+                                            </script>';
                                     } else {
                                         echo '<script>alert("Cập nhật thông tin không thành công");</script>';
                                     }
