@@ -67,8 +67,8 @@ class login
 
         // Kiểm tra trùng số điện thoại
         $check_sql = "SELECT * FROM taikhoan WHERE soDienThoai = '$phone'";
-        $check_result = mysql_query($check_sql, $link);
-        if (mysql_num_rows($check_result) > 0) {
+        $check_result = mysqli_query($link,$check_sql);
+        if (mysqli_num_rows($check_result) > 0) {
             return "Số điện thoại đã tồn tại!";
         }
 
@@ -78,7 +78,7 @@ class login
         // Thêm tài khoản mới
         $sql = "INSERT INTO taikhoan (tenTaiKhoan, soDienThoai, password, vaiTro) 
                 VALUES ('$username', '$phone', '$hashed_password', '$role')";
-        $result = mysql_query($sql, $link);
+        $result = mysqli_query( $link,$sql);
 
         if ($result) {
             return true;
