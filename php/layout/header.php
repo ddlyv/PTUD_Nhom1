@@ -78,13 +78,13 @@
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="../layout/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="../layout/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="../layout/danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }

@@ -1,4 +1,7 @@
-<?php include '../layout/header.php'; ?>
+<?php 
+    // include '../layout/header.php'; 
+    // include 'phanQuyen.php';
+?>
 
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <style>

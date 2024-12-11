@@ -1,5 +1,7 @@
 <title>Phiếu xét nghiệm</title>
-    <?php include '../layout/header.php';
+    <?php 
+include '../layout/header.php';
+include 'phanQuyen.php';
  ?>
     <?php
         include '../myclass/clsbacsi_mc.php';
