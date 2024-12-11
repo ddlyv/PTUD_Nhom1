@@ -76,16 +76,14 @@ $dsHoSo = $hoSo->layDanhSachHoSo($maBacSi);
                         <td class="action-links">
                             <?php if ($hoSo['trangThai'] === 'Đang chờ') : ?>
                                 <a href="ThemDonThuoc.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Đơn Thuốc</a><br>
-                                <a href="TaoYeuCauXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Yêu Cầu Xét Nghiệm</a><br>
+                                <a href="../MinhCong/themPhieuXetNghiem.php?id=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Xét Nghiệm</a><br>
                                 <a href="CapNhatHoSoBenhAn.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Cập Nhật Hồ Sơ</a><br>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
+                                <a href="phieuXetNghiemTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Xét Nghiệm</a><br>
                                 <?php elseif ($hoSo['trangThai'] === 'Hoàn Thành') : ?>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
                             <?php else : ?>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
                             <?php endif; ?>
                             
                         </td>
