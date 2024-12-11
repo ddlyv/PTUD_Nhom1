@@ -24,7 +24,9 @@ $permissions = [
     'TaoHoSoBenhAn.php',
     'ThemDonThuoc.php',
     'ThemDonThuocThanhCong.php',
-    'XemLichTaiKham.php'],
+    'XemLichTaiKham.php',
+'addLichTaiKham.php',
+'ThemLichLam.php'],
     'Bệnh nhân' => [ 'danhChoBenhNhan.php','benhNhanXemDonThuoc.php','datLichKham.php','chinhSuaThongTin.php','hoSoBenhAn.php','lichHenKham.php'],
     'Quản lý' => ['danhChoQuanLy.php','loaiXetNghiem.php','themLoaiXetNghiem.php','suaLoaiXetNghiem.php'],  
 ];

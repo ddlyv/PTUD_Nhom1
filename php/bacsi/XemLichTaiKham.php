@@ -116,12 +116,16 @@
                         <td><?= $lichTaiKham['ngayDatLich'] ?></td>
                         <td><?= $lichTaiKham['gioDatLich'] ?></td>
                         <td>  
-                            <?php if ($lichTaiKham['trangThai'] === 'Đang chờ') : ?>
-                                <button type="button" class="btn btn-warning">Đang chờ</button>
+                            <?php if ($lichTaiKham['trangThai'] === 'Chưa hoàn thành') : ?>
+                                <button type="button" class="btn btn-warning">Chưa hoàn thành</button>
                             <?php elseif ($lichTaiKham['trangThai'] === 'Hoàn thành') : ?>
                                 <button type="button" class="btn btn-success">Hoàn thành</button>
-                            <?php else : ?>
+                            <?php elseif ($lichTaiKham['trangThai'] === 'Hủy') : ?>
                                 <button type="button" class="btn btn-danger">Hủy</button>
+                            <?php else : ?>
+                                <button type="button" class="btn btn-info">
+                                    <?php echo $lichTaiKham['trangThai']; ?>
+                                </button>
                             <?php endif; ?>  
                         </td>
                     </tr>
