@@ -1,5 +1,6 @@
 <?php
 include '../layout/header.php';  
+include 'phanQuyen.php';
 require_once '../myclass/clsLichKham.php';
 require_once '../myclass/clsHoSoBenhAn.php';
 require_once '../myclass/clslichkham.php';
@@ -93,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Tạo Hồ Sơ</button>
-            <a href="danhSachHoSo.php" class="btn btn-secondary">Quay lại</a>
+            <a href="HoSoBenhAn.php" class="btn btn-secondary">Quay lại</a>
         </div>
     </form>
 </div>

@@ -1,14 +1,16 @@
 <?php
 include '../layout/header.php';
+include 'phanQuyen.php';
+
 require_once '../myclass/Clsdonthuoc.php';
 require_once '../myclass/clsHoSoBenhAn.php';
 require_once '../myclass/clsBacSi.php';
 
 session_start();
 
-if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
-    die("Bạn không có quyền truy cập vào trang này.");
-}
+// if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
+//     die("Bạn không có quyền truy cập vào trang này.");
+// }
 
 $taikhoanId = $_SESSION['id'];
 $bacsi = new ClsBacSi();
@@ -65,27 +67,37 @@ $dsHoSo = $hoSo->layDanhSachHoSo($maBacSi);
                         <td><?= htmlspecialchars($hoSo['gioiTinh']) ?></td>
                         <td><?= htmlspecialchars($hoSo['chuanDoan']) ?></td>
                         <td>
-                            <?php if ($hoSo['trangThai'] === 'Đang chờ') : ?>
-                                <button type="button" class="btn btn-warning">Đang chờ</button>
+                            <?php if ($hoSo['trangThai'] === 'Đang xử lý') : ?>
+                                <button type="button" class="btn btn-warning">Đang xử lý</button>
                             <?php elseif ($hoSo['trangThai'] === 'Hoàn Thành') : ?>
                                 <button type="button" class="btn btn-success">Hoàn thành</button>
+                            <?php elseif ($hoSo['trangThai'] === 'Hủy') : ?>
+                                <button type="button" class="btn btn-success">Hủy</button>
                             <?php else : ?>
-                                <button type="button" class="btn btn-danger">Hủy</button>
+                                <button type="button" class="btn btn-warning"><?php echo $hoSo['trangThai'] ?></button>
                             <?php endif; ?>
                         </td>
                         <td class="action-links">
-                            <?php if ($hoSo['trangThai'] === 'Đang chờ') : ?>
+                            <?php if ($hoSo['trangThai'] === 'Đang xử lý') : ?>
                                 <a href="ThemDonThuoc.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Đơn Thuốc</a><br>
-                                <a href="TaoYeuCauXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Yêu Cầu Xét Nghiệm</a><br>
+                                <a href="../MinhCong/themPhieuXetNghiem.php?id=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Xét Nghiệm</a><br>
                                 <a href="CapNhatHoSoBenhAn.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Cập Nhật Hồ Sơ</a><br>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
-                                <?php elseif ($hoSo['trangThai'] === 'Hoàn Thành') : ?>
+                                <a href="phieuXetNghiemTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Xét Nghiệm</a><br>
+                            <?php elseif ($hoSo['trangThai'] === 'Đang chờ') : ?>
+                                <a href="ThemDonThuoc.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Đơn Thuốc</a><br>
+                                <a href="../MinhCong/themPhieuXetNghiem.php?id=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Thêm Xét Nghiệm</a><br>
+                                <a href="CapNhatHoSoBenhAn.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Cập Nhật Hồ Sơ</a><br>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
+                                <a href="phieuXetNghiemTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Xét Nghiệm</a><br>
+                            <?php elseif ($hoSo['trangThai'] === 'Hoàn Thành') : ?>
+                                <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
+                                <a href="phieuXetNghiemTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Xét Nghiệm</a><br>
+                                <a href="addLichTaiKham.php?maBenhNhan=<?=$hoSo['maBenhNhan'] ?>">Tạo Lịch Tái Khám</a>
                             <?php else : ?>
                                 <a href="DanhSachDonThuocTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Đơn Thuốc</a><br>
-                                <a href="DanhSachXetNghiem.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Yêu Cầu Xét Nghiệm</a><br>
+                                <a href="phieuXetNghiemTheoHoSo.php?hoSoId=<?= htmlspecialchars($hoSo['maHoSo']) ?>">Xem Danh Sách Xét Nghiệm</a><br>
+                                <a href="addLichTaiKham.php?maBenhNhan=<?=$hoSo['maBenhNhan'] ?>">Tạo Lịch Tái Khám</a>
                             <?php endif; ?>
                             
                         </td>

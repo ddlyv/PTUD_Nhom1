@@ -1,12 +1,13 @@
 <?php
-    include '../layout/header.php';
+include '../layout/header.php';
+include 'phanQuyen.php';
     require_once '../myclass/clsHoSoBenhAn.php';
 
     session_start();
 
-    if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
-        die("Bạn không có quyền truy cập vào trang này.");
-    }
+    // if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
+    //     die("Bạn không có quyền truy cập vào trang này.");
+    // }
 
     if (!isset($_GET['hoSoId'])) {
         die("Không tìm thấy mã hồ sơ bệnh án.");

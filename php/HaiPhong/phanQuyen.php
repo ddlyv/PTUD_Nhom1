@@ -8,7 +8,25 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Cấu hình quyền truy cập cho các vai trò
 $permissions = [
-    'Bác sĩ' => [ 'danhChoBacSi.php','xemThongTinBenhNhan.php','xemLichLam.php','phieuXetNghiem.php','themPhieuXetNghiem.php','suaPhieuXetNghiem.php'],
+'Bác sĩ' => [ 
+    'danhChoBacSi.php',
+    'xemThongTinBenhNhan.php',
+    'xemLichLam.php',
+    'phieuXetNghiem.php',
+    'themPhieuXetNghiem.php',
+    'suaPhieuXetNghiem.php',
+    'HoSoBenhAn.php',
+    'phieuXetNghiemTheoHoSo.php',
+    'CapNhatHoSoBenhAn.php',
+    'DanhSachDonThuocTheoHoSo.php',
+    'HienThiDonThuoc.php',
+    'KhamBenh.php',
+    'TaoHoSoBenhAn.php',
+    'ThemDonThuoc.php',
+    'ThemDonThuocThanhCong.php',
+    'XemLichTaiKham.php',
+'addLichTaiKham.php',
+'ThemLichLam.php'],
     'Bệnh nhân' => [ 'danhChoBenhNhan.php','benhNhanXemDonThuoc.php','datLichKham.php','chinhSuaThongTin.php','hoSoBenhAn.php','lichHenKham.php'],
     'Quản lý' => ['danhChoQuanLy.php','loaiXetNghiem.php','themLoaiXetNghiem.php','suaLoaiXetNghiem.php'],  
 ];

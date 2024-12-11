@@ -1,124 +1,85 @@
-<?php include '../layout/header.php'; ?>
+<?php
+include '../layout/header.php';  
+include 'phanQuyen.php';
+require_once '../myclass/clsLichLam.php';
+require_once '../myclass/clsBacSi.php';
 
-    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+session_start();
+
+if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
+    die("Bạn không có quyền truy cập vào trang này.");
+}
+
+
+$taikhoanId = $_SESSION['id'];
+$bacsi = new ClsBacSi();
+$sqlGetMaBacSi = "SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId";
+$maBacSi = $bacsi->laycot($sqlGetMaBacSi);
+
+$today = date('Y-m-d');
+$weekday = date('w', strtotime($today));
+$saturday = date('Y-m-d', strtotime($today . ' +' . (6 - $weekday) . ' days'));
+$sunday = date('Y-m-d', strtotime($today . ' +' . (7 - $weekday) . ' days'));
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $ngayLam = $_POST['ngayLam'];
+    $caLam = $_POST['caLam'];
+
+    if ($ngayLam !== $saturday && $ngayLam !== $sunday) {
+        echo "<div class='alert alert-danger'>Chỉ được chọn ngày Thứ 7 hoặc Chủ Nhật của tuần hiện tại.</div>";
+    } elseif (empty($caLam)) {
+        echo "<div class='alert alert-danger'>Vui lòng chọn ca làm.</div>";
+    } else {
+        $lichLam = new ClsLichLam();
+
+        $sqlCheck = "SELECT * FROM lichlam WHERE ngayLam = '$ngayLam' AND caLam = '$caLam' AND maBacSi = $maBacSi";
+        $isDuplicate = $lichLam->kiemtra($sqlCheck);
+
+        if ($isDuplicate) {
+            echo "<div class='alert alert-danger'>Lịch làm đã tồn tại. Vui lòng chọn lịch khác.</div>";
+        } else {
+            $sqlInsert = "INSERT INTO lichlam (ngayLam, caLam, maBacSi) VALUES ('$ngayLam', '$caLam', $maBacSi)";
+            $result = $lichLam->themxoasua($sqlInsert);
+
+            if ($result) {
+                echo "<div class='alert alert-success'>Lịch làm đã được thêm thành công.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Có lỗi xảy ra khi thêm lịch làm.</div>";
+            }
         }
+    }
+}
+?>
 
-        .container {
-            max-width: 700px;
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #d7e5fa;
-            border-radius: 8px;
-        }
+<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .work-day {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .work-day-item {
-            background-color: #ffffff;
-            border-radius: 20px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-check-input {
-            margin-top: 0;
-        }
-
-        .submit-button {
-            width: 100%;
-            margin-top: 20px;
-        }
-    </style>
-
-    <div class="container">
-        <div class="header">
-            <h1 class="h4">Đăng ký lịch làm</h1>
-        </div>
-
-        <div class="work-day">
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="saturday">
-                <label class="form-check-label" id="saturday-label">09-11-2024</label>
+<div class="container mt-5">
+    <h3 class="mb-4 text-center">Đăng ký lịch làm</h3>
+    <form method="POST" action="">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="ngayLam" class="form-label">Ngày làm</label>
+                <!-- Chỉ cho chọn từ Thứ 7 đến Chủ Nhật -->
+                <input type="date" class="form-control" id="ngayLam" name="ngayLam" 
+                       min="<?= $saturday ?>" max="<?= $sunday ?>" required>
             </div>
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="morning1">
-                <label class="form-check-label" for="morning1">Buổi Sáng (7h30 - 11h30)</label>
-            </div>
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="afternoon1">
-                <label class="form-check-label" for="afternoon1">Buổi Chiều (13h00 - 16h30)</label>
-            </div>
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="evening1">
-                <label class="form-check-label" for="evening1">Ngoài Giờ (17h00 - 19h30)</label>
-            </div>
-        </div>
-
-        <div class="work-day">
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="sunday">
-                <label class="form-check-label" id="sunday-label">10-11-2024</label>
-            </div>
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="morning2">
-                <label class="form-check-label" for="morning2">Buổi Sáng (7h30 - 11h30)</label>
-            </div>
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="afternoon2">
-                <label class="form-check-label" for="afternoon2">Buổi Chiều (13h00 - 16h30)</label>
-            </div>
-            <div class="work-day-item">
-                <input type="checkbox" class="form-check-input" id="evening2">
-                <label class="form-check-label" for="evening2">Ngoài Giờ (17h00 - 19h30)</label>
+            <div class="col-md-6">
+                <label for="caLam" class="form-label">Ca làm</label>
+                <select class="form-control" id="caLam" name="caLam" required>
+                    <option value="">Chọn ca làm</option>
+                    <option value="Sáng">Buổi Sáng (7h30 - 11h30)</option>
+                    <option value="Chiều">Buổi Chiều (13h00 - 16h30)</option>
+                    <option value="Tối">Ngoài Giờ (17h00 - 19h30)</option>
+                </select>
             </div>
         </div>
+        <input type="hidden" class="form-control" id="maBacSi" name="maBacSi" value="<?= $maBacSi ?>" readonly>
 
-        <!-- Submit Button -->
-        <button class="btn btn-primary submit-button">Thêm lịch làm</button>
-    </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Thêm lịch làm</button>
+            <a href="HoSoBenhAn.php" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
 
-    <script>
-        function getWeekendDates() {
-            const today = new Date();
-            const dayOfWeek = today.getDay();
-            const daysUntilSaturday = 6 - dayOfWeek;
-            const daysUntilSunday = 7 - dayOfWeek;
-
-            const saturday = new Date(today);
-            saturday.setDate(today.getDate() + daysUntilSaturday);
-
-            const sunday = new Date(today);
-            sunday.setDate(today.getDate() + daysUntilSunday);
-
-            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-
-            document.getElementById("saturday-label").textContent = saturday.toLocaleDateString('en-GB', options);
-            document.getElementById("sunday-label").textContent = sunday.toLocaleDateString('en-GB', options);
-        }
-
-        // Run the function to set the dates on page load
-        getWeekendDates();
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <?php include '../layout/footer.php'; ?>

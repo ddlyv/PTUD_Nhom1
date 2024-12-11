@@ -1,37 +1,39 @@
 <?php
 	session_start();
     error_reporting(0);
-        include ("../myclass/clslogin.php");
-        $c=new login();
-        if(isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['vaiTro']))
-        {
-            $c->confirmlogin($_SESSION['id'],$_SESSION['user'],$_SESSION['pass'],$_SESSION['vaiTro']);
-            
-        }
-        else
-        {
-            header('location:../login/');	
-        }
+	include ("../myclass/clslogin.php");
+	$c=new login();
+    if(isset($_SESSION['id']) && isset($_SESSION['user']) && isset($_SESSION['pass']) && isset($_SESSION['vaiTro']))
+    {
+        $c->confirmlogin($_SESSION['id'],$_SESSION['user'],$_SESSION['pass'],$_SESSION['vaiTro']);
+    }
+    else
+    {
+        header('location:../login/');	
+    }
 	
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trang Chủ</title>
     <link rel="stylesheet" href="../../css/mau.css">
     <!-- Thêm Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
+<style>
+    .search-booking a:hover{
+            border-bottom: none;
+        }
+</style>
 </head>
 <body>
     <div class="containerr">
         <header>
             <div class="header">
-                <div class="logo"><a style="text-decoration: none; color: black;" href="index.php">MED<span class="highlight">DICAL</a></span>
+                <div class="logo"><a style="text-decoration: none; color: black;" href="../index.php">MED<span class="highlight">DICAL</a></span>
                 </div>
                 <div class="contact-info">
                     <div class="info">
@@ -54,7 +56,7 @@
                                 else
                                 {
                                     echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="#" class="user-link">Đăng ký</a>';
+                                    echo '<a href="../register/" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -65,31 +67,31 @@
         </header>
         <nav>
             <div class="navbar">
-                <a href="index.php">Trang chủ</a>
+                <a href="../index.php">Trang chủ</a>
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
-                <a href="#">Tin tức</a>
+                <a href="../HaiPhong/tinTucBenhHoc.php">Tin tức</a>
                 <a href="#">Liên lạc</a>
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="../layout/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="../layout/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="../layout/danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }
                 ?>
                 <div class="search-booking">
                     <span class="icon">🔍</span>
-                    <button type="button">Đặt lịch</button>
+                    <a href="../HaiPhong/datLichKham.php"><button type="button">Đặt lịch</button></a>
                 </div>
             </div>
         </nav>
@@ -97,3 +99,5 @@
         <div class="Picture">
             <img src="../../img/anhbia.jpg" alt="Cover Image" class="cover-image" alt="">
         </div>
+        
+<?php include '../HaiPhong/phanQuyen.php';?>
