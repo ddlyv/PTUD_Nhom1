@@ -14,21 +14,27 @@
                 </a>
             </div>
             <div class="grid-item">
-                <a href="#">
+                <a href="../vanhle/quan_li_lich_hen_kham.php">
                     <i class="fa-solid fa-heart"></i>
                     <p>Quản lý lịch hẹn</p>
                 </a>
             </div>
             <div class="grid-item">
-                <a href="#">
+                <a href="../vanhle/quan_li_lich_kham.php">
                     <i class="fa-solid fa-heart"></i>
                     <p>Quản lý lịch khám</p>
                 </a>
             </div>
             <div class="grid-item">
-                <a href="#">
+                <a href="../vanhle/quan_li_tai_khoan_bac_si.php">
                     <i class="fa-solid fa-heart"></i>
-                    <p>Quản lý tài khoản</p>
+                    <p>Quản lý tài khoản bác sĩ</p>
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="../vanhle/quan_li_tai_khoan_nhan_vien.php">
+                    <i class="fa-solid fa-heart"></i>
+                    <p>Quản lý tài khoản nhân viên</p>
                 </a>
             </div>
             

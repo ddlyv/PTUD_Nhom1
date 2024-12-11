@@ -23,7 +23,7 @@
             <p class="tenChucNang_cuthe">THÊM PHIẾU XÉT NGHIỆM</p>
         </div>
         <div id="application">
-            <form class="form-card" method="post">
+            <form class="form-card" method="post" onsubmit="return rangBuocForm()">
                 <?php
                     $id_maHoSo=$_REQUEST['id'];
                 ?>
@@ -85,45 +85,67 @@
                             $date_ngaytaophieu = !empty($_REQUEST['date_ngaytaophieu']) ? $_REQUEST['date_ngaytaophieu'] : date('Y-m-d');
                             $select=$_REQUEST['select'];
                             
-                            if(!empty($txttenloaixetnghiem))
-                            {
-                                $p->connectdb();
-                                $maLoai=$p->duyetthem_maLoai(" select maLoai
-                                            from loaiXetNghiem
-                                            where tenLoai like '%$txttenloaixetnghiem%'");
-                                if(!$maLoai=='')
-                                {       
-                                    if($p->themxoasua("INSERT INTO phieuxetnghiem(ketQuaXetNghiem, ngayXetNghiem, gioXetNghiem, ngayTaoPhieu, trangThai, maLoai,maHoSo) 
-                                                        VALUES ('$txtketquaxetnghiem','$date_ngayxetnghiem','$time_gioxetnghiem','$date_ngaytaophieu','$select','$maLoai','$txtmahoso')")==1)
-                                    {
-                                        echo '<script>
-                                        alert("Thêm thành công.");
-                                        window.location="phieuXetNghiem.php";
-                                        </script>';        
+                            // Kiểm tra dữ liệu
+                            $errors = [];
+                            if (new DateTime($date_ngaytaophieu) > new DateTime()) {
+                                $errors[] = "Ngày tạo phiếu không được lớn hơn ngày hiện tại.";
+                            }
+                            else{
+                                if(!empty($txttenloaixetnghiem))
+                                {
+                                    $p->connectdb();
+                                    $maLoai=$p->duyetthem_maLoai(" select maLoai
+                                                from loaiXetNghiem
+                                                where tenLoai like '%$txttenloaixetnghiem%'");
+                                    if(!$maLoai=='')
+                                    {       
+                                        if($p->themxoasua("INSERT INTO phieuxetnghiem(ketQuaXetNghiem, ngayXetNghiem, gioXetNghiem, ngayTaoPhieu, trangThai, maLoai,maHoSo) 
+                                                            VALUES ('$txtketquaxetnghiem','$date_ngayxetnghiem','$time_gioxetnghiem','$date_ngaytaophieu','$select','$maLoai','$txtmahoso')")==1)
+                                        {
+                                            echo '<script>
+                                            alert("Thêm thành công.");
+                                            window.location="phieuXetNghiem.php";
+                                            </script>';        
+                                        }
+                                        else{
+                                            echo '<script>
+                                            alert("Thêm không thành công.");
+                                            </script>';
+                                        }
                                     }
                                     else{
                                         echo '<script>
-                                        alert("Thêm không thành công.");
+                                            alert("Không tìm thấy mã loại được nhập.");
                                         </script>';
                                     }
+                                    
                                 }
-                                else{
-                                    echo '<script>
-                                        alert("Không tìm thấy mã loại được nhập.");
-                                    </script>';
+                                else
+                                {
+                                    echo"<script>
+                                        alert('Vui lòng nhập đầy đủ thông tin có dấu * !')
+                                    </script>";
                                 }
-                                
                             }
-                            else
-                            {
-                                echo"<script>
-                                    alert('Vui lòng nhập đầy đủ thông tin có dấu * !')
-                                </script>";
-                            }
+                            
                         }
                     
                     ?>
                 </div>
+                <script>
+                    function rangBuocForm() {
+                        // Lấy giá trị từ các trường
+                        var ngaySinh = new Date(document.getElementById("date_ngaytaophieu").value);
+                        var today = new Date();         
+                        // Ràng buộc ngày sinh không được quá ngày hiện tại
+                        if (ngaySinh > today) {
+                            alert("Ngày tạo phiếu không được lớn hơn ngày hiện tại.");
+                            return false;
+                        }
+                        // Nếu tất cả các ràng buộc đều hợp lệ, cho phép gửi form
+                        return true;
+                    }
+                </script>
             </form>
         </div>
         

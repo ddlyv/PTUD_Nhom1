@@ -70,34 +70,34 @@
                     </div>
                     <div class="form-group col-sm-12 text-center"> 
                         <label class="form-control-label col-2 mb-4 text-center">Kết quả xét nghiệm</label> 
-                        <input type="text" id="txtketquaxetnghiem" class="col-9" value="<?php echo $ketquaxetnghiem?>" name="txtketquaxetnghiem"  placeholder="Kết quả xét nghiệm"> 
+                        <input type="text" id="txtketquaxetnghiem" class="col-9" value="<?php echo $ketquaxetnghiem?>" name="txtketquaxetnghiem"  <?php echo !empty($ketquaxetnghiem) ? 'readonly' : '';?>> 
                     </div>
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-group col-12 text-center"> 
                         <label class="form-control-label col-2 mb-4 text-center">Ngày xét nghiệm</label> 
-                        <input type="date" class="col-9" id="date_ngayXetNghiem" value="<?php echo $ngayXetNghiem?>" name="date_ngayXetNghiem" > 
+                        <input type="date" class="col-9" id="date_ngayXetNghiem" value="<?php echo $ngayXetNghiem?>" name="date_ngayXetNghiem" readonly> 
                     </div>
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-group col-12 text-center"> 
                         <label class="form-control-label col-2 mb-4 text-center">Giờ xét nghiệm</label> 
-                        <input type="time" class="col-9" id="time_gioXetNghiem" value="<?php echo $gioXetNghiem?>" name="time_gioXetNghiem" > 
+                        <input type="time" class="col-9" id="time_gioXetNghiem" value="<?php echo $gioXetNghiem?>" name="time_gioXetNghiem" readonly> 
                     </div>
                 </div>
                 <div class="row justify-content-between">
                     <div class="form-group col-12 text-center"> 
                         <label class="form-control-label col-2 mb-4 text-center">Ngày tạo phiếu</label> 
-                        <input type="date" class="col-9" id="date_ngayTaoPhieu" value="<?php echo $ngayTaoPhieu?>" name="date_ngayTaoPhieu" > 
+                        <input type="date" class="col-9" id="date_ngayTaoPhieu" value="<?php echo $ngayTaoPhieu?>" name="date_ngayTaoPhieu" readonly> 
                     </div>
                 </div>
 
                 <div class="row justify-content-between">
                     <div class="form-group col-12 text-center"> 
                         <label class="form-control-label col-2 mb-4 text-center">Trạng thái</label>
-                        <select class="col-9 " name="select" id="select">
-                            <option value="Đang xử lý" <?php echo ($trangThai == "Đang xử lý") ? 'selected' : ''; ?>>Đang xử lý</option>
-                            <option value="Hoàn thành" <?php echo ($trangThai == "Hoàn thành") ? 'selected' : ''; ?>>Hoàn thành</option>
+                        <select class="col-9 " name="select" id="select" <?php echo (!empty($ketquaxetnghiem)) ? 'disabled' : ''; ?>>
+                            <option value="Đang xử lý" <?php echo ($trangThai == "Đang xử lý" && empty($ketquaxetnghiem)) ? 'selected' : ''; ?>>Đang xử lý</option>
+                            <option value="Hoàn thành" <?php echo (!empty($ketquaxetnghiem) || $trangThai == "Hoàn thành") ? 'selected' : ''; ?>>Hoàn thành</option>
                             <option value="Hủy bỏ" <?php echo ($trangThai == "Hủy bỏ") ? 'selected' : ''; ?>>Hủy bỏ</option>
                         </select>
                     </div>
@@ -117,7 +117,13 @@
                             $date_ngayXetNghiem=$_REQUEST['date_ngayXetNghiem'];
                             $time_gioXetNghiem=$_REQUEST['time_gioXetNghiem'];
                             $date_ngayTaoPhieu=$_REQUEST['date_ngayTaoPhieu'];
-                            $select=$_REQUEST['select'];
+                            
+                            // Kiểm tra nếu có kết quả xét nghiệm
+                            if (!empty($txtketquaxetnghiem)) {
+                                $select = 'Hoàn thành';
+                            } else {
+                                $select = $_REQUEST['select'];
+                            }
                             if($p->themxoasua("UPDATE phieuxetnghiem 
                                                 SET ketQuaXetNghiem='$txtketquaxetnghiem',ngayXetNghiem='$date_ngayXetNghiem',
                                                 gioXetNghiem='$time_gioXetNghiem',ngayTaoPhieu='$date_ngayTaoPhieu',trangThai='$select'
