@@ -1,154 +1,246 @@
-<?php include 'header.php'; ?>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<?php include 'header.php';
+?>
+<?php
+// Kết nối cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "benhvien";
 
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Xử lý Thêm Lịch Hẹn
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add') {
+    $maLichHen = $_POST['maLichHen'];
+    $ngayTaoLichHen = $_POST['ngayTaoLichHen'];
+    $ngayDatLich = $_POST['ngayDatLich'];
+    $gioDatLich = $_POST['gioDatLich'];
+    $trangThai = $_POST['trangThai'];
+    $maBenhNhan = $_POST['maBenhNhan'];
+    $type = $_POST['type'];
+    $maBacSi = $_POST['maBacSi'];
+
+    $sql = "INSERT INTO lichhen (maLichHen, ngayTaoLichHen, ngayDatLich, gioDatLich, trangThai, maBenhNhan, Type, maBacSi) 
+            VALUES ('$maLichHen', '$ngayTaoLichHen', '$ngayDatLich', '$gioDatLich', '$trangThai', '$maBenhNhan', '$type', '$maBacSi')";
+
+    if (!$conn->query($sql)) {
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Xử lý Sửa Lịch Hẹn
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit') {
+    $maLichHen = $_POST['maLichHen'];
+    $ngayTaoLichHen = $_POST['ngayTaoLichHen'];
+    $ngayDatLich = $_POST['ngayDatLich'];
+    $gioDatLich = $_POST['gioDatLich'];
+    $trangThai = $_POST['trangThai'];
+    $maBenhNhan = $_POST['maBenhNhan'];
+    $type = $_POST['type'];
+    $maBacSi = $_POST['maBacSi'];
+
+    $sql = "UPDATE lichhen SET ngayTaoLichHen='$ngayTaoLichHen', ngayDatLich='$ngayDatLich', gioDatLich='$gioDatLich', 
+            trangThai='$trangThai', maBenhNhan='$maBenhNhan', Type='$type', maBacSi='$maBacSi' WHERE maLichHen='$maLichHen'";
+
+    if (!$conn->query($sql)) {
+        echo "Lỗi: " . $conn->error;
+    }
+}
+
+// Xử lý Xóa Lịch Hẹn
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'delete') {
+    $maLichHen = $_GET['id'];
+    $sql = "DELETE FROM lichhen WHERE maLichHen = '$maLichHen'";
+
+    if (!$conn->query($sql)) {
+        echo "Lỗi: " . $conn->error;
+    }
+}
+
+// Lấy danh sách lịch hẹn
+$sql = "SELECT * FROM lichhen";
+$result = $conn->query($sql);
+?>
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Lịch Hẹn</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Quản Lý Lịch Hẹn Khám</h3>
+    <h2>Quản lý Lịch Hẹn</h2>
+    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAppointmentModal">Thêm Lịch Hẹn</button>
 
-    <!-- Nút mở modal thêm lịch hẹn -->
-    <div class="text-center mb-4">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAppointmentModal">
-            Thêm Lịch Hẹn
-        </button>
-    </div>
-
-    <!-- Bảng danh sách lịch hẹn -->
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Bệnh nhân</th>
-                    <th>Ngày hẹn</th>
-                    <th>Giờ hẹn</th>
-                    <th>Bác sĩ</th>
-                    <th>Ghi chú</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Dữ liệu mẫu tĩnh -->
-                <tr>
-                    <td>Nguyễn Văn A</td>
-                    <td>2024-11-10</td>
-                    <td>09:00</td>
-                    <td>Dr. Trần Công C</td>
-                    <td>Kiểm tra định kỳ</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editAppointmentModal">Sửa</button>
-                        <button type="button" class="btn btn-danger btn-sm">Xóa</button>
-                        <button type="button" class="btn btn-info btn-sm">Chuyển sang lịch khám</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lê Thị B</td>
-                    <td>2024-11-11</td>
-                    <td>10:30</td>
-                    <td>Dr. Nguyễn Văn A</td>
-                    <td>Tư vấn chuyên khoa</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editAppointmentModal">Sửa</button>
-                        <button type="button" class="btn btn-danger btn-sm">Xóa</button>
-                        <button type="button" class="btn btn-info btn-sm">Chuyển sang lịch khám</button>
-                    </td>
-                </tr>
-                <!-- Thêm nhiều dòng dữ liệu tương tự -->
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Mã Lịch Hẹn</th>
+            <th>Ngày Tạo</th>
+            <th>Ngày Đặt</th>
+            <th>Giờ Đặt</th>
+            <th>Trạng Thái</th>
+            <th>Mã Bệnh Nhân</th>
+            <th>Type</th>
+            <th>Mã Bác Sĩ</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php while ($row = $result->fetch_assoc()) { ?>
+            <tr>
+                <td><?= $row['maLichHen'] ?></td>
+                <td><?= $row['ngayTaoLichHen'] ?></td>
+                <td><?= $row['ngayDatLich'] ?></td>
+                <td><?= $row['gioDatLich'] ?></td>
+                <td><?= $row['trangThai'] ?></td>
+                <td><?= $row['maBenhNhan'] ?></td>
+                <td><?= $row['Type'] ?></td>
+                <td><?= $row['maBacSi'] ?></td>
+                <td>
+                    <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $row['maLichHen'] ?>" data-toggle="modal" data-target="#editAppointmentModal">Sửa</button>
+                    <a href="?action=delete&id=<?= $row['maLichHen'] ?>" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
 </div>
 
 <!-- Modal Thêm Lịch Hẹn -->
-<div class="modal fade" id="addAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="addAppointmentModalLabel" aria-hidden="true">
+<div class="modal" id="addAppointmentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addAppointmentModalLabel">Thêm Lịch Hẹn</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="process_add_appointment.php" method="POST">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Lịch Hẹn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="add">
                     <div class="form-group">
-                        <label for="benh_nhan">Bệnh nhân</label>
-                        <input type="text" class="form-control w-100" id="benh_nhan" name="benh_nhan" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="ngay_hen">Ngày hẹn</label>
-                            <input type="date" class="form-control w-100" id="ngay_hen" name="ngay_hen" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="gio_hen">Giờ hẹn</label>
-                            <input type="time" class="form-control w-100" id="gio_hen" name="gio_hen" required>
-                        </div>
+                        <label for="maLichHen">Mã Lịch Hẹn</label>
+                        <input type="text" class="form-control" name="maLichHen" required>
                     </div>
                     <div class="form-group">
-                        <label for="bac_si">Bác sĩ</label>
-                        <select class="form-control w-100" id="bac_si" name="bac_si" required>
-                            <option value="1">Dr. Nguyễn Văn A</option>
-                            <option value="2">Dr. Lê Thị B</option>
-                            <option value="3">Dr. Trần Công C</option>
-                        </select>
+                        <label for="ngayTaoLichHen">Ngày Tạo</label>
+                        <input type="date" class="form-control" name="ngayTaoLichHen" required>
                     </div>
                     <div class="form-group">
-                        <label for="ghi_chu">Ghi chú</label>
-                        <textarea class="form-control w-100" id="ghi_chu" name="ghi_chu" rows="3"></textarea>
+                        <label for="ngayDatLich">Ngày Đặt</label>
+                        <input type="date" class="form-control" name="ngayDatLich" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="gioDatLich">Giờ Đặt</label>
+                        <input type="time" class="form-control" name="gioDatLich" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trangThai">Trạng Thái</label>
+                        <input type="text" class="form-control" name="trangThai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maBenhNhan">Mã Bệnh Nhân</label>
+                        <input type="text" class="form-control" name="maBenhNhan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" class="form-control" name="type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maBacSi">Mã Bác Sĩ</label>
+                        <input type="text" class="form-control" name="maBacSi" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- Modal Sửa Lịch Hẹn -->
-<div class="modal fade" id="editAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="editAppointmentModalLabel" aria-hidden="true">
+<div class="modal" id="editAppointmentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editAppointmentModalLabel">Sửa Lịch Hẹn</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="process_edit_appointment.php" method="POST">
-                    <input type="hidden" name="appointment_id" id="appointment_id">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sửa Lịch Hẹn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="maLichHen" id="edit_maLichHen">
                     <div class="form-group">
-                        <label for="benh_nhan_edit">Bệnh nhân</label>
-                        <input type="text" class="form-control w-100" id="benh_nhan_edit" name="benh_nhan" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="ngay_hen_edit">Ngày hẹn</label>
-                            <input type="date" class="form-control w-100" id="ngay_hen_edit" name="ngay_hen" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="gio_hen_edit">Giờ hẹn</label>
-                            <input type="time" class="form-control w-100" id="gio_hen_edit" name="gio_hen" required>
-                        </div>
+                        <label for="ngayTaoLichHen">Ngày Tạo</label>
+                        <input type="date" class="form-control" name="ngayTaoLichHen" id="edit_ngayTaoLichHen">
                     </div>
                     <div class="form-group">
-                        <label for="bac_si_edit">Bác sĩ</label>
-                        <select class="form-control w-100" id="bac_si_edit" name="bac_si" required>
-                            <option value="1">Dr. Nguyễn Văn A</option>
-                            <option value="2">Dr. Lê Thị B</option>
-                            <option value="3">Dr. Trần Công C</option>
-                        </select>
+                        <label for="ngayDatLich">Ngày Đặt</label>
+                        <input type="date" class="form-control" name="ngayDatLich" id="edit_ngayDatLich">
                     </div>
                     <div class="form-group">
-                        <label for="ghi_chu_edit">Ghi chú</label>
-                        <textarea class="form-control w-100" id="ghi_chu_edit" name="ghi_chu" rows="3"></textarea>
+                        <label for="gioDatLich">Giờ Đặt</label>
+                        <input type="time" class="form-control" name="gioDatLich" id="edit_gioDatLich">
                     </div>
-                    <button type="button" class="btn btn-secondary">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="trangThai">Trạng Thái</label>
+                        <input type="text" class="form-control" name="trangThai" id="edit_trangThai">
+                    </div>
+                    <div class="form-group">
+                        <label for="maBenhNhan">Mã Bệnh Nhân</label>
+                        <input type="text" class="form-control" name="maBenhNhan" id="edit_maBenhNhan">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" class="form-control" name="type" id="edit_type">
+                    </div>
+                    <div class="form-group">
+                        <label for="maBacSi">Mã Bác Sĩ</label>
+                        <input type="text" class="form-control" name="maBacSi" id="edit_maBacSi">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<script>
+$(document).ready(function () {
+    $('.edit-btn').click(function () {
+        const id = $(this).data('id');
+        const row = $(this).closest('tr');
+
+        $('#edit_maLichHen').val(id);
+        $('#edit_ngayTaoLichHen').val(row.find('td:eq(1)').text());
+        $('#edit_ngayDatLich').val(row.find('td:eq(2)').text());
+        $('#edit_gioDatLich').val(row.find('td:eq(3)').text());
+        $('#edit_trangThai').val(row.find('td:eq(4)').text());
+        $('#edit_maBenhNhan').val(row.find('td:eq(5)').text());
+        $('#edit_type').val(row.find('td:eq(6)').text());
+        $('#edit_maBacSi').val(row.find('td:eq(7)').text());
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<?php include 'footer.php';
+?>

@@ -63,7 +63,7 @@
         </header>
         <nav>
             <div class="navbar">
-                <a href="../index.php">Trang chủ</a>
+                <a href="../../index.php">Trang chủ</a>
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
@@ -74,13 +74,13 @@
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="../MinhCong/danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }

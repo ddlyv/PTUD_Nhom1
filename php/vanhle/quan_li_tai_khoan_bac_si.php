@@ -1,169 +1,193 @@
 <?php include 'header.php';
+?>
+<?php include 'config.php'; ?>
+<?php
+// Kết nối với cơ sở dữ liệu "benhvien"
+$conn = new mysqli("localhost", "root", "", "benhvien");
 
-require_once __DIR__ . '/myclass/clbacsi.php';
-$bacsi = new clbacsi();
-$dsbacsi = $bacsi->getbacSi();
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+    die("Kết nối không thành công: " . $conn->connect_error);
+}
 
+// Lấy danh sách bác sĩ từ bảng 'bacsi'
+$sql = "SELECT * FROM bacsi";
+$result = $conn->query($sql);
 
 ?>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-<style>
-    .nav-tabs .nav-link {
-        padding: 6px 12px;
-        margin-right: 1px;
-    }
-
-    .nav-tabs .nav-item {
-        flex-grow: 0;
-    }
-</style>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý tài khoản bác sĩ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Danh sách Tài Khoản Bác Sĩ</h2>
+    <h1 class="text-center mb-4">Quản Lý Tài Khoản Bác Sĩ</h1>
 
-    <?php
-    $accounts = $dsbacsi;
-
-    // Thiết lập số tài khoản trên mỗi trang
-    $accounts_per_page = 10;
-
-    // Tính toán tổng số trang
-    $total_accounts = count($accounts);
-    $total_pages = ceil($total_accounts / $accounts_per_page);
-
-    // Biến khởi đầu cho các trang sẽ hiển thị và số trang tối đa
-    $pages_to_show = 5;
-    ?>
-
-    <!-- Tabs cho các trang -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <?php for ($page = 1; $page <= min($total_pages, $pages_to_show); $page++): ?>
-            <li class="nav-item">
-                <a class="nav-link <?php echo $page == 1 ? 'active' : ''; ?>" id="page-<?php echo $page; ?>-tab" data-toggle="tab" href="#page-<?php echo $page; ?>" role="tab">
-                    Trang <?php echo $page; ?>
-                </a>
-            </li>
-        <?php endfor; ?>
-
-        <?php if ($total_pages > $pages_to_show): ?>
-            <li class="nav-item">
-                <a class="nav-link" id="more-pages" href="javascript:void(0);" onclick="showNextPages();">...</a>
-            </li>
-        <?php endif; ?>
-    </ul>
-
-
-    <div class="tab-content" id="myTabContent">
-        <?php for ($page = 1; $page <= $total_pages; $page++): ?>
-            <div class="tab-pane fade <?php echo $page == 1 ? 'show active' : ''; ?>" id="page-<?php echo $page; ?>" role="tabpanel">
-                <table class="table table-bordered mt-4">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>STT</th>
-                            <th>Họ và Tên</th>
-                            <th>Ngày Sinh</th>
-                            <th>Số Điện Thoại</th>
-                            <th>Giới Tính</th>
-                            <th>Email</th>
-                            <th>Địa Chỉ</th>
-                            <th>Hành Động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $start_index = ($page - 1) * $accounts_per_page;
-                        $end_index = min($start_index + $accounts_per_page, $total_accounts);
-
-                        for ($i = $start_index; $i < $end_index; $i++):
-                            $account = $accounts[$i];
-                        ?>
-                            <tr>
-                                <td><?php echo $i + 1; ?></td>
-                                <td><?php echo $account['hoTenDem'] . ' ' . $account['ten']; ?></td>
-                                <td><?php echo $account['ngaySinh']; ?></td>
-                                <td><?php echo $account['soDienThoai']; ?></td>
-                                <td><?php echo $account['gioiTinh']; ?></td>
-                                <td><?php echo $account['email']; ?></td>
-                                <td><?php echo $account['diachi']; ?></td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-primary btn-sm edit-btn"
-                                        data-id="<?= $account['maBacSi'] ?>"
-                                        data-toggle="modal"
-                                        data-target="#editScheduleModal">
-                                        Sửa
-                                    </a>
-                                    <a href="./delete-tkbs?id=<?= $account['maBacSi'] ?>" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
-                                </td>
-                            </tr>
-                        <?php endfor; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php endfor; ?>
+    <!-- Nút Thêm -->
+    <div class="text-right mb-3">
+        <button class="btn btn-success" data-toggle="modal" data-target="#addDoctorModal">Thêm Tài Khoản Bác Sĩ</button>
     </div>
+
+    <!-- Bảng -->
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Mã Bác Sĩ</th>
+            <th>Họ Tên Đệm</th>
+            <th>Tên</th>
+            <th>Ngày Sinh</th>
+            <th>Số Điện Thoại</th>
+            <th>Giới Tính</th>
+            <th>Email</th>
+            <th>Địa Chỉ</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php if ($result->num_rows > 0): ?>
+            <?php while ($account = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= $account['maBacSi'] ?></td>
+                    <td><?= $account['hoTenDem'] ?></td>
+                    <td><?= $account['ten'] ?></td>
+                    <td><?= $account['ngaySinh'] ?></td>
+                    <td><?= $account['soDienThoai'] ?></td>
+                    <td><?= $account['gioiTinh'] ?></td>
+                    <td><?= $account['email'] ?></td>
+                    <td><?= $account['diachi'] ?></td>
+                    <td>
+                        <!-- Nút Sửa -->
+                        <a href="#" class="btn btn-primary btn-sm edit-btn"
+                            data-id="<?= $account['maBacSi'] ?>"
+                            data-hotendem="<?= $account['hoTenDem'] ?>"
+                            data-ten="<?= $account['ten'] ?>"
+                            data-ngaysinh="<?= $account['ngaySinh'] ?>"
+                            data-sodienthoai="<?= $account['soDienThoai'] ?>"
+                            data-gioitinh="<?= $account['gioiTinh'] ?>"
+                            data-email="<?= $account['email'] ?>"
+                            data-diachi="<?= $account['diachi'] ?>"
+                            data-toggle="modal" data-target="#editDoctorModal">Sửa</a>
+
+                        <!-- Nút Xóa -->
+                        <a href="xóabacsi.php?id=<?= $account['maBacSi'] ?>" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</a>
+
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="9" class="text-center">Không có dữ liệu</td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
 </div>
 
-<div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editScheduleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document"> <!-- Đổi modal-lg thành modal-xl để modal rộng hơn -->
+<!-- Modal Thêm -->
+<div class="modal fade" id="addDoctorModal" tabindex="-1" role="dialog" aria-labelledby="addDoctorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addScheduleModalLabel">Sửa Tài khoản bác sĩ</h5>
+                <h5 class="modal-title" id="addDoctorModalLabel">Thêm Tài Khoản Bác Sĩ</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="./edit-tkbs" method="POST">
-                    <input type="hidden" id="edit_id" name="id">
-                    <!-- Ngày khám -->
+                <form action="thembacsi.php" method="POST">
+                    <!-- Form Thêm -->
                     <div class="form-group">
-                        <label for="ngay_kham">Họ tên</label>
-                        <input type="" class="form-control" id="edit_ngay_kham" name="ho_ten_dem" required style="height: 45px; width: 600px;">
+                        <label>Họ Tên Đệm</label>
+                        <input type="text" class="form-control" name="hoTenDem" required>
                     </div>
                     <div class="form-group">
-                        <label for="ngay_kham">Tên</label>
-                        <input type="" class="form-control" id="edit_ngay_kham" name="ten" required style="height: 45px; width: 600px;">
+                        <label>Tên</label>
+                        <input type="text" class="form-control" name="ten" required>
                     </div>
-
-                    <!-- Giờ bắt đầu -->
                     <div class="form-group">
-                        <label for="gio_bat_dau">Ngày sinh</label>
-                        <input type="date" class="form-control" id="gio_bat_dau" name="ngay_sinh" required style="height: 45px; width: 600px;">
+                        <label>Ngày Sinh</label>
+                        <input type="date" class="form-control" name="ngaySinh" required>
                     </div>
-
-                    <!-- Bác sĩ phụ trách -->
                     <div class="form-group">
-                        <label for="bac_si">Số địen thoại</label>
-                        <input type="" class="form-control" id="edit_ngay_kham" name="so_dien_thoai" required style="height: 45px; width: 600px;">
+                        <label>Số Điện Thoại</label>
+                        <input type="text" class="form-control" name="soDienThoai" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="bac_si">Giới tính</label>
-                        <select class="form-control" id="lich_hen" name="gioi_tinh" required style="height: 45px; width: 600px;">
-                            <option value="">Chọn giới tính</option>
+                        <label>Giới Tính</label>
+                        <select class="form-control" name="gioiTinh" required>
                             <option value="Nam">Nam</option>
-                            <option value="Nu">Nu</option>
+                            <option value="Nữ">Nữ</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="bac_si">Email</label>
-                        <input type="" class="form-control" id="edit_ngay_kham" name="email" required style="height: 45px; width: 600px;">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" required>
                     </div>
-
-                    <!-- Ghi chú -->
                     <div class="form-group">
-                        <label for="ghi_chu">Địa chỉ</label>
-                        <textarea class="form-control" id="ghi_chu" name="dia_chi" rows="3" style="height: 100px;"></textarea>
+                        <label>Địa Chỉ</label>
+                        <textarea class="form-control" name="diachi" rows="3"></textarea>
                     </div>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <div class="text-center mt-4">
-                        <button type="submit" value="add_schedule" class="btn btn-success">Lưu</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+<!-- Modal Sửa -->
+<div class="modal fade" id="editDoctorModal" tabindex="-1" role="dialog" aria-labelledby="editDoctorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDoctorModalLabel">Sửa Tài Khoản Bác Sĩ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="suabacsi.php" method="POST">
+                    <!-- Form Sửa -->
+                    <input type="hidden" name="id" id="edit-id">
+                    <div class="form-group">
+                        <label>Họ Tên Đệm</label>
+                        <input type="text" class="form-control" name="hoTenDem" id="edit-hoTenDem" required>
                     </div>
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" class="form-control" name="ten" id="edit-ten" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày Sinh</label>
+                        <input type="date" class="form-control" name="ngaySinh" id="edit-ngaySinh" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="text" class="form-control" name="soDienThoai" id="edit-soDienThoai" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Giới Tính</label>
+                        <select class="form-control" name="gioiTinh" id="edit-gioiTinh" required>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" id="edit-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa Chỉ</label>
+                        <textarea class="form-control" name="diachi" id="edit-diachi" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
                 </form>
             </div>
         </div>
@@ -171,54 +195,23 @@ $dsbacsi = $bacsi->getbacSi();
 </div>
 
 <script>
-    let currentStartPage = 1;
-    const totalPages = <?php echo $total_pages; ?>;
-    const pagesToShow = <?php echo $pages_to_show; ?>;
-
-    function showNextPages() {
-        const start = currentStartPage + pagesToShow;
-        const end = Math.min(start + pagesToShow - 1, totalPages);
-
-        // Xóa các tab hiện tại
-        $('#myTab .nav-item').not('#more-pages').remove();
-
-        // Thêm các tab trang mới
-        for (let page = start; page <= end; page++) {
-            $('#more-pages').before(`
-               <li class="nav-item">
-                   <a class="nav-link" id="page-${page}-tab" data-toggle="tab" href="#page-${page}" role="tab">Trang ${page}</a>
-               </li>
-           `);
-        }
-
-        currentStartPage = start;
-
-        // Kiểm tra nếu đã đến trang cuối
-        if (currentStartPage + pagesToShow >= totalPages) {
-            $('#more-pages').remove();
-        }
-
-        // Gán sự kiện cho các tab mới
-        $('#myTab a').on('click', function(e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-    }
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const editButtons = document.querySelectorAll('.edit-btn');
-        editButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.getAttribute('data-id');
-                document.getElementById('edit_id').value = id;
+        editButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                document.getElementById('edit-id').value = this.getAttribute('data-id');
+                document.getElementById('edit-hoTenDem').value = this.getAttribute('data-hotendem');
+                document.getElementById('edit-ten').value = this.getAttribute('data-ten');
+                document.getElementById('edit-ngaySinh').value = this.getAttribute('data-ngaysinh');
+                document.getElementById('edit-soDienThoai').value = this.getAttribute('data-sodienthoai');
+                document.getElementById('edit-gioiTinh').value = this.getAttribute('data-gioitinh');
+                document.getElementById('edit-email').value = this.getAttribute('data-email');
+                document.getElementById('edit-diachi').value = this.getAttribute('data-diachi');
             });
         });
     });
 </script>
-
-
-
-
-<?php include 'footer.php'; ?>
+</body>
+</html>
+<?php include 'footer.php';
+?>

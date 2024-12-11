@@ -1,266 +1,245 @@
-<?php include 'header.php';
-require_once __DIR__ . '/myclass/clquanlykhunggiokham.php';
-require_once __DIR__ . '/myclass/clbacsi.php';
-require_once __DIR__ . '/myclass/clbenhnhan.php';
-require_once __DIR__ . '/myclass/cllichhen.php';
-$quanlykhunggiokham = new clquanlykhunggiokham();
-$dsDaXacNhan = $quanlykhunggiokham->getLichKhamTrangThai(0);
-$dsDaDangTienHanh = $quanlykhunggiokham->getLichKhamTrangThai(1);
-$dsDaHoanThanh = $quanlykhunggiokham->getLichKhamTrangThai(2);
+<?php include 'header.php'; ?>
+<?php
+// Kết nối cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "benhvien";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Xử lý Thêm Lịch Khám
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add') {
+    $maLichKham = $_POST['maLichKham'];
+    $ngayKham = $_POST['ngayKham'];
+    $gioKham = $_POST['gioKham'];
+    $ngayTaoLich = $_POST['ngayTaoLich'];
+    $trangThai = $_POST['trangThai'];
+    $maBacSi = $_POST['maBacSi'];
+    $maLichHen = $_POST['maLichHen'];
+    $maBenhNhan = $_POST['maBenhNhan'];
+
+    $sql = "INSERT INTO lichkham (maLichKham, ngayKham, gioKham, ngayTaoLich, trangThai, maBacSi, maLichHen, maBenhNhan) 
+            VALUES ('$maLichKham', '$ngayKham', '$gioKham', '$ngayTaoLich', '$trangThai', '$maBacSi', '$maLichHen', '$maBenhNhan')";
+
+    if (!$conn->query($sql)) {
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Xử lý Sửa Lịch Khám
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit') {
+    $maLichKham = $_POST['maLichKham'];
+    $ngayKham = $_POST['ngayKham'];
+    $gioKham = $_POST['gioKham'];
+    $ngayTaoLich = $_POST['ngayTaoLich'];
+    $trangThai = $_POST['trangThai'];
+    $maBacSi = $_POST['maBacSi'];
+    $maLichHen = $_POST['maLichHen'];
+    $maBenhNhan = $_POST['maBenhNhan'];
+
+    $sql = "UPDATE lichkham SET ngayKham='$ngayKham', gioKham='$gioKham', ngayTaoLich='$ngayTaoLich', 
+            trangThai='$trangThai', maBacSi='$maBacSi', maLichHen='$maLichHen', maBenhNhan='$maBenhNhan' 
+            WHERE maLichKham='$maLichKham'";
+
+    if (!$conn->query($sql)) {
+        echo "Lỗi: " . $conn->error;
+    }
+}
+
+// Xử lý Xóa Lịch Khám
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'delete') {
+    $maLichKham = $_GET['id'];
+    $sql = "DELETE FROM lichkham WHERE maLichKham = '$maLichKham'";
+
+    if (!$conn->query($sql)) {
+        echo "Lỗi: " . $conn->error;
+    }
+}
+
+// Lấy danh sách lịch khám
+$sql = "SELECT * FROM lichkham";
+$result = $conn->query($sql);
 ?>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Lịch Khám</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Quản Lý Lịch Khám</h3>
+    <h2>Quản lý Lịch Khám</h2>
+    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAppointmentModal">Thêm Lịch Khám</button>
 
-    <!-- Nút mở modal danh sách chờ xác nhận với huy hiệu màu đỏ hiển thị số lượng -->
-    <div class="text-center mb-4">
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#pendingConfirmationModal">
-            Danh sách chờ xác nhận <span class="badge badge-danger" id="pendingCount">0</span>
-        </button>
-    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Mã Lịch Khám</th>
+            <th>Ngày Khám</th>
+            <th>Giờ Khám</th>
+            <th>Ngày Tạo Lịch</th>
+            <th>Trạng Thái</th>
+            <th>Mã Bác Sĩ</th>
+            <th>Mã Lịch Hẹn</th>
+            <th>Mã Bệnh Nhân</th>
+            <th>Hành Động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php while ($row = $result->fetch_assoc()) { ?>
+            <tr>
+                <td><?= $row['maLichKham'] ?></td>
+                <td><?= $row['ngayKham'] ?></td>
+                <td><?= $row['gioKham'] ?></td>
+                <td><?= $row['ngayTaoLich'] ?></td>
+                <td><?= $row['trangThai'] ?></td>
+                <td><?= $row['maBacSi'] ?></td>
+                <td><?= $row['maLichHen'] ?></td>
+                <td><?= $row['maBenhNhan'] ?></td>
+                <td>
+                    <button class="btn btn-warning btn-sm edit-btn" data-id="<?= $row['maLichKham'] ?>" data-toggle="modal" data-target="#editAppointmentModal">Sửa</button>
+                    <a href="?action=delete&id=<?= $row['maLichKham'] ?>" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
 
-    <!-- Bảng danh sách đã xác nhận -->
-    <h5 class="mb-3">Danh sách đã xác nhận</h5>
-    <div class="table-responsive">
-        <table class="table table-bordered" id="confirmedTable">
-            <thead>
-                <tr>
-                    <th>Bệnh nhân</th>
-                    <th>Ngày khám</th>
-                    <th>Giờ khám</th>
-                    <th>Bác sĩ</th>
-                    <th>Ghi chú</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Các lịch khám đã xác nhận sẽ hiển thị ở đây -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Bảng danh sách đang tiến hành -->
-    <h5 class="mb-3">Danh sách đang tiến hành</h5>
-    <div class="table-responsive">
-        <table class="table table-bordered" id="inProgressTable">
-            <thead>
-                <tr>
-                    <th>Bệnh nhân</th>
-                    <th>Ngày khám</th>
-                    <th>Giờ khám</th>
-                    <th>Bác sĩ</th>
-                    <th>Ghi chú</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Rows dynamically populated -->
-                <?php if (!empty($dsDaXacNhan)): ?>
-                    <?php foreach ($dsDaXacNhan as $lichkham): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($lichkham['maLichKham']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['ngayKham']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['gioKham']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['tenBacSi']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['ghiChu']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['trangthai']) ?></td>
-                            <td>
-                                <a href="chinh_sua_lich_kham.php?id=<?= $lichkham['maLichKham'] ?>" class="btn btn-primary btn-sm edit-btn" data-id="<?= htmlspecialchars($lichkham['id']) ?>">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a href="#" class="btn btn-danger btn-sm delete-btn" data-id="<?= htmlspecialchars($lichkham['id']) ?>">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="7" class="text-center">Không có dữ liệu</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-
-    </div>
-
-    <!-- Bảng danh sách đã hoàn thành -->
-    <h5 class="mb-3">Danh sách đã hoàn thành</h5>
-    <div class="table-responsive">
-        <table class="table table-bordered" id="completedTable">
-            <thead>
-                <tr>
-                    <th>Bệnh nhân</th>
-                    <th>Ngày khám</th>
-                    <th>Giờ khám</th>
-                    <th>Bác sĩ</th>
-                    <th>Ghi chú</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($dsDaDangTienHanh)): ?>
-                    <?php foreach ($dsDaDangTienHanh as $lichkham): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($lichkham['maLichKham']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['ngayKham']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['gioKham']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['tenBacSi']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['ghiChu']) ?></td>
-                            <td><?= htmlspecialchars($lichkham['trangthai']) ?></td>
-                            <td>
-                                <a href="chinh_sua_lich_kham.php?id=<?= $lichkham['maLichKham'] ?>" class="btn btn-primary btn-sm edit-btn" data-id="<?= htmlspecialchars($lichkham['id']) ?>">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a href="./delete-schedule?id=<?= $lichkham['maLichKham'] ?>" data-id="<?= htmlspecialchars($lichkham['id']) ?>">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="7" class="text-center">Không có dữ liệu</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+<!-- Modal Thêm Lịch Khám -->
+<div class="modal" id="addAppointmentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Lịch Khám</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="add">
+                    <div class="form-group">
+                        <label for="maLichKham">Mã Lịch Khám</label>
+                        <input type="number" class="form-control" name="maLichKham" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ngayKham">Ngày Khám</label>
+                        <input type="date" class="form-control" name="ngayKham" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gioKham">Giờ Khám</label>
+                        <input type="time" class="form-control" name="gioKham" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ngayTaoLich">Ngày Tạo Lịch</label>
+                        <input type="date" class="form-control" name="ngayTaoLich" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trangThai">Trạng Thái</label>
+                        <input type="text" class="form-control" name="trangThai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maBacSi">Mã Bác Sĩ</label>
+                        <input type="number" class="form-control" name="maBacSi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maLichHen">Mã Lịch Hẹn</label>
+                        <input type="number" class="form-control" name="maLichHen" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="maBenhNhan">Mã Bệnh Nhân</label>
+                        <input type="number" class="form-control" name="maBenhNhan" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<!-- Modal Danh sách chờ xác nhận -->
-<div class="modal fade" id="pendingConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="pendingConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<!-- Modal Sửa Lịch Khám -->
+<div class="modal" id="editAppointmentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="pendingConfirmationModalLabel">Danh Sách Chờ Xác Nhận</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Bảng danh sách chờ xác nhận -->
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="pendingTable">
-                        <thead>
-                            <tr>
-                                <th>Bệnh nhân</th>
-                                <th>Ngày khám</th>
-                                <th>Giờ khám</th>
-                                <th>Bác sĩ</th>
-                                <th>Ghi chú</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($dsDaHoanThanh)): ?>
-                                <?php foreach ($dsDaHoanThanh as $lichkham): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($lichkham['maLichKham']) ?></td>
-                                        <td><?= htmlspecialchars($lichkham['ngayKham']) ?></td>
-                                        <td><?= htmlspecialchars($lichkham['gioKham']) ?></td>
-                                        <td><?= htmlspecialchars($lichkham['tenBacSi']) ?></td>
-                                        <td><?= htmlspecialchars($lichkham['ghiChu']) ?></td>
-                                        <td><?= htmlspecialchars($lichkham['trangthai']) ?></td>
-                                        <td>
-                                            <a href="chinh_sua_lich_kham.php?id=<?= $lichkham['maLichKham'] ?>" class="btn btn-primary btn-sm edit-btn" data-id="<?= htmlspecialchars($lichkham['id']) ?>">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-sm delete-btn" data-id="<?= htmlspecialchars($lichkham['id']) ?>">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="7" class="text-center">Không có dữ liệu</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+            <form method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sửa Lịch Khám</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="maLichKham" id="edit_maLichKham">
+                    <div class="form-group">
+                        <label for="ngayKham">Ngày Khám</label>
+                        <input type="date" class="form-control" name="ngayKham" id="edit_ngayKham">
+                    </div>
+                    <div class="form-group">
+                        <label for="gioKham">Giờ Khám</label>
+                        <input type="time" class="form-control" name="gioKham" id="edit_gioKham">
+                    </div>
+                    <div class="form-group">
+                        <label for="ngayTaoLich">Ngày Tạo Lịch</label>
+                        <input type="date" class="form-control" name="ngayTaoLich" id="edit_ngayTaoLich">
+                    </div>
+                    <div class="form-group">
+                        <label for="trangThai">Trạng Thái</label>
+                        <input type="text" class="form-control" name="trangThai" id="edit_trangThai">
+                    </div>
+                    <div class="form-group">
+                        <label for="maBacSi">Mã Bác Sĩ</label>
+                        <input type="number" class="form-control" name="maBacSi" id="edit_maBacSi">
+                    </div>
+                    <div class="form-group">
+                        <label for="maLichHen">Mã Lịch Hẹn</label>
+                        <input type="number" class="form-control" name="maLichHen" id="edit_maLichHen">
+                    </div>
+                    <div class="form-group">
+                        <label for="maBenhNhan">Mã Bệnh Nhân</label>
+                        <input type="number" class="form-control" name="maBenhNhan" id="edit_maBenhNhan">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
-    function updatePendingCount() {
-        const pendingTable = document.getElementById("pendingTable");
-        const pendingCount = pendingTable.querySelectorAll("tbody tr").length;
-        document.getElementById("pendingCount").textContent = pendingCount;
-    }
+$(document).ready(function () {
+    $('.edit-btn').click(function () {
+        const id = $(this).data('id');
+        const row = $(this).closest('tr');
 
-    document.addEventListener("DOMContentLoaded", function() {
-        updatePendingCount();
+        $('#edit_maLichKham').val(id);
+        $('#edit_ngayKham').val(row.find('td:eq(1)').text());
+        $('#edit_gioKham').val(row.find('td:eq(2)').text());
+        $('#edit_ngayTaoLich').val(row.find('td:eq(3)').text());
+        $('#edit_trangThai').val(row.find('td:eq(4)').text());
+        $('#edit_maBacSi').val(row.find('td:eq(5)').text());
+        $('#edit_maLichHen').val(row.find('td:eq(6)').text());
+        $('#edit_maBenhNhan').val(row.find('td:eq(7)').text());
     });
-
-    function confirmAppointment(button) {
-        const row = button.closest("tr");
-        const confirmedTable = document.getElementById("confirmedTable").querySelector("tbody");
-        const newRow = row.cloneNode(true);
-
-        // Thêm trạng thái "Đã xác nhận", nút "Bắt đầu", và nút "Chỉnh sửa"
-        newRow.cells[5].innerHTML = '<span class="badge badge-success">Đã xác nhận</span>';
-        newRow.insertCell(6).innerHTML = `
-        <button type="button" class="btn btn-primary btn-sm" onclick="startAppointment(this)">Bắt đầu</button>
-        <a href="chinh_sua_lich_kham.php" class="btn btn-warning btn-sm" onclick="editAppointment(this)">Chỉnh sửa</a>
-    `;
-        confirmedTable.appendChild(newRow);
-        row.remove();
-
-        updatePendingCount();
-        if (document.getElementById("pendingCount").textContent === "0") {
-            $('#pendingConfirmationModal').modal('hide');
-        }
-    }
-
-    function startAppointment(button) {
-        const row = button.closest("tr");
-        const inProgressTable = document.getElementById("inProgressTable").querySelector("tbody");
-        const newRow = row.cloneNode(true);
-
-        // Cập nhật trạng thái "Đang tiến hành", thêm nút "Hoàn thành" và nút "Chỉnh sửa"
-        newRow.cells[5].innerHTML = '<span class="badge badge-info">Đang tiến hành</span>';
-        newRow.cells[6].innerHTML = `
-        <button type="button" class="btn btn-success btn-sm" onclick="completeAppointment(this)">Hoàn thành</button>
-        <a href="chinh_sua_lich_kham.php" class="btn btn-warning btn-sm" onclick="editAppointment(this)">Chỉnh sửa</a>
-    `;
-        inProgressTable.appendChild(newRow);
-        row.remove();
-    }
-
-    function startAppointment(button) {
-        const row = button.closest("tr");
-        const inProgressTable = document.getElementById("inProgressTable").querySelector("tbody");
-        const newRow = row.cloneNode(true);
-
-        // Cập nhật trạng thái "Đang tiến hành" và nút "Hoàn thành"
-        newRow.cells[5].innerHTML = '<span class="badge badge-info">Đang tiến hành</span>';
-        newRow.cells[6].innerHTML = '<button type="button" class="btn btn-success btn-sm" onclick="completeAppointment(this)">Hoàn thành</button>';
-        inProgressTable.appendChild(newRow);
-        row.remove();
-    }
-
-    function completeAppointment(button) {
-        const row = button.closest("tr");
-        const completedTable = document.getElementById("completedTable").querySelector("tbody");
-        const newRow = row.cloneNode(true);
-
-        // Cập nhật trạng thái thành "Hoàn thành" và xóa cột hành động
-        newRow.cells[5].innerHTML = '<span class="badge badge-primary">Hoàn thành</span>';
-        newRow.deleteCell(6);
-        completedTable.appendChild(newRow);
-        row.remove();
-    }
+});
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 <?php include 'footer.php'; ?>

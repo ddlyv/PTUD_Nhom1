@@ -25,6 +25,12 @@
                     <p>Xem lịch hẹn khám</p>
                 </a>
             </div>
+            <div class="grid-item">
+                <a href="../HaiPhong/benhNhanXemDonThuoc.php">
+                    <i class="fa-solid fa-user-nurse" style="color: #007BFF;"></i>
+                    <p>Xem đơn thuốc</p>
+                </a>
+            </div>
             
         </div>
     </div>
