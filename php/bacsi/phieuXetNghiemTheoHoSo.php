@@ -48,7 +48,7 @@ include 'phanQuyen.php';
                 }
                 else 
                 {
-                    $p->xemPhieuXetNghiem("SELECT pxn.maPhieu, concat(bn.hoTenDem, ' ', bn.ten) as  hoTenBenhNhan, lxn.tenLoai as tenLoaiXetNghiem, pxn.ketQuaXetNghiem,
+                    $p->xemPhieuXetNghiemTheoHoSo("SELECT pxn.maPhieu, concat(bn.hoTenDem, ' ', bn.ten) as  hoTenBenhNhan, lxn.tenLoai as tenLoaiXetNghiem, pxn.ketQuaXetNghiem,
                                     pxn.ngayXetNghiem,pxn.gioXetNghiem,pxn.ngayTaoPhieu
                                     FROM loaixetnghiem lxn
                                         JOIN phieuxetnghiem pxn on lxn.maLoai= pxn.maLoai
@@ -56,7 +56,7 @@ include 'phanQuyen.php';
                                         JOIN benhnhan bn on hsbn.maBenhNhan=bn.maBenhNhan
                                     ORDER BY pxn.ngayTaoPhieu DESC limit $inf_per_page offset $offset",$inf_per_page,$current_page);
                     echo "<div class='pagination'>";
-                        include 'pagination.php';
+                        include '../MinhCong/pagination.php';
                     echo"</div>";
                 }
             ?>
@@ -75,6 +75,14 @@ include 'phanQuyen.php';
                         else{
                             echo'<script>alert("Xóa không thành công.")</script>';
                         }
+                    }
+
+                    if($_REQUEST['nut']=='Quay lại')
+                    {
+                       
+                            echo'<script>
+                                window.location="HoSoBenhAn.php";
+                            </script>';        
                     }
                 ?>
             </div>

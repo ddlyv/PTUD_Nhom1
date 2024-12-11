@@ -71,6 +71,75 @@
             }
         }
 
+        public function  xemPhieuXetNghiemTheoHoSo($sql,$inf_per_page,$current_page)
+        {
+            $link=$this->connectdb();
+            $ketqua=mysqli_query($link,$sql);
+            if(mysqli_num_rows($ketqua)>0)
+            {
+                echo'<table class="table table-hover" style="max-width: 1300px;">
+                        <thead>
+                            <tr>
+                                <th align="center" valign="middle">STT</th>
+                                <th align="center" valign="middle">Mã phiếu</th>
+                                <th align="center" valign="middle">Tên bệnh nhân</th>
+                                <th align="center" valign="middle">Tên loại xét nghiệm</th>
+                                <th align="center" valign="middle">Kết quả xét nghiệm</th>
+                                <th align="center" valign="middle">Ngày xét nghiệm</th>
+                                <th align="center" valign="middle">Giờ xét nghiệm</th>
+                                <th align="center" valign="middle" style="width: 100px;">Ngày tạo</th>
+                                <th align="center" valign="middle" style="width: 120px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+                $count=1 + ($current_page - 1) * $inf_per_page;
+                while($row=mysqli_fetch_array($ketqua))
+                {
+                    $maPhieu=$row['maPhieu'];
+                    $ketQuaXetNghiem=$row['ketQuaXetNghiem'];
+                    $ngayXetNghiem=$row['ngayXetNghiem'];
+                    $gioXetNghiem=$row['gioXetNghiem'];
+                    $ngayTaoPhieu=$row['ngayTaoPhieu'];
+                    $trangThai=$row['trangThai'];
+                    $maLoai=$row['maLoai'];
+                    $maHoSo=$row['maHoSo'];
+                    // Chuyển đổi chuỗi thành đối tượng DateTime
+                    $date = DateTime::createFromFormat('Y-m-d', $ngayXetNghiem);
+                    // Định dạng lại thành DD/MM/YYYY
+                    $date_ngayXetNghiem = $date->format('d/m/Y');
+
+                    // Chuyển đổi chuỗi thành đối tượng DateTime
+                    $date_tao = DateTime::createFromFormat('Y-m-d', $ngayTaoPhieu);
+                    // Định dạng lại thành DD/MM/YYYY
+                    $date_ngayTaoPhieu = $date_tao->format('d/m/Y');
+                    $trangThai=$row['trangThai'];
+                    echo'<tr>
+                            <td align="center" valign="middle" class="pt-3">'.$count.'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$maPhieu.'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$row['hoTenBenhNhan'].'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$row['tenLoaiXetNghiem'].'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$ketQuaXetNghiem.'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$date_ngayXetNghiem.'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$gioXetNghiem.'</td>
+                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>
+                            <td align="center" valign="middle" class="text" align="right"> 
+                                <form action="" method="post">
+                                    <a href="../MinhCong/suaPhieuXetNghiem.php?id_sua='.$maPhieu.'"><input type="button" class="btn btn-primary btn-sm" value="Sửa""></a>
+                                    <input type="hidden" name="idxoa_maPhieu" value="'.$maPhieu.'">
+                                    <input id="nut_xoa" type="submit" name="nut" class="btn " value="Xóa">
+                                </form>
+                            </td>
+                        </tr>';
+                    $count++;
+                }
+                echo'</tbody>
+                    </table>';
+            }
+            else {
+                echo "Không có hồ sơ nào.";
+            }
+        }
+
         public function search($sql)
         {
             $link=$this->connectdb();
