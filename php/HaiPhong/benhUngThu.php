@@ -55,31 +55,24 @@
         <!-- Navbar -->
         <nav>
             <div class="navbar">
-                <a href="index.php">Trang chủ</a>
+                <a href="../index.php">Trang chủ</a>
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
-                <div class="dropdown" id="toggle-news">
-                    <a href="#">Tin tức</a>
-                    <ul class="dropdown-menu" id="news-menu">
-                        <li><a href="#">Tạp chí</a></li>
-                        <li><a href="#">Hội nghị - Hội thảo</a></li>
-                        <li><a href="#"> Đào tạo </a></li>
-                    </ul>
-                </div>
-                <a href="#">Liên lạc</a>
+                <a href="tinTucBenhHoc.php">Tin tức</a>
+                <a href="lienLac.php">Liên lạc</a>
 
                 <?php
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="../MinhCong/danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }
@@ -87,7 +80,7 @@
                 
                 <div class="search-booking">
                     <span class="icon">🔍</span>
-                    <button type="button">Đặt lịch</button>
+                    <a href="datLichKham.php"><button type="button">Đặt lịch</button></a>
                 </div>
             </div>
         </nav>

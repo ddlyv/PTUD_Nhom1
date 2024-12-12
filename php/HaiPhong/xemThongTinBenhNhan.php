@@ -1,7 +1,7 @@
 
-<?php include 'phanQuyen.php'; // Tự động kiểm tra quyền ?>
 
-<?php include 'header.php'; ?>
+
+<?php include '../layout/header.php'; ?>
 
 
 
@@ -51,4 +51,4 @@
     
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

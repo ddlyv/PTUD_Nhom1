@@ -1,7 +1,7 @@
-<?php 
+<?php
     error_reporting(0);
-    include ("../myclass/clslogin.php");
-    $p = new login();
+    include '../myclass/clsbenhvien.php';
+    $p=new hospital();
 ?>
 
 <!doctype html>
@@ -9,7 +9,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập </title>
+    <title>Cập Nhật Mật Khẩu</title>
+    
     <style>
         /* Thiết lập cơ bản */
         body {
@@ -100,45 +101,52 @@
             margin-top: 10px;
         }
     </style>
+
 </head>
 <body>
     <div class="form-container">
         <div class="form-header">
-            <!-- Logo mới với màu #D6E4FF -->
             <img src="https://img.icons8.com/ios-filled/100/D6E4FF/hospital-3.png" alt="Logo bệnh viện">
-            <h2> Đăng Nhập </h2>
+            <h2>Cập Nhật Mật Khẩu</h2>
         </div>
-        <form id="form1" name="form1" method="post">
-            <label for="txtten">Số điện thoại:</label>
-            <input name="txtten" type="text" id="txtten" placeholder="Nhập số điện thoại" required>
+        <form method="POST">
+            <label for="maduphong">Nhập mã dự phòng:</label>
+            <input name="txtmaduphong" type="text" id="txtmaduphong" placeholder="Nhập mã dự phòng" required>
+            <label for="txtnewpass">Mật khẩu mới:</label>
+            <input name="txtnewpass" type="password" id="txtnewpass" placeholder="Nhập mật khẩu mới" required>
 
-            <label for="txtpass">Mật khẩu:</label>
-            <input name="txtpass" type="password" id="txtpass" placeholder="Nhập mật khẩu" required>
 
-            <button type="submit" name="chon" id="chon" value="Đăng nhập">Đăng nhập</button>
-        </form>
-        <div class="error-message">
-            <?php
-                if (isset($_REQUEST['chon']) && $_REQUEST['chon'] == 'Đăng nhập') {
-                    $user = $_REQUEST['txtten'];
-                    $pass = $_REQUEST['txtpass'];
-                    if ($user != '' && $pass != '') {
-                        if ($p->mylogin($user, $pass) == 0) {
-                            echo 'Sai tài khoản hoặc mật khẩu!';    
+              <button type="submit" name="nut" id="nut" value="Cập nhật mật khẩu ">Cập nhật mật khẩu </button>
+            <div align="center">
+                <?php
+                    if(isset($_REQUEST['nut'])=="Cập nhật mật khẩu")
+                    {
+                        $maDuPhong=$_REQUEST['txtmaduphong'];
+                        $txtnewpass=$_REQUEST['txtnewpass'];
+                        $maDuPhong_db=$p->laycot("select maDuPhong from taikhoan where maDuPhong='$maDuPhong'");
+                        if(isset($maDuPhong) && $maDuPhong=$maDuPhong_db)
+                        {   
+                            $txtnewpass=md5($txtnewpass);
+                            if($p->themxoasua("UPDATE taikhoan
+                                                    SET password='$txtnewpass'
+                                                    WHERE maDuPhong='$maDuPhong'")==1)
+                            {
+                                echo "<script>alert('Đổi mật khẩu thành công');
+                                                window.location='index.php';
+                                        </script>";
+                            }
+                            
                         }
-                    } else {
-                        echo 'Vui lòng nhập đầy đủ thông tin';    
+                        else{
+                            echo 'mã dự phòng ko tồn tại';
+                        }
                     }
-                }
-            ?>
-        </div>
-        <div class="form-footer">
-            <p> Quên mật khẩu ? <a href="quenmk.php"> Quên mật khâủ </a></p>
-        </div>
+                ?>
+            </div>
+            
+        </form>
+
         
-        <div class="form-footer">
-            <p>Bạn chưa  có tài khoản? <a href="../register/register.php">Đăng Ký</a></p>
-        </div>
     </div>
 </body>
 </html>
