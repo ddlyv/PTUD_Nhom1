@@ -45,5 +45,5 @@
         }
     }
 
-    echo '<script>alert("Thêm đơn thuốc thành công!"); window.location.href="ThemDonThuocThanhCong.php";</script>';
+    echo '<script>alert("Thêm đơn thuốc thành công!"); window.location.href="../ThemDonThuocThanhCong.php";</script>';
 ?>

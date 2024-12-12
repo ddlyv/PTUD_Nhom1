@@ -13,7 +13,6 @@ include 'phanQuyen.php';
     if (!$hoSoId) {
         die("Không tìm thấy hồ sơ bệnh án.");
     }
-
     $donThuoc = new Clsdonthuoc();
 
     $limit = 3; 

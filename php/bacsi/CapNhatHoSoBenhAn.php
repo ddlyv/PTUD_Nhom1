@@ -70,9 +70,11 @@ include 'phanQuyen.php';
             <div class="col-md-6">
                 <label for="status" class="form-label">Trạng thái</label>
                 <select class="form-control" id="status" name="status" required>
-                    <option value="Đang xử lý" <?= $trangThaiHienTai === 'Đang xử lý' ? 'selected' : '' ?>>Đang xử lý</option>
-                    <option value="Hoàn thành" <?= $trangThaiHienTai === 'Hoàn thành' ? 'selected' : '' ?>>Hoàn thành</option>
-                    <option value="Hủy" <?= $trangThaiHienTai === 'Hủy' ? 'selected' : '' ?>>Hủy</option>
+                    <option value="Đang chờ xử lý" <?= $trangThaiHienTai === 'Đang chờ xử lý' ? 'selected' : '' ?>>Đang chờ xử lý</option>
+                    <option value="Hoàn Thành" <?= $trangThaiHienTai === 'Hoàn Thành' ? 'selected' : '' ?>>Hoàn thành</option>
+                    <option value="Đang chờ xét nghiệm" <?= $trangThaiHienTai === 'Đang chờ xét nghiệm' ? 'selected' : '' ?>>Đang chờ xét nghiệm</option>
+                    <option value="Đang khám" <?= $trangThaiHienTai === 'Đang khám' ? 'selected' : '' ?>>Đang khám</option>
+                    <option value="Hủy bỏ" <?= $trangThaiHienTai === 'Hủy bỏ' ? 'selected' : '' ?>>Hủy bỏ</option>
                 </select>
             </div>
         </div>

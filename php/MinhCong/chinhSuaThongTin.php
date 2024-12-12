@@ -1,5 +1,5 @@
 <title>Chỉnh sửa thông tin </title>
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 
 <?php 
     include '../myclass/clsbenhnhan.php'; 
@@ -27,11 +27,11 @@
             <div class="row mb-3">
                 <label for="txthotendem" class="col-md-2 control-label">Họ tên đệm</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" value="<?php echo $hoTenDem ?>" id="txthotendem" name="txthotendem" placeholder="Nhập họ tên đệm ...">
+                    <input type="text" class="form-control" value="<?php echo $hoTenDem ?>" id="txthotendem" name="txthotendem" placeholder="Nhập họ tên đệm ..." required>
                 </div>
                 <label for="txtten" class="col-md-2 control-label">Tên</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="txtten" name="txtten" value="<?php echo $ten ?>" placeholder="Nhập tên ...">
+                    <input type="text" class="form-control" id="txtten" name="txtten" value="<?php echo $ten ?>" placeholder="Nhập tên ..." required>
                 </div>
             </div>
             <div class="row mb-3">
@@ -92,13 +92,14 @@
                             $txtdiachi = $_POST['txtdiachi'];
                             $file_name=$_FILES['file']['name'];
                             $tmp_name=$_FILES['file']['tmp_name'];
+                            $type=$_FILES['file']['type'];
                             $default_name = $_SESSION['id'].".jpg";
                             // Kiểm tra dữ liệu
                             $errors = [];
                             if (new DateTime($ngaysinh) > new DateTime()) {
                                 $errors[] = "Ngày sinh không được lớn hơn ngày hiện tại.";
                             }
-                            if (!preg_match('/^[0-9]+$/', $txtsdt)) {
+                            if (!preg_match('/^0\d{7,9}$/', $txtsdt)) {
                                 $errors[] = "Số điện thoại không được chứa chữ cái.";
                             }
                             if (!preg_match('/@gmail\.com$/', $txtemail)) {
@@ -109,26 +110,35 @@
                                 for ($i = 0; $i < count($errors); $i++) {
                                     echo '<script>alert("' . $errors[$i] . '");</script>';
                                 }
-                            } else {
+                            }else {
                                 // Xử lý lưu dữ liệu vào cơ sở dữ liệu
                                 if(isset($file_name) && $file_name != '') {
-                                    if ($p->uploadfile($file_name,$tmp_name,$default_name, "../../img/anhDaiDien_bn")) {
-                                        if ($p->themxoasua("UPDATE benhnhan 
-                                                SET hoTenDem = '$txthotendem', ten = '$txtten', email = '$txtemail', diaChi = '$txtdiachi', soDienThoai = '$txtsdt', 
-                                                ngaySinh = '$ngaysinh', gioiTinh = '$gioitinh', anhDaiDien = '$default_name'
-                                                WHERE maTaiKhoan = '$id_user'")==1) {
-                                            echo '<script>
-                                                alert("Cập nhật thông tin và ảnh thành công");
-                                                window.location="danhChoBenhNhan.php";
-                                                </script>';
+                                    if($type=='jpg'||$type=='png'||$type=='jpeg')
+                                    {
+                                        if ($p->uploadfile($file_name,$tmp_name,$default_name, "../../img/anhDaiDien_bn")) {
+                                            if ($p->themxoasua("UPDATE benhnhan 
+                                                    SET hoTenDem = '$txthotendem', ten = '$txtten', email = '$txtemail', diaChi = '$txtdiachi', soDienThoai = '$txtsdt', 
+                                                    ngaySinh = '$ngaysinh', gioiTinh = '$gioitinh', anhDaiDien = '$default_name'
+                                                    WHERE maTaiKhoan = '$id_user'")==1) {
+                                                echo '<script>
+                                                    alert("Cập nhật thông tin và ảnh thành công");
+                                                    window.location="danhChoBenhNhan.php";
+                                                    </script>';
+                                            } else {
+                                                echo '<script>alert("Cập nhật thông tin không thành công");</script>';
+                                            }
                                         } else {
-                                            echo '<script>alert("Cập nhật thông tin không thành công");</script>';
+                                            echo '<script>alert("Upload hình không thành công");</script>';
+                                            exit; 
                                         }
-                                    } else {
-                                        echo '<script>alert("Upload hình không thành công");</script>';
-                                        exit; 
                                     }
-                                } else {
+                                    else{
+                                        echo '<script>alert("Chỉ nhận file .jpg, .png, .jpeg");</script>';
+                                    }
+                                    
+                                }
+                                else 
+                                {
                                     if ($p->themxoasua("UPDATE benhnhan 
                                                 SET hoTenDem = '$txthotendem', ten = '$txtten', email = '$txtemail', diaChi = '$txtdiachi', soDienThoai = '$txtsdt', 
                                                 ngaySinh = '$ngaysinh', gioiTinh = '$gioitinh'
@@ -152,37 +162,11 @@
                                 }
                                 break;
                             }
-        
                         }
                     }   
                 ?>
             </div>
-            <script>
-                function rangBuocForm() {
-                    // Lấy giá trị từ các trường
-                    var ngaySinh = new Date(document.getElementById("ngaysinh").value);
-                    var soDienThoai = document.getElementById("txtsdt").value.trim();
-                    var today = new Date();         
-                    // Ràng buộc ngày sinh không được quá ngày hiện tại
-                    if (ngaySinh > today) {
-                        alert("Ngày sinh không được lớn hơn ngày hiện tại.");
-                        return false;
-                    }
-                    // Ràng buộc số điện thoại không được chứa chữ cái
-                    var phone = /^0\d{7,9}$/;
-                    if (!phone.test(soDienThoai)) {
-                        alert("Số điện thoại bắt đầu từ số 0 và phải có từ 8 đến 10 chữ số và không được chứa chữ cái !!!");
-                        return false;
-                    }
-                    if (!email.endsWith("@gmail.com")) {
-                        alert("Email phải có đuôi @gmail.com.");
-                        return false;
-                    }
-                    // Nếu tất cả các ràng buộc đều hợp lệ, cho phép gửi form
-                    return true;
-                }
-            </script>
         </form>
     </div>
     
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

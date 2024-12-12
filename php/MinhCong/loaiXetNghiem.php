@@ -1,5 +1,5 @@
 <title>Loại xét nghiệm</title>
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 <?php 
     include '../myclass/clsquanly.php';
     $p=new quanly();
@@ -72,4 +72,4 @@
 
 
 <script src="../../bootstrap/js/back_or_finish.js"></script>
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

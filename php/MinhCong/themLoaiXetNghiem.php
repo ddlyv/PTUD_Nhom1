@@ -1,5 +1,5 @@
 <title>Thêm loại xét nghiệm</title>
-    <?php include 'header.php'; ?>
+    <?php include '../layout/header.php'; ?>
     <?php
         include '../myclass/clsquanly.php';
         $p=new quanly();
@@ -77,7 +77,8 @@
         </div>
 
     </div> 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
+
 
 
 
