@@ -16,7 +16,7 @@ if (!$hoSoId) {
 
 $hoSo = new clsHoSoBenhAn();
 
-$hoSoData = $hoSo->layDanhSachHoSo(null);
+$hoSoData = $hoSo->layDanhSachHoSoTheoMaHoSo($hoSoId);
 $currentRecord = array_filter($hoSoData, fn($item) => $item['maHoSo'] == $hoSoId);
 
 if (empty($currentRecord)) {
@@ -93,7 +93,7 @@ $dsThuoc = $hoSo->layDanhSachThuoc();
                     </div>
                     <div class="form-group col-md-3">
                         <label for="diagnosis">Ghi chú</label>
-                        <input type="text" class="form-control" name="ghiChu" placeholder="Vui lòng nhập ghi chú" required>
+                        <input type="text" class="form-control" name="ghiChu" placeholder="Vui lòng nhập ghi chú">
                     </div>
                 </div>
         </div>

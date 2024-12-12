@@ -15,8 +15,30 @@ class clsHoSoBenhAn
         }
         mysqli_set_charset($this->con, "utf8");
     }
+    public function layTongSoHoSo($maBacSi ){
+        $link = $this->con;
+        $sql = "
+            SELECT 
+                count(*) as total
+            FROM 
+                hosobenhan
+            INNER JOIN 
+                benhnhan ON hosobenhan.maBenhNhan = benhnhan.maBenhNhan
+            INNER JOIN 
+                bacsi ON hosobenhan.maBacSi = bacsi.maBacSi
+        ";
+        if ($maBacSi) {
+            $sql .= " WHERE HoSoBenhAn.maBacSi = '$maBacSi'";
+        }
+        $result = mysqli_query($link, $sql);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            return $row['total'];
+        }
+        return 0;
+    }
 
-    public function layDanhSachHoSo($maBacSi = null)
+    public function layDanhSachHoSo($maBacSi = null, $limit = 5, $offset = 0)
     {
         $link = $this->con;
         $sql = "
@@ -42,6 +64,44 @@ class clsHoSoBenhAn
         if ($maBacSi) {
             $sql .= " WHERE HoSoBenhAn.maBacSi = '$maBacSi'";
         }
+        $sql .= " ORDER BY hosobenhan.ngayTaoHoSo DESC LIMIT $limit OFFSET $offset";
+        $result = mysqli_query($link, $sql);
+        $data = [];
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }
+    
+    public function layDanhSachHoSoTheoMaHoSo($maHoSo = null, $limit = 5, $offset = 0)
+    {
+        $link = $this->con;
+        $sql = "
+            SELECT 
+                benhnhan.hoTenDem, 
+                benhnhan.ten, 
+                benhnhan.maBenhNhan,
+                YEAR(benhnhan.ngaySinh) AS namSinh, 
+                benhnhan.diaChi, 
+                benhnhan.soDienThoai, 
+                benhnhan.gioiTinh, 
+                hosobenhan.chuanDoan, 
+                hosobenhan.trangThai, 
+                hosobenhan.ngayTaoHoSo,
+                hosobenhan.maHoSo
+            FROM 
+                hosobenhan
+            INNER JOIN 
+                benhnhan ON hosobenhan.maBenhNhan = benhnhan.maBenhNhan
+            INNER JOIN 
+                bacsi ON hosobenhan.maBacSi = bacsi.maBacSi
+        ";
+        if ($maHoSo) {
+            $sql .= " WHERE HoSoBenhAn.maHoSo  = '$maHoSo'";
+        }
+        $sql .= " ORDER BY hosobenhan.ngayTaoHoSo DESC LIMIT $limit OFFSET $offset";
         $result = mysqli_query($link, $sql);
         $data = [];
         if ($result) {

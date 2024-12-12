@@ -80,7 +80,7 @@ class Clslichkham {
             from lichkham    
             INNER JOIN benhnhan ON lichkham.maBenhNhan = benhnhan.maBenhNhan
             INNER JOIN bacsi on lichkham.maBacSi = bacsi.maBacSi
-            WHERE bacsi.maBacSi = '$maBacSi'
+            WHERE bacsi.maBacSi = '$maBacSi' and lichkham.trangThai != 'Hoàn thành'
         ";
         
         $result = mysqli_query($link, $sql);

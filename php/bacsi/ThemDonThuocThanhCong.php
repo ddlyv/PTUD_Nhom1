@@ -90,9 +90,6 @@ include 'phanQuyen.php'; ?>
             </div>
             <h2 class="mb-3 fw-bold text-success">Thêm đơn thuốc thành công</h2>
             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                <button class="btn btn-success btn-lg px-4 gap-3" onclick="window.location.href=''">
-                    <i class="bi bi-eye me-2"></i>Xem chi tiết
-                </button>
                 <button class="btn btn-outline-success btn-lg px-4"
                     onclick="window.location.href='HoSoBenhAn.php'">
                     <i class="bi bi-list-ul me-2"></i>Đến trang danh sách

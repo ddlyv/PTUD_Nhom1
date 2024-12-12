@@ -76,7 +76,7 @@ include 'phanQuyen.php';
         .pagination-container {
             display: flex;
             justify-content: center;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
         }
 </style>
 <div class="container">
