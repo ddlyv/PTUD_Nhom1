@@ -8,7 +8,7 @@
 
     $hoSoId = $_POST['hoSoId'] ?? null;
     $ngayKeDon = $_POST['ngayKeDon'] ?? null;
-    $ghiChu = $_POST['ghiChu'] ?? null;
+    $ghiChu = $_POST['ghiChu']=='' ? null : $_POST['ghiChu'];
     $medicine = $_POST['medicine'] ?? [];
     $usage = $_POST['usage'] ?? [];
     $quantity = $_POST['quantity'] ?? [];
