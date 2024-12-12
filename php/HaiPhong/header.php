@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     error_reporting(0);
 	include ("../myclass/clslogin.php");
 	$c=new login();
@@ -24,16 +26,51 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>
-    .search-booking a:hover{
-            border-bottom: none;
+    
+        /* CSS sửa đổi cho dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
-</style>
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* Đặt menu xuống dưới mục "Tin tức" */
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            width: 200px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block; /* Hiển thị menu khi hover vào "Tin tức" */
+        }
+
+        .dropdown-menu li {
+            list-style-type: none;
+            padding: 8px 12px;
+        }
+
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #ddd;
+        }
+
+
+
+        </style>
 </head>
 <body>
     <div class="containerr">
         <header>
             <div class="header">
-                <div class="logo"><a style="text-decoration: none; color: black;" href="../index.php">MED<span class="highlight">DICAL</a></span>
+                <div class="logo"><a style="text-decoration: none; color: black;" href="index.php">MED<span class="highlight">DICAL</a></span>
                 </div>
                 <div class="contact-info">
                     <div class="info">
@@ -55,8 +92,8 @@
                                 } 
                                 else
                                 {
-                                    echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="../register/" class="user-link">Đăng ký</a>';
+                                    echo '<a href="login/index.php" class="user-link">Đăng nhập</a> / ';
+                                    echo '<a href="#" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -67,37 +104,44 @@
         </header>
         <nav>
             <div class="navbar">
-                <a href="../index.php">Trang chủ</a>
+                <a href="index.php">Trang chủ</a>
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
-                <a href="../HaiPhong/tinTucBenhHoc.php">Tin tức</a>
+
+                <div class="dropdown" id="toggle-news">
+                    <a href="#">Tin tức</a>
+                    <ul class="dropdown-menu" id="news-menu">
+                        <li><a href="tinTucBenhHoc.php">Bệnh Học</a></li>
+                        <li><a href="#">Tạp chí</a></li>
+                        <li><a href="#">Hội nghị - Hội thảo</a></li>
+                        <li><a href="#">Đào tạo</a></li>
+                    </ul>
+                </div>
+                
                 <a href="#">Liên lạc</a>
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="../MinhCong/danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }
                 ?>
-                <div class="search-booking">
-                    <span class="icon">🔍</span>
-                    <a href="../HaiPhong/datLichKham.php"><button type="button">Đặt lịch</button></a>
-                </div>
+           <div class="search-booking">
+             <span class="icon">🔍</span>
+            <a href="datLichKham.php"><button type="button">Đặt lịch</button></a>
             </div>
-        </nav>
+         </nav>
         
         <div class="Picture">
             <img src="../../img/anhbia.jpg" alt="Cover Image" class="cover-image" alt="">
         </div>
-        
-<?php include '../HaiPhong/phanQuyen.php';?>

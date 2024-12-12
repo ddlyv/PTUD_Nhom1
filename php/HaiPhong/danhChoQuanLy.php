@@ -1,4 +1,5 @@
-<title>Dành cho quản lý</title>
+<?php include 'phanQuyen.php'; // Tự động kiểm tra quyền ?>
+
 <?php include 'header.php'; ?>
 
     <link rel="stylesheet" href="../../css/vaitro.css">
