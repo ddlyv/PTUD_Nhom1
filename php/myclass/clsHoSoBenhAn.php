@@ -90,7 +90,9 @@ class clsHoSoBenhAn
                 hosobenhan.chuanDoan, 
                 hosobenhan.trangThai, 
                 hosobenhan.ngayTaoHoSo,
-                hosobenhan.maHoSo
+                hosobenhan.maHoSo,
+                bacsi.hoTenDem as bsHoTenDem,
+                bacsi.ten as bsTen
             FROM 
                 hosobenhan
             INNER JOIN 

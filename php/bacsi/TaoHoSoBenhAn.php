@@ -1,7 +1,7 @@
 <?php
 include '../layout/header.php';  
 include 'phanQuyen.php';
-require_once '../myclass/clsLichKham.php';
+// require_once '../myclass/clsLichKham.php';
 require_once '../myclass/clsHoSoBenhAn.php';
 require_once '../myclass/clslichkham.php';
 

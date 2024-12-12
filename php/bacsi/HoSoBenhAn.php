@@ -19,7 +19,7 @@ $sqlGetMaBacSi = "SELECT maBacSi FROM BacSi WHERE maTaiKhoan = $taikhoanId";
 $maBacSi = $bacsi->laycot($sqlGetMaBacSi);
 
 $hoSo = new clsHoSoBenhAn();
-$limit = 3; 
+$limit = 5; 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $offset = ($page - 1) * $limit;
 $totalPages = ceil($hoSo->layTongSoHoSo($maBacSi) / $limit);

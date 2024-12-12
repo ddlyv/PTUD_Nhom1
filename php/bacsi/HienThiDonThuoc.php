@@ -22,7 +22,8 @@ $sql = "
         DonThuoc.ngayKeDon,
         CONCAT(BacSi.hoTenDem, ' ', BacSi.ten) AS tenBacSi,
         CONCAT(BenhNhan.hoTenDem, ' ', BenhNhan.ten) AS tenBenhNhan,
-        HoSoBenhAn.chuanDoan AS chuanDoan
+        HoSoBenhAn.chuanDoan AS chuanDoan,
+        DonThuoc.ghichu
     FROM DonThuoc
     INNER JOIN HoSoBenhAn ON DonThuoc.maHoSo = HoSoBenhAn.maHoSo
     INNER JOIN BacSi ON HoSoBenhAn.maBacSi = BacSi.maBacSi
@@ -116,6 +117,16 @@ $medications = $donThuoc->laydulieu($sqlChiTiet);
                     <label for="diagnosis">Chẩn đoán</label>
                     <input type="text" class="form-control" id="diagnosis" name="diagnosis" 
                            value="<?= htmlspecialchars($details['chuanDoan']) ?>" disabled>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                
+            <div class="form-group col-md-12">
+                    <label for="diagnosis">Ghi chú</label>
+                    <input type="text" class="form-control" id="note" name="note" 
+                           value="<?= htmlspecialchars($details['ghichu']) ?>" disabled>
                 </div>
             </div>
             
