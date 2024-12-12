@@ -17,7 +17,7 @@
     $limit = 5;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $offset = ($page - 1) * $limit;
-    $pageCount = ceil($lichTaiKham->layTongSoLichTaiKham($maBacSi) / $limit);
+    $totalPages = ceil($lichTaiKham->layTongSoLichTaiKham($maBacSi) / $limit);
     $dsLichTaiKham = $lichTaiKham->layDanhSachLichTaiKham($maBacSi, $offset, $limit);
 
 ?>
@@ -82,7 +82,7 @@
         .pagination-container {
             display: flex;
             justify-content: center;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
         }
     </style>
 
@@ -132,6 +132,31 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation" class="pagination-container">
+        <ul class="pagination justify-content-center">
+            <?php if ($page > 1): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?hoSoId=<?= htmlspecialchars($hoSoId) ?>&page=<?= $page - 1 ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                    <a class="page-link" href="?hoSoId=<?= htmlspecialchars($hoSoId) ?>&page=<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+
+            <?php if ($page < $totalPages): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?hoSoId=<?= htmlspecialchars($hoSoId) ?>&page=<?= $page + 1 ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
     </div>
 
     <script src="../../bootstrap/js/bootstrap.bundle.min.js"></script>
