@@ -297,7 +297,7 @@
                         <p>Khám sức khỏe định kỳ</p>
                     </div>
                     <div class="service">
-                        <img src="../img/kskthn.php" alt="Khám sức khỏe tiền hôn nhân" />
+                        <img src="../img/kskthn.jpg" alt="Khám sức khỏe tiền hôn nhân" />
                         <p>Khám sức khỏe tiền hôn nhân</p>
                     </div>
                     <div class="service">

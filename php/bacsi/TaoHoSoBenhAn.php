@@ -83,9 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="input-group">
                     <select class="form-control" id="status" name="status" required>
                         <option value="">Chọn trạng thái</option>
-                        <option value="Đang xử lý">Đang xử lý</option>
-                        <option value="Hoàn thành">Hoàn thành</option>
-                        <option value="Hủy">Hủy</option>
+                        <option value="Đang chờ xử lý" <?= $trangThaiHienTai === 'Đang chờ xử lý' ? 'selected' : '' ?>>Đang chờ xử lý</option>
+                        <option value="Hoàn Thành" <?= $trangThaiHienTai === 'Hoàn Thành' ? 'selected' : '' ?>>Hoàn thành</option>
+                        <option value="Đang chờ xét nghiệm" <?= $trangThaiHienTai === 'Đang chờ xét nghiệm' ? 'selected' : '' ?>>Đang chờ xét nghiệm</option>
+                        <option value="Đang khám" <?= $trangThaiHienTai === 'Đang khám' ? 'selected' : '' ?>>Đang khám</option>
+                        <option value="Hủy bỏ" <?= $trangThaiHienTai === 'Hủy bỏ' ? 'selected' : '' ?>>Hủy bỏ</option>
                     </select>
                 </div>
             </div>  
