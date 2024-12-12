@@ -27,11 +27,11 @@
             <div class="row mb-3">
                 <label for="txthotendem" class="col-md-2 control-label">Họ tên đệm</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" value="<?php echo $hoTenDem ?>" id="txthotendem" name="txthotendem" placeholder="Nhập họ tên đệm ...">
+                    <input type="text" class="form-control" value="<?php echo $hoTenDem ?>" id="txthotendem" name="txthotendem" placeholder="Nhập họ tên đệm ..." required>
                 </div>
                 <label for="txtten" class="col-md-2 control-label">Tên</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="txtten" name="txtten" value="<?php echo $ten ?>" placeholder="Nhập tên ...">
+                    <input type="text" class="form-control" id="txtten" name="txtten" value="<?php echo $ten ?>" placeholder="Nhập tên ..." required>
                 </div>
             </div>
             <div class="row mb-3">
