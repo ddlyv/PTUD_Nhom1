@@ -72,13 +72,13 @@
         // Kiểm tra vai trò và điều hướng đến trang phù hợp
         switch (userRole) {
             case 'Bệnh nhân':
-                window.location.href = "danhChoBenhNhan.php";
+                window.location.href = "../MinhCong/danhChoBenhNhan.php";
                 break;
             case 'Bác sĩ':
-                window.location.href = "danhChoBacSi.php";
+                window.location.href = "../MinhCong/danhChoBacSi.php";
                 break;
             case 'Quản lý':
-                window.location.href = "danhChoQuanLy.php";
+                window.location.href = "../MinhCong/danhChoQuanLy.php";
                 break;
             default:
                 alert("Vai trò không hợp lệ!");

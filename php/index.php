@@ -141,9 +141,45 @@
             font-size: 14px;
             color: #666;
         }
-        .search-booking a:hover{
-            border-bottom: none;
+
+
+
+        /* CSS sửa đổi cho dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* Đặt menu xuống dưới mục "Tin tức" */
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            width: 200px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block; /* Hiển thị menu khi hover vào "Tin tức" */
+        }
+
+        .dropdown-menu li {
+            list-style-type: none;
+            padding: 8px 12px;
+        }
+
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #ddd;
+        }
+
+
 
         </style>
     </head>
@@ -189,7 +225,18 @@
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
-                <a href="HaiPhong/tinTucBenhHoc.php">Tin tức</a>
+
+                  
+                <div class="dropdown" id="toggle-news">
+                    <a href="#">Tin tức</a>
+                    <ul class="dropdown-menu" id="news-menu">
+                        <li><a href="HaiPhong/tinTucBenhHoc.php">Bệnh Học</a></li>
+                        <li><a href="#">Tạp chí</a></li>
+                        <li><a href="#">Hội nghị - Hội thảo</a></li>
+                        <li><a href="#">Đào tạo</a></li>
+                    </ul>
+                </div>
+
                 <a href="#">Liên lạc</a>
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
@@ -208,10 +255,10 @@
                     }
                 ?>
                 <div class="search-booking">
-                    <span class="icon">🔍</span>
-                    <a href="HaiPhong/datLichKham.php"><button type="button">Đặt lịch</button></a>
-                    </div>
-                </div>
+             <span class="icon">🔍</span>
+            <a href="HaiPhong/datLichKham.php"><button type="button">Đặt lịch</button></a>
+            </div>
+            </div>
         </nav>
         
         <div class="Picture">
@@ -245,7 +292,7 @@
                         <p>Khám sức khỏe định kỳ</p>
                     </div>
                     <div class="service">
-                        <img src="../img/kskthn.jpg" alt="Khám sức khỏe tiền hôn nhân" />
+                        <img src="../img/kskthn.php" alt="Khám sức khỏe tiền hôn nhân" />
                         <p>Khám sức khỏe tiền hôn nhân</p>
                     </div>
                     <div class="service">
