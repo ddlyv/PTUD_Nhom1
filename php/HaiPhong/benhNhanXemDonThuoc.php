@@ -35,4 +35,6 @@
     </div>
 </div>
 
-<?php include '../MinhCong/footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
+
+

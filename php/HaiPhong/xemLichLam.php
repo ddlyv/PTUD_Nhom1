@@ -257,4 +257,5 @@ function filterLichLam(filter) {
 </script>
 
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
+

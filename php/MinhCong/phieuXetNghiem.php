@@ -1,5 +1,5 @@
 <title>Phiếu xét nghiệm</title>
-    <?php include 'header.php'; ?>
+    <?php include '../layout/header.php'; ?>
     <?php
         include '../myclass/clsbacsi_mc.php';
         $p=new bacsi();
@@ -80,4 +80,5 @@
                 <input type="submit" name="nut" id="finishButton" value="Xong">
         </div>    
     </div>
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
+

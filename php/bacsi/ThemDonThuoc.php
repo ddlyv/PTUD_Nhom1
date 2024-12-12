@@ -78,7 +78,7 @@ $dsThuoc = $hoSo->layDanhSachThuoc();
                     <div class="form-group col-md-6">
                         <label for="doctor">Bác sĩ</label>
                         <input type="text" class="form-control" id="doctor" 
-                            value="<?= htmlspecialchars($_SESSION['ten']) ?>" readonly>
+                            value="<?= htmlspecialchars($currentRecord['bsHoTenDem'] . ' ' . $currentRecord['bsTen']) ?>" readonly>
                     </div>
                 </div>
                 <div class="form-row">

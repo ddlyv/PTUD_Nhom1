@@ -97,4 +97,4 @@
                 <input type="submit" name="nut" id="finishButton" value="Xong">
         </div>
     </div>
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

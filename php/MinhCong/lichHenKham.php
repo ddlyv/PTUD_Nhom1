@@ -1,5 +1,5 @@
 <title>Lịch hẹn khám</title>
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 <?php 
     include '../myclass/clsbenhnhan.php';
     $p=new benhnhan(); 
@@ -67,4 +67,4 @@
                 <input type="submit" name="nut" id="finishButton" value="Xong">
         </div>
     </div>
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

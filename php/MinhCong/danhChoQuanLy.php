@@ -1,5 +1,5 @@
 <title>Dành cho quản lý</title>
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 
     <link rel="stylesheet" href="../../css/vaitro.css">
     <div class="section1">
@@ -42,4 +42,4 @@
     </div>
 
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
