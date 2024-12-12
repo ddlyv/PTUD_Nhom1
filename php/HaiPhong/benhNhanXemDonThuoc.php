@@ -35,4 +35,5 @@
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
+

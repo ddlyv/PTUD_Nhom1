@@ -255,4 +255,4 @@ $dslichhen = $lichhen->getLichHen();
 </script>
 
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

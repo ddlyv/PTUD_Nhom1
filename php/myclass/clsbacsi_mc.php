@@ -52,15 +52,17 @@
                             <td align="center" valign="middle" class="pt-3">'.$ketQuaXetNghiem.'</td>
                             <td align="center" valign="middle" class="pt-3">'.$date_ngayXetNghiem.'</td>
                             <td align="center" valign="middle" class="pt-3">'.$gioXetNghiem.'</td>
-                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>
-                            <td align="center" valign="middle" class="text" align="right"> 
+                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>'
+                            ;
+                            if($ketQuaXetNghiem===''){
+                                echo '<td align="center" valign="middle" class="text" align="right"> 
                                 <form action="" method="post">
-                                    <a href="suaPhieuXetNghiem.php?id_sua='.$maPhieu.'"><input type="button" class="btn btn-primary btn-sm" value="Sửa""></a>
+                                    <a href="../MinhCong/suaPhieuXetNghiem.php?id_sua='.$maPhieu.'"><input type="button" class="btn btn-primary btn-sm" value="Sửa""></a>
                                     <input type="hidden" name="idxoa_maPhieu" value="'.$maPhieu.'">
-                                    <input id="nut_xoa" type="submit" name="nut" class="btn " value="Xóa">
                                 </form>
-                            </td>
-                        </tr>';
+                            </td>';
+                            }
+                    echo'</tr>';
                     $count++;
                 }
                 echo'</tbody>
@@ -121,15 +123,17 @@
                             <td align="center" valign="middle" class="pt-3">'.$ketQuaXetNghiem.'</td>
                             <td align="center" valign="middle" class="pt-3">'.$date_ngayXetNghiem.'</td>
                             <td align="center" valign="middle" class="pt-3">'.$gioXetNghiem.'</td>
-                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>
-                            <td align="center" valign="middle" class="text" align="right"> 
+                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>'
+                            ;
+                            if($ketQuaXetNghiem===''){
+                                echo '<td align="center" valign="middle" class="text" align="right"> 
                                 <form action="" method="post">
                                     <a href="../MinhCong/suaPhieuXetNghiem.php?id_sua='.$maPhieu.'"><input type="button" class="btn btn-primary btn-sm" value="Sửa""></a>
                                     <input type="hidden" name="idxoa_maPhieu" value="'.$maPhieu.'">
-                                    <input id="nut_xoa" type="submit" name="nut" class="btn " value="Xóa">
                                 </form>
-                            </td>
-                        </tr>';
+                            </td>';
+                            }
+                    echo'</tr>';
                     $count++;
                 }
                 echo'</tbody>
@@ -190,15 +194,17 @@
                             <td align="center" valign="middle" class="pt-3">'.$ketQuaXetNghiem.'</td>
                             <td align="center" valign="middle" class="pt-3">'.$date_ngayXetNghiem.'</td>
                             <td align="center" valign="middle" class="pt-3">'.$gioXetNghiem.'</td>
-                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>
-                            <td align="center" valign="middle" class="text" align="right">
+                            <td align="center" valign="middle" class="pt-3">'.$date_ngayTaoPhieu.'</td>'
+                            ;
+                            if($ketQuaXetNghiem===''){
+                                echo '<td align="center" valign="middle" class="text" align="right"> 
                                 <form action="" method="post">
-                                    <a href="suaPhieuXetNghiem.php?id_sua='.$maPhieu.'"><input type="button" class="btn btn-primary btn-sm" value="Sửa""></a>
+                                    <a href="../MinhCong/suaPhieuXetNghiem.php?id_sua='.$maPhieu.'"><input type="button" class="btn btn-primary btn-sm" value="Sửa""></a>
                                     <input type="hidden" name="idxoa_maPhieu" value="'.$maPhieu.'">
-                                    <input id="nut_xoa" type="submit" name="nut" class="btn " value="Xóa">
                                 </form>
-                            </td>
-                        </tr>';
+                            </td>';
+                            }
+                    echo'</tr>';
                     $count++;
                 }
                 echo'</tbody>

@@ -54,6 +54,7 @@ include 'phanQuyen.php';
                                         JOIN phieuxetnghiem pxn on lxn.maLoai= pxn.maLoai
                                         JOIN hosobenhan hsbn on pxn.maHoSo = hsbn.maHoSo
                                         JOIN benhnhan bn on hsbn.maBenhNhan=bn.maBenhNhan
+                                    where pxn.maHoSo=$hoSoId
                                     ORDER BY pxn.ngayTaoPhieu DESC limit $inf_per_page offset $offset",$inf_per_page,$current_page);
                     echo "<div class='pagination'>";
                         include '../MinhCong/pagination.php';
@@ -79,11 +80,11 @@ include 'phanQuyen.php';
 
                     if($_REQUEST['nut']=='Quay lại')
                     {
-                       
-                            echo'<script>
+                                echo'<script>
                                 window.location="HoSoBenhAn.php";
                             </script>';        
                     }
+
                 ?>
             </div>
         </form>
@@ -92,4 +93,4 @@ include 'phanQuyen.php';
                 <input type="submit" name="nut" id="finishButton" value="Xong">
         </div>    
     </div>
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

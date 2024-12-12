@@ -1,5 +1,5 @@
 <title>Thêm phiếu xét nghiệm</title>
-    <?php include 'header.php'; ?>
+    <?php include '../layout/header.php'; ?>
     <?php
         include '../myclass/clsbacsi_mc.php';
         $p=new bacsi();
@@ -217,7 +217,8 @@
         </div>
 
     </div> 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
+
 
 
 

@@ -1,6 +1,6 @@
 <?php include 'phanQuyen.php'; // Tự động kiểm tra quyền ?>
 
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 
     <link rel="stylesheet" href="../../css/vaitro.css">
     <div class="section1">
@@ -21,4 +21,4 @@
     </div>
 
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

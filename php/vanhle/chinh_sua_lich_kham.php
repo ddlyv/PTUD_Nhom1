@@ -73,4 +73,4 @@ if (empty($data)) {
     </form>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

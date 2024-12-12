@@ -1,5 +1,5 @@
 <title>Chỉnh sửa thông tin </title>
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 
 <?php 
     include '../myclass/clsbenhnhan.php'; 
@@ -185,4 +185,4 @@
         </form>
     </div>
     
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>

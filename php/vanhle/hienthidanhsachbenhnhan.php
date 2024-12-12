@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include '../layout/header.php'; ?>
 <?php
 include 'db_connection.php';
 
@@ -87,4 +87,4 @@ $result = $conn->query($sql);
 </html>
 
 <?php $conn->close(); ?>
-<?php include 'footer.php'; ?>
+<?php include '../layout/footer.php'; ?>
