@@ -1,4 +1,4 @@
-<?php include 'header.php';
+<?php include '../layout/header.php';
 ?>
 <?php
 // thiết lập mã hóa
@@ -243,5 +243,5 @@ $(document).ready(function () {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<?php include 'footer.php';
+<?php include '../layout/footer.php';
 ?>

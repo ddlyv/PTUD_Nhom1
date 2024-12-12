@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <?php require_once 'header.php' ?>
+    <?php require_once '../layout/header.php' ?>
     <?php
     require_once '../myclass/clsbacsi_va.php';
     $benhnhan = new Clsbacsi();
@@ -87,6 +87,6 @@
     </div>
 </body>
 
-<?php require_once 'footer.php' ?>
+<?php require_once '../layout/footer.php' ?>
 
 </html>

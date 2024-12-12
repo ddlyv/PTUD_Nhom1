@@ -72,7 +72,7 @@
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
                 <a href="../HaiPhong/tinTucBenhHoc.php">Tin tức</a>
-                <a href="#">Liên lạc</a>
+                <a href="../HaiPhong/lienLac.php">Liên lạc</a>
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
                     if (isset($_SESSION['vaiTro'])) {

@@ -84,7 +84,7 @@ $bv=new hospital();
                     {
                         echo"<script>
                             alert('Cập nhập thành công!');
-                            window.location='danhChoBenhNhan.php';
+                            window.location='../layout/danhChoBenhNhan.php';
                         </script>";
                     }
                     else{

@@ -92,14 +92,14 @@ class Clsbacsi {
     
         if (!empty($search)) {
             $stmt->bindValue(':search', "%$search%", PDO::PARAM_STR);
-        }
+}
     
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
 
-    public function updateBacSi($maBacSi, $hoTenDem, $ten, $email, $diachi, $soDienThoai, $ngaySinh, $gioiTinh ,  $trangThai)
+    public function updateBacSi($maBacSi, $hoTenDem, $ten, $email, $diachi, $soDienThoai, $ngaySinh, $gioiTinh)
 {
     $sql = "UPDATE bacsi SET
             hoTenDem = :hoTenDem,
@@ -108,8 +108,7 @@ class Clsbacsi {
             diachi = :diachi,
             soDienThoai = :soDienThoai,
             ngaySinh = :ngaySinh,
-            gioiTinh = :gioiTinh,
-            trangThai = :trangThai
+            gioiTinh = :gioiTinh
             WHERE maBacSi = :maBacSi";
 
     try {
@@ -122,7 +121,6 @@ class Clsbacsi {
         $stmt->bindParam(':soDienThoai', $soDienThoai);
         $stmt->bindParam(':ngaySinh', $ngaySinh);
         $stmt->bindParam(':gioiTinh', $gioiTinh);
-        $stmt->bindParam(':trangThai', $trangThai);
         $stmt->bindParam(':maBacSi', $maBacSi);
 
         if ($stmt->execute()) {
@@ -157,16 +155,16 @@ class Clsbacsi {
                 return true;
             } else {
                 echo "Lỗi cập nhật: " . implode(", ", $stmt->errorInfo());
-                return $stmt->errorInfo();
+                return false;
             }
         } catch (PDOException $e) {
             echo "Lỗi: " . $e->getMessage();
-            return $stmt->errorInfo();
+            return false;
         }
         
 
     }
-    public function updateBenhNhan($id, $hoTenDem, $ten, $email, $diachi, $soDienThoai, $ngaySinh, $gioiTinh, $trangThai)
+    public function updateBenhNhan($id, $hoTenDem, $ten, $email, $diachi, $soDienThoai, $ngaySinh, $gioiTinh)
 {
     $sql = "UPDATE benhnhan SET
             hoTenDem = :hoTenDem,
@@ -175,8 +173,7 @@ class Clsbacsi {
             diaChi = :diaChi,
             soDienThoai = :soDienThoai,
             ngaySinh = :ngaySinh,
-            gioiTinh = :gioiTinh,
-            trangThai = :trangThai
+            gioiTinh = :gioiTinh
             WHERE maBenhNhan = :id";
 
     try {
@@ -189,7 +186,6 @@ class Clsbacsi {
         $stmt->bindParam(':soDienThoai', $soDienThoai);
         $stmt->bindParam(':ngaySinh', $ngaySinh);
         $stmt->bindParam(':gioiTinh', $gioiTinh);
-        $stmt->bindParam(':trangThai', $trangThai);
         $stmt->bindParam(':id', $id);
 
         if ($stmt->execute()) {
@@ -215,41 +211,7 @@ class Clsbacsi {
         $sql = "SELECT * FROM benhnhan WHERE maBenhNhan = '$id'";
         return $this->conn->query($sql)->fetch();
     }
-    public function layDanhSachBenhNhan($keyword = '', $startIndex = 0, $itemsPerPage = 10) {
-        $conn = $this->connect();
-        $keyword = '%' . $conn->real_escape_string($keyword) . '%';
-        $query = "SELECT * FROM benhnhan 
-                WHERE CONCAT(hoTenDem, ' ', ten) LIKE ? 
-                LIMIT ?, ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('sii', $keyword, $startIndex, $itemsPerPage);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $benhNhans = [];
-        while ($row = $result->fetch_assoc()) {
-            $benhNhans[] = $row;
-        }
-        $stmt->close();
-        $conn->close();
-        return $benhNhans;
-    }
-    
-    public function demSoLuongBenhNhan($keyword = '') {
-        $conn = $this->connect();
-        $keyword = '%' . $conn->real_escape_string($keyword) . '%';
-        $query = "SELECT COUNT(*) AS total FROM benhnhan 
-                WHERE CONCAT(hoTenDem, ' ', ten) LIKE ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('s', $keyword);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        $stmt->close();
-        $conn->close();
-        return $row['total'];
-    }
-    
+
     
 }
-
 ?>

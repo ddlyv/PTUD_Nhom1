@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div class="grid-item">
-                <a href="../vanhle/quan_li_tai_khoan_nhan_vien.php">
+                <a href="../vanhle/quan_li_tai_khoan_benh_nhan.php">
                     <i class="fa-solid fa-heart"></i>
                     <p>Quản lý tài khoản nhân viên</p>
                 </a>

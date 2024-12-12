@@ -28,7 +28,7 @@ $permissions = [
 'addLichTaiKham.php',
 'ThemLichLam.php'],
     'Bệnh nhân' => [ 'danhChoBenhNhan.php','benhNhanXemDonThuoc.php','datLichKham.php','chinhSuaThongTin.php','hoSoBenhAn.php','lichHenKham.php'],
-    'Quản lý' => ['danhChoQuanLy.php','loaiXetNghiem.php','themLoaiXetNghiem.php','suaLoaiXetNghiem.php'],  
+    'Quản lý' => ['danhChoQuanLy.php','loaiXetNghiem.php','themLoaiXetNghiem.php','suaLoaiXetNghiem.php','lock_bac_si.php','lock_benh_nhan.php','quan_li_lich_hen_kham.php','quan_li_lich_kham.php','quan_li_tai_khoan_bac_si.php','quan_li_tai_khoan_benh_nhan.php','route.php'],  
 ];
 
 // Hàm kiểm tra quyền truy cập

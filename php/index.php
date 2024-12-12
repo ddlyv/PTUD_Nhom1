@@ -225,24 +225,9 @@
                 <a href="#">Chuyên gia</a>
                 <a href="#">Dịch vụ</a>
                 <a href="#">Thành tựu</a>
-<<<<<<< HEAD
                 <a href="HaiPhong/tinTucBenhHoc.php">Tin tức</a>
                 <a href="HaiPhong/lienLac.php">Liên lạc</a>
-=======
-
-                  
-                <div class="dropdown" id="toggle-news">
-                    <a href="#">Tin tức</a>
-                    <ul class="dropdown-menu" id="news-menu">
-                        <li><a href="HaiPhong/tinTucBenhHoc.php">Bệnh Học</a></li>
-                        <li><a href="#">Tạp chí</a></li>
-                        <li><a href="#">Hội nghị - Hội thảo</a></li>
-                        <li><a href="#">Đào tạo</a></li>
-                    </ul>
-                </div>
-
                 <a href="#">Liên lạc</a>
->>>>>>> a84a01469de0a7b659a3396add42b8becebbe4b2
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
                     if (isset($_SESSION['vaiTro'])) {

@@ -30,7 +30,7 @@
     $search = isset($_POST['search']) ? trim($_POST['search']) : '';
     ?>
 
-    <?php require_once 'header.php'; ?>
+    <?php require_once '../layout/header.php'; ?>
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Danh sách Tài Khoản Bác Sĩ</h2>
@@ -118,7 +118,7 @@
 
     </div>
 
-    <?php require_once 'footer.php'; ?>
+    <?php require_once '../layout/footer.php'; ?>
 </body>
 
 </html>

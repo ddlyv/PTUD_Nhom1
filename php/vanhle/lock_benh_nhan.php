@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <?php require_once 'header.php'; ?>
+    <?php require_once '../layout/header.php'; ?>
 
     <?php
     require_once '../myclass/clsbacsi_va.php';
@@ -112,7 +112,7 @@
         </form>
     </div>
 
-    <?php require_once 'footer.php'; ?>
+    <?php require_once '../layout/footer.php'; ?>
 
     <script>
         document.getElementById('formUpdate').addEventListener('submit', function (event) {
