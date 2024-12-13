@@ -56,9 +56,9 @@
         <nav>
             <div class="navbar">
                 <a href="../index.php">Trang chủ</a>
-                <a href="#">Chuyên gia</a>
-                <a href="#">Dịch vụ</a>
-                <a href="#">Thành tựu</a>
+                <a href="chuyenGia.php">Chuyên gia</a>
+                <a href="dichVu.php">Dịch vụ</a>
+                <a href="thanhTuu.php">Thành tựu</a>
                 <a href="tinTucBenhHoc.php">Tin tức</a>
                     
                 <a href="lienLac.php">Liên lạc</a>
@@ -69,7 +69,7 @@
                             case 'Bệnh nhân':
                                 echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
-                            case 'Bác sĩ':
+case 'Bác sĩ':
                                 echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
@@ -125,9 +125,7 @@
             trong cơ thể. 
             Từ đó khiến các cơ quan bị ngừng trệ hoạt động, phá hủy từng bộ phận dẫn đến tử vong.
             </p>
-        
-        
-            <h2>Những bệnh tim thường gặp</h2>
+<h2>Những bệnh tim thường gặp</h2>
             <h4 class="blue-text"> Bệnh mạch vành </h4>
             <p>Bệnh động mạch vành là tình trạng tích tụ những mảng xơ vữa hoặc Cholesterol lên thành động mạch khiến lòng động mạch bị hẹp, giảm khả năng lưu thông máu, hạn chế việc cung cấp oxy và chất dinh dưỡng cho các cơ quan trên cơ thể. 
             Mảng xơ vữa phát triển lớn dần theo thời gian làm cho tim suy yếu dần.</p>
@@ -170,7 +168,7 @@
     <div class="share-icons">
         <p>Chia sẻ:</p>
         <a href="https://www.facebook.com/" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://x.com/?lang=vi&mx=2" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+<a href="https://x.com/?lang=vi&mx=2" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
         <a href="https://www.pinterest.com/" class="social-icon pinterest"><i class="fab fa-pinterest"></i></a>
    
     </div>
@@ -241,7 +239,7 @@
                     <i class="fab fa-facebook-f"></i>
                     <i class="fab fa-instagram"></i>
                 </div>
-            </div>
+</div>
         </footer>
     </div>
 

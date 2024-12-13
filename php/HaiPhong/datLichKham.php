@@ -1,6 +1,8 @@
+
+
 <?php
-//include '../myclass/connect.php'; // Kết nối cơ sở dữ liệu
- // Kiểm tra quyền truy cập
+
+
 include '../layout/header.php';
 
 include '../myclass/clsbenhvien.php';
@@ -36,7 +38,7 @@ $bv=new hospital();
            
             <div class="form-group mb-3">
                 <label for="ngayKham">Chọn ngày khám</label>
-                <input type="date" id="ngayKham" name="ngayKham" class="form-control">
+                <input type="date" id="ngayKham" name="ngayKham"  class="form-control">
             </div>
 
             <div class="form-group mb-3">
@@ -44,9 +46,10 @@ $bv=new hospital();
                 <input type="time" id="giokham" name="giokham" class="form-control">
             </div>
             <div class="form-group mb-3">
-                <label for="giokham">Ngày đặt lịch</label>
-                <input type="date" id="ngaydatlich" name="ngaydatlich" class="form-control" >
-            </div>
+    <label for="ngaydatlich">Ngày đặt lịch</label>
+    <input type="date" id="ngaydatlich" name="ngaydatlich" class="form-control" value="<?php echo date('Y-m-d'); ?>" readonly>
+</div>
+
             <div class="form-group mb-3">
                 <label for="trangthai">Trạng thái</label>
                 <select name="select" id="select" class="form-control">
@@ -70,32 +73,39 @@ $bv=new hospital();
             
             <input type="submit" name="nut" value="Đặt lịch" class="btn btn-primary w-100">
             <div align="center">
-            <?php
-                if(isset($_REQUEST['nut'])=='Đặt lịch')
-                {
-                    $ngayKham=$_REQUEST['ngayKham'];
-                    $giokham=$_REQUEST['giokham'];
+<?php
+    if (isset($_REQUEST['nut']) && $_REQUEST['nut'] == 'Đặt lịch') {
+        $ngayKham = $_REQUEST['ngayKham'];
+        $giokham = $_REQUEST['giokham'];
+        $ngaydatlich = date('Y-m-d'); // Gán ngày đặt lịch là ngày hiện tại
+        $select = $_REQUEST['select'];
+        $select_type = $_REQUEST['select_type'];
 
-                    $ngaydatlich=!empty($_REQUEST['ngaydatlich'])?$_REQUEST['ngaydatlich']:date('Y/m/d') ;
-                    $select=$_REQUEST['select'];
-                    $select_type=$_REQUEST['select_type'];
-                    if($bv->themxoasua("INSERT INTO lichhen(ngayTaoLichHen, ngayDatLich, gioDatLich, trangThai, maBenhNhan, Type) 
-                                            VALUES ('$ngaydatlich','$ngayKham','$giokham','$select','$maBenhNhan','$select_type')")==1)
-                    {
-                        echo"<script>
-                            alert('Cập nhập thành công!');
-                            window.location='../layout/danhChoBenhNhan.php';
-                        </script>";
-                    }
-                    else{
-                        echo"<script>
-                            alert('Cập nhập không thành công!');
-                        </script>";
-                    }
-                }
-                
-                
-            ?>
+        // Lấy ngày hiện tại
+        $currentDate = date('Y-m-d');
+
+        // Kiểm tra ngày khám
+        if (strtotime($ngayKham) <= strtotime($currentDate)) {
+            echo "<script>
+                alert('Ngày khám phải sau ngày hiện tại!');
+            </script>";
+        } else {
+            // Thực hiện lưu thông tin vào cơ sở dữ liệu
+            if ($bv->themxoasua("INSERT INTO lichhen(ngayTaoLichHen, ngayDatLich, gioDatLich, trangThai, maBenhNhan, Type) 
+                VALUES ('$ngaydatlich','$ngayKham','$giokham','$select','$maBenhNhan','$select_type')") == 1) {
+                echo "<script>
+                    alert('Cập nhật thành công!');
+                    window.location='../MinhCong/danhChoBenhNhan.php';
+                </script>";
+            } else {
+                echo "<script>
+                    alert('Cập nhật không thành công!');
+                </script>";
+            }
+        }
+    }
+?>
+
             </div>
             
         </form>

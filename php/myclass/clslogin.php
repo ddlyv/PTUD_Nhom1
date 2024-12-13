@@ -32,6 +32,7 @@ class login
 					$myuser=$row['soDienThoai'];
 					$mypass=$row['password'];
                     $vaiTro=$row['vaiTro'];
+					$maDuPhong=$row['maDuPhong'];
 
 					session_start();
 					$_SESSION['id']=$id;
@@ -39,6 +40,7 @@ class login
 					$_SESSION['user']=$myuser;
 					$_SESSION['pass']=$mypass;
                     $_SESSION['vaiTro']=$vaiTro;
+					$_SESSION['maDuPhong']=$maDuPhong;
 					echo'<script>alert("Đăng nhập thành công")</script>';
 					echo'<script>window.location="../"</script>';
 				}
@@ -61,30 +63,37 @@ class login
 			}
 		}	
 
-    public function register($username, $phone, $password, $role)
-    {
-        $link = $this ->connectlogin();
+		public function register($username, $phone, $password, $role, $maDuPhong) {
+			$link = $this->connectlogin();
+		
+			// Kiểm tra trùng số điện thoại và mã dự phòngphòng
+			$check_sql = "SELECT * FROM taikhoan WHERE soDienThoai = '$phone'";
+			$check_result = mysqli_query($link, $check_sql);
+			if (mysqli_num_rows($check_result) > 0) {
+				return "Số điện thoại đã tồn tại!";
+			}
 
-        // Kiểm tra trùng số điện thoại
-        $check_sql = "SELECT * FROM taikhoan WHERE soDienThoai = '$phone'";
-        $check_result = mysqli_query($link,$check_sql);
-        if (mysqli_num_rows($check_result) > 0) {
-            return "Số điện thoại đã tồn tại!";
-        }
+			$check_sql = "SELECT * FROM taikhoan WHERE maDuPhong = '$maDuPhong'";
+			$check_result = mysqli_query($link, $check_sql);
+			if (mysqli_num_rows($check_result) > 0) {
+				return "Mã Dự Phòng đã tồn tại";
+			}
 
-        // Mã hóa mật khẩu
-        $hashed_password = md5($password);
-
-        // Thêm tài khoản mới
-        $sql = "INSERT INTO taikhoan (tenTaiKhoan, soDienThoai, password, vaiTro) 
-                VALUES ('$username', '$phone', '$hashed_password', '$role')";
-        $result = mysqli_query( $link,$sql);
-
-        if ($result) {
-            return true;
-        } else {
-            return "Có lỗi xảy ra trong quá trình đăng ký!";
-        }
-    }
+		
+			// Mã hóa mật khẩu
+			$hashed_password = md5($password);
+		
+			
+			$sql = "INSERT INTO taikhoan (tenTaiKhoan, soDienThoai, password, vaiTro, maDuPhong) 
+					VALUES ('$username', '$phone', '$hashed_password', '$role', '$maDuPhong')";
+			$result = mysqli_query($link, $sql);
+		
+			if ($result) {
+				return true;
+			} else {
+				return "Có lỗi xảy ra trong quá trình đăng ký!";
+			}
+		}
+		
 }
 ?>

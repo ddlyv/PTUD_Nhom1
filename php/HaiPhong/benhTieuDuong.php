@@ -1,4 +1,4 @@
-<?php
+?php
     session_start();
     error_reporting(0);
     include ("../myclass/clslogin.php");
@@ -56,18 +56,17 @@
         <nav>
             <div class="navbar">
                 <a href="../index.php">Trang chủ</a>
-                <a href="#">Chuyên gia</a>
-                <a href="#">Dịch vụ</a>
-                <a href="#">Thành tựu</a>
+                <a href="chuyenGia.php">Chuyên gia</a>
+                <a href="dichVu.php">Dịch vụ</a>
+                <a href="thanhTuu.php">Thành tựu</a>
                 <a href="tinTucBenhHoc.php">Tin tức</a>
-                
                 <a href="lienLac.php">Liên lạc</a>
 
                 <?php
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
                                 echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
@@ -126,7 +125,7 @@
         
             <h2>Các dạng đái tháo đường</h2>
             <h4 class="blue-text">Đái tháo đường típ 1</h4>
-            <p> Đái tháo đường típ 1 hay tiểu đường tuýp 1, được cho là xảy ra do phản ứng tự miễn khiến cơ thể bạn ngừng sản xuất insulin. 
+<p> Đái tháo đường típ 1 hay tiểu đường tuýp 1, được cho là xảy ra do phản ứng tự miễn khiến cơ thể bạn ngừng sản xuất insulin. 
             Những người mắc bệnh sẽ phải dùng insulin nhân tạo mỗi ngày trong suốt cuộc đời.</p>
             <h4 class="blue-text">Đái tháo đường típ 2</h4>
             <p>Đái tháo đường típ 2 hay tiểu đường tuýp 2 ảnh hưởng đến cách cơ thể sử dụng insulin. Không giống như đái tháo đường típ 1, ở người mắc đái tháo đường típ 2, 
@@ -149,8 +148,8 @@
                 Hiện nay, nguyên nhân chính xác gây bệnh tiểu đường típ 1 là gì vẫn chưa được xác định rõ. Tuy nhiên, một số giả thuyết cho rằng các yếu tố di truyền và môi trường có thể góp phần vào nguyên nhân tiểu đường.</p>
             <h4>Nguyên nhân tiểu đường típ 2 </h4>
             <p> Trong bệnh tiền đái tháo đường và tiểu đường típ 2, các tế bào cơ thể trở nên đề kháng với hoạt động
-                 của insulin và tuyến tụy không thể sản xuất đủ insulin để chống lại sự đề kháng này. 
-                 Thay vì di chuyển đến các tế bào, glucose sẽ tích tụ trong máu, dẫn đến mức đường huyết tăng.</p>
+                 của insulin và tuyến tụy không thể sản xuất đủ insulin để chống lại sự đề kháng này.
+Thay vì di chuyển đến các tế bào, glucose sẽ tích tụ trong máu, dẫn đến mức đường huyết tăng.</p>
             <h4>Nguyên nhân tiểu đường thai kỳ </h4>
             <p>Trong thời gian mang thai, nhau thai sẽ tiết hormone để duy trì thai kỳ. Những hormone này khiến các tế bào trong cơ thể đề kháng insulin.
                 Thông thường, tuyến tụy sẽ sản xuất đủ insulin để vượt qua sự đề kháng này. Tuy nhiên, đôi khi tuyến tụy vẫn không thể sản xuất kịp. Khi điều này xảy ra, 
@@ -205,7 +204,7 @@
                     <div class="contact-box">
                         <i class="fas fa-map-marker-alt"></i>
                         <h3>ĐỊA CHỈ</h3>
-                        <p>0123 abc</p>
+<p>0123 abc</p>
                     </div>
                     <div class="contact-box">
                         <i class="fas fa-envelope"></i>

@@ -56,9 +56,9 @@
         <nav>
             <div class="navbar">
                 <a href="../index.php">Trang chủ</a>
-                <a href="#">Chuyên gia</a>
-                <a href="#">Dịch vụ</a>
-                <a href="#">Thành tựu</a>
+                <a href="chuyenGia.php">Chuyên gia</a>
+                <a href="dichVu.php">Dịch vụ</a>
+                <a href="thanhTuu.pphp">Thành tựu</a>
                 <a href="tinTucBenhHoc.php">Tin tức</a>
                 <a href="lienLac.php">Liên lạc</a>
 
@@ -68,7 +68,7 @@
                             case 'Bệnh nhân':
                                 echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
-                            case 'Bác sĩ':
+case 'Bác sĩ':
                                 echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
@@ -127,7 +127,7 @@
             <h3>Nguyên Nhân</h3>
                     <h4>Thuốc lá</h4>
             <p>  Thuốc lá
-            Nguyên nhân dẫn đến bệnh ung thư ở phế quản phổi 90% là do thuốc lá. Ngoài ra, có ung thư vòm họng, thanh quản, miệng, thực quản, gan, dạ dày,... 
+Nguyên nhân dẫn đến bệnh ung thư ở phế quản phổi 90% là do thuốc lá. Ngoài ra, có ung thư vòm họng, thanh quản, miệng, thực quản, gan, dạ dày,... 
             Chất Hydrocarbon thơm có hàm lượng lớn trong khói thuốc lá, trên thực nghiệm chất gây ung thư phải kể đến là 3 - 4 Benzopyren. </p>
 
             <div class="image-tieuduong">
@@ -167,7 +167,7 @@
 
     <div class="share-icons">
         <p>Chia sẻ:</p>
-        <a href="https://www.facebook.com/" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+<a href="https://www.facebook.com/" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
         <a href="https://x.com/?lang=vi&mx=2" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
         <a href="https://www.pinterest.com/" class="social-icon pinterest"><i class="fab fa-pinterest"></i></a>
    
@@ -236,7 +236,7 @@
                 <p>© 2021 Hospital's name All Rights Reserved by PNTEC-LTD</p>
                 <div class="icon-social">
                     <i class="fab fa-linkedin-in"></i>
-                    <i class="fab fa-facebook-f"></i>
+<i class="fab fa-facebook-f"></i>
                     <i class="fab fa-instagram"></i>
                 </div>
             </div>
