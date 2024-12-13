@@ -84,13 +84,6 @@
 
                             $date_ngaytaophieu = !empty($_REQUEST['date_ngaytaophieu']) ? $_REQUEST['date_ngaytaophieu'] : date('Y-m-d');
                             $select=$_REQUEST['select'];
-                            
-                            // Kiểm tra dữ liệu
-                            $errors = [];
-                            if (new DateTime($date_ngaytaophieu) > new DateTime()) {
-                                $errors[] = "Ngày tạo phiếu không được lớn hơn ngày hiện tại.";
-                            }
-                            else{
                                 if(!empty($txttenloaixetnghiem))
                                 {
                                     $p->connectdb();
@@ -99,18 +92,36 @@
                                                 where tenLoai like '%$txttenloaixetnghiem%'");
                                     if(!$maLoai=='')
                                     {       
-                                        if($p->themxoasua("INSERT INTO phieuxetnghiem(ketQuaXetNghiem, ngayXetNghiem, gioXetNghiem, ngayTaoPhieu, trangThai, maLoai,maHoSo) 
-                                                            VALUES ('$txtketquaxetnghiem','$date_ngayxetnghiem','$time_gioxetnghiem','$date_ngaytaophieu','$select','$maLoai','$txtmahoso')")==1)
-                                        {
-                                            echo '<script>
-                                            alert("Thêm thành công.");
-                                            window.location="phieuXetNghiem.php";
-                                            </script>';        
+                                        // Kiểm tra dữ liệu
+                                        $errors = [];
+                                        // Kiểm tra ngày xét nghiệm không bé hơn ngày hiện tại
+                                        if ($date_ngayxetnghiem < date('Y-m-d')) {
+                                            $errors[] = "Ngày xét nghiệm không được bé hơn ngày hiện tại.";
+                                        }
+
+                                        if ($date_ngaytaophieu > date('Y-m-d')) {
+                                            $errors[] = "Ngày tạo phiếu không được lớn hơn ngày hiện tại.";
+                                        }
+                                        
+                                        if (!empty($errors)) {
+                                            for ($i = 0; $i < count($errors); $i++) {
+                                                echo '<script>alert("' . $errors[$i] . '");</script>';
+                                            }
                                         }
                                         else{
-                                            echo '<script>
-                                            alert("Thêm không thành công.");
-                                            </script>';
+                                            if($p->themxoasua("INSERT INTO phieuxetnghiem(ketQuaXetNghiem, ngayXetNghiem, gioXetNghiem, ngayTaoPhieu, trangThai, maLoai,maHoSo) 
+                                                            VALUES ('$txtketquaxetnghiem','$date_ngayxetnghiem','$time_gioxetnghiem','$date_ngaytaophieu','$select','$maLoai','$txtmahoso')")==1)
+                                            {
+                                                echo '<script>
+                                                alert("Thêm thành công.");
+                                                window.location="phieuXetNghiem.php";
+                                                </script>';        
+                                            }
+                                            else{
+                                                echo '<script>
+                                                alert("Thêm không thành công.");
+                                                </script>';
+                                            }
                                         }
                                     }
                                     else{
@@ -126,13 +137,13 @@
                                         alert('Vui lòng nhập đầy đủ thông tin có dấu * !')
                                     </script>";
                                 }
-                            }
+                            
                             
                         }
                     
                     ?>
                 </div>
-                <script>
+                <!-- <script>
                     function rangBuocForm() {
                         // Lấy giá trị từ các trường
                         var ngaySinh = new Date(document.getElementById("date_ngaytaophieu").value);
@@ -145,7 +156,7 @@
                         // Nếu tất cả các ràng buộc đều hợp lệ, cho phép gửi form
                         return true;
                     }
-                </script>
+                </script> -->
             </form>
         </div>
         
