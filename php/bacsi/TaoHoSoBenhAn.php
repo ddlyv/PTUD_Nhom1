@@ -7,9 +7,9 @@ require_once '../myclass/clslichkham.php';
 
 session_start();
 
-if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
-    die("Bạn không có quyền truy cập vào trang này.");
-}
+// if (!isset($_SESSION['vaiTro']) || $_SESSION['vaiTro'] !== 'Bác sĩ') {
+//     die("Bạn không có quyền truy cập vào trang này.");
+// }
 
 if (!isset($_GET['maLichKham'])) {
     die("Không tìm thấy mã lịch khám.");
@@ -33,12 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $chanDoan = $_POST['diagnosis'];
     $ketLuan = $_POST['conclusion'];
     $trangThai = $_POST['status'];
+
     if (!$trangThai) {
-        $trangThai= 'Đang xử lý';
+        $trangThai= 'Đang chờ xử lý';
     }
+
     if (!$ketLuan) {
         $ketLuan = 'Chưa có kết luận';
     }
+    
     $hoSoBenhAn = new ClsHoSoBenhAn();
 
     $sqlInsert = "INSERT INTO hosobenhan (ngayTaoHoSo, maBenhNhan, maBacSi, chuanDoan, ketLuan, trangThai) VALUES ('$ngayTao', $maBenhNhan, $maBacSi, '$chanDoan', '$ketLuan', '$trangThai')";

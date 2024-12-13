@@ -23,7 +23,7 @@
             $gioiTinh=$p->laycot('select gioiTinh from benhnhan where maTaiKhoan='.$id_user.'');
             $anhDaiDien=$p->laycot('select anhDaiDien from benhnhan where maTaiKhoan='.$id_user.''); 
         ?>
-        <form id="formcstt" name="formcstt" method="post" enctype="multipart/form-data" onsubmit="return rangBuocForm()">
+        <form id="formcstt" name="formcstt" method="post" enctype="multipart/form-data">
             <div class="row mb-3">
                 <label for="txthotendem" class="col-md-2 control-label">Họ tên đệm</label>
                 <div class="col-md-4">
@@ -100,7 +100,7 @@
                                 $errors[] = "Ngày sinh không được lớn hơn ngày hiện tại.";
                             }
                             if (!preg_match('/^0\d{7,9}$/', $txtsdt)) {
-                                $errors[] = "Số điện thoại không được chứa chữ cái.";
+                                $errors[] = "Số điện thoại không được chứa chữ cái và 8-10 số và đầu từ số 0.";
                             }
                             if (!preg_match('/@gmail\.com$/', $txtemail)) {
                                 $errors[] = "Email phải có đuôi @gmail.com.";
@@ -113,17 +113,26 @@
                             }else {
                                 // Xử lý lưu dữ liệu vào cơ sở dữ liệu
                                 if(isset($file_name) && $file_name != '') {
-                                    if($type=='jpg'||$type=='png'||$type=='jpeg')
+                                    if($type=='image/jpg'||$type=='image/png'||$type=='image/jpeg')
                                     {
                                         if ($p->uploadfile($file_name,$tmp_name,$default_name, "../../img/anhDaiDien_bn")) {
                                             if ($p->themxoasua("UPDATE benhnhan 
                                                     SET hoTenDem = '$txthotendem', ten = '$txtten', email = '$txtemail', diaChi = '$txtdiachi', soDienThoai = '$txtsdt', 
                                                     ngaySinh = '$ngaysinh', gioiTinh = '$gioitinh', anhDaiDien = '$default_name'
                                                     WHERE maTaiKhoan = '$id_user'")==1) {
-                                                echo '<script>
-                                                    alert("Cập nhật thông tin và ảnh thành công");
-                                                    window.location="danhChoBenhNhan.php";
-                                                    </script>';
+                                                        if($p->themxoasua("UPDATE taikhoan 
+                                                        SET hoTenDem='$txthotendem',tenTaiKhoan='$txtten',soDienThoai='$txtsdt'
+                                                        WHERE maTaiKhoan='$id_user'")==1)
+                                                        {
+                                                            echo '<script>
+                                                                        alert("Cập nhật thông tin và ảnh thành công");
+                                                                        window.location="danhChoBenhNhan.php";
+                                                                        </script>';
+                                                        }
+                                                        else{
+                                                            echo '<script>alert("Cập nhật thông tin vào tài khoản không thành công");</script>';
+                                                        }
+                                                
                                             } else {
                                                 echo '<script>alert("Cập nhật thông tin không thành công");</script>';
                                             }

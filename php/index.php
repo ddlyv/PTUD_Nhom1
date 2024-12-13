@@ -222,12 +222,12 @@
         <nav>
             <div class="navbar">
                 <a href="index.php">Trang chủ</a>
-                <a href="#">Chuyên gia</a>
-                <a href="#">Dịch vụ</a>
-                <a href="#">Thành tựu</a>
+                <a href="HaiPhong/chuyenGia.php">Chuyên gia</a>
+                <a href="HaiPhong/dichVu.php">Dịch vụ</a>
+                <a href="HaiPhong/thanhTuu.php">Thành tựu</a>
                 <a href="HaiPhong/tinTucBenhHoc.php">Tin tức</a>
                 <a href="HaiPhong/lienLac.php">Liên lạc</a>
-                <a href="#">Liên lạc</a>
+              
                 <?php
                     // Kiểm tra và hiển thị mục theo vai trò
                     if (isset($_SESSION['vaiTro'])) {
