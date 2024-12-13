@@ -59,9 +59,9 @@
         <nav>
             <div class="navbar">
                 <a href="../index.php">Trang chủ</a>
-                <a href="#">Chuyên gia</a>
-                <a href="#">Dịch vụ</a>
-                <a href="#">Thành tựu</a>
+                <a href="chuyenGia.php">Chuyên gia</a>
+                <a href="dichVu.php">Dịch vụ</a>
+                <a href="thanhTuu.php">Thành tựu</a>
                 <a href="tinTucBenhHoc.php">Tin Tức</a>
                 <a href="lienLac.php">Liên lạc</a>
                 <?php

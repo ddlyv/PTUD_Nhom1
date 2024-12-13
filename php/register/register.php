@@ -10,12 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone = trim($_POST['phone']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $maDuPhong = trim($_POST['txtmaduphong']); 
     $role = "Bệnh nhân"; // Mặc định là Bệnh nhân
 
     // Kiểm tra mật khẩu xác nhận
     if ($password === $confirm_password) {
         // Gọi phương thức đăng ký từ lớp login
-        $result = $p->register($username, $phone, $password, $role);
+        $result = $p->register($username, $phone, $password, $role, $maDuPhong);
         if ($result === true) {
             $message = "Đăng ký thành công!";
             header("refresh:2;url=../login/index.php"); // Chuyển hướng sau 2 giây
@@ -27,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message = "Mật khẩu xác nhận không khớp!";
     }
 }
+
 ?>
 
 <!doctype html>
@@ -95,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .form-container input[type="text"]::placeholder,
-        .form-container input[type="password"]::placeholder {
+.form-container input[type="password"]::placeholder {
             color: #A0AEC0; /* Placeholder màu xám nhạt */
         }
 
@@ -159,6 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <label for="confirm_password">Xác nhận mật khẩu:</label>
             <input id="confirm_password" name="confirm_password" type="password" placeholder="Xác nhận mật khẩu" required>
+
+            <label for="maDuPhong">Nhập mã dự phòng</label>
+            <input name="txtmaduphong" type="text" id="txtmaduphong" placeholder="Nhập mã dự phòng" required>
+
+
+
 
             <button type="submit">Đăng ký</button>
         </form>

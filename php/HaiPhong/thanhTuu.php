@@ -1,8 +1,10 @@
 <?php
-    session_start();
+	session_start();
     error_reporting(0);
-    include ("../myclass/clslogin.php");
-    $c = new login();
+	include ("../myclass/clslogin.php");
+	$c=new login();
+		
+	
 ?>
 
 <!DOCTYPE html>
@@ -10,42 +12,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ</title>
-    <link rel="stylesheet" href="../../css/mau.css">
+    <title> Thành Tựu </title>
+    <link rel="stylesheet" href="../../css/tintuc.css">
     <!-- Thêm Font Awesome -->
-  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
 </head>
-<style>
-    .search-booking a:hover{
-            border-bottom: none;
+     <style>
+            .achievement {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
         }
-        .section1 {
-            text-align: center;
-            margin-top: 20px;
+        .achievement img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
-        .tenChucNang_cuthe {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
+        .achievement h2 {
+            color: #0066cc;
         }
-</style>
+     
+      
+     
+    </style>
+
+
 </head>
 <body>
-    <div class="containerr">
+    <div class="container">
         <header>
             <div class="header">
-                <div class="logo"><a style="text-decoration: none; color: black;" href="../index.php">MED<span class="highlight">DICAL</a></span>
+                <div class="logo"><a style="text-decoration: none; color: black;" href="index.php">MED<span class="highlight">DICAL</a></span>
                 </div>
                 <div class="contact-info">
                     <div class="info">
-                        <span class="icon">📞</span> HOTLINE <br>(237) 681-812-255</br>
+                        <span class="icon">📞</span> HOTLINE <p>(237) 681-812-255</p>
                     </div>
                     <div class="info">
-                        <span class="icon">⏰</span> GIỜ LÀM VIỆC <br>09:00 - 20:00 Everyday</br>
+                        <span class="icon">⏰</span> GIỜ LÀM VIỆC <p>09:00 - 20:00 Everyday</p>
                     </div>
                     <div class="info">
-                        <span class="icon">📍</span> ĐỊA CHỈ <br>0123 Some Place</br>
+                        <span class="icon">📍</span> ĐỊA CHỈ <p>0123 Some Place</p>
                     </div>
                     <div class="user">
                         <span class="icon-user">👤</span>
@@ -58,7 +67,7 @@
                                 else
                                 {
                                     echo '<a href="../login/index.php" class="user-link">Đăng nhập</a> / ';
-                                    echo '<a href="../register/" class="user-link">Đăng ký</a>';
+                                    echo '<a href="../register/register.php" class="user-link">Đăng ký</a>';
                                 }
                             ?>
                         
@@ -72,100 +81,78 @@
                 <a href="../index.php">Trang chủ</a>
                 <a href="chuyenGia.php">Chuyên gia</a>
                 <a href="dichVu.php">Dịch vụ</a>
-                <a href="thanhTuu.php">Thành tựu</a>
-                <a href="tinTucBenhHoc.php">Tin tức</a>
+<a href="thanhTuu.php">Thành tựu</a>
+                <a href="tinTucBenhHoc.php">Tin Tức </a>
                 <a href="lienLac.php">Liên lạc</a>
-
-
                 <?php
-// Kiểm tra và hiển thị mục theo vai trò
+                    // Kiểm tra và hiển thị mục theo vai trò
                     if (isset($_SESSION['vaiTro'])) {
                         switch ($_SESSION['vaiTro']) {
                             case 'Bệnh nhân':
-                                echo '<a href="../MinhCong/danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
+                                echo '<a href="danhChoBenhNhan.php">Dành cho bệnh nhân</a>';
                                 break;
                             case 'Bác sĩ':
-                                echo '<a href="../MinhCong/danhChoBacSi.php">Dành cho bác sĩ</a>';
+                                echo '<a href="danhChoBacSi.php">Dành cho bác sĩ</a>';
                                 break;
                             case 'Quản lý':
-                                echo '<a href="../MinhCong/danhChoQuanLy.php">Dành cho Quản lý</a>';
+                                echo '<a href="danhChoQuanLy.php">Dành cho Quản lý</a>';
                                 break;
                         }
                     }
                 ?>
-
                 <div class="search-booking">
                     <span class="icon">🔍</span>
                     <a href="datLichKham.php"><button type="button">Đặt lịch</button></a>
                 </div>
             </div>
         </nav>
-        
-        <div class="Picture">
-            <img src="../../img/anhbia.jpg" alt="Cover Image" class="cover-image" alt="">
-        </div>
-
-
-
-        <div class="section1">
-        <div class="tenChucNang">
-            <p class="tenChucNang_cuthe">Liên Hệ</p>
-        </div>
-    </div>
-
-    <div class="container mt-4">
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            echo '<div class="alert alert-success" role="alert">Gửi thành công!</div>';
-        }
-        ?>
-
-        <form method="post" action="">
-     
-
-            <div class="mb-3">
-                <label for="danhxung" class="form-label">Danh xưng</label>
-                <select id="danhxung" class="form-select">
-                    <option value="Ông">Ông</option>
-                    <option value="Bà">Bà</option>
-                    <option value="Anh">Anh</option>
-                    <option value="Chị">Chị</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="hoten" class="form-label">Họ & Tên *</label>
-                <input type="text" class="form-control" id="hoten" name="hoten" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="dienthoai" class="form-label">Điện thoại *</label>
-                <input type="tel" class="form-control" id="dienthoai" name="dienthoai" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Địa chỉ email</label>
-                <input type="email" class="form-control" id="email" name="email">
-            </div>
-
-            <div class="mb-3">
-                <label for="loinhan" class="form-label">Để lại lời nhắn</label>
-                <textarea class="form-control" id="loinhan" name="loinhan" rows="3"></textarea>
-            </div>
-<button type="submit" class="btn btn-primary">Gửi thông tin</button>
-        </form>
-    </div>
 
    
 
 
+        <div class="Picture">
+             <img src="../../img/chuyengia.jpg" alt="Cover Image" class="image-benhHoc">
+        </div>
+
+        <!-- Chuyên mục Chuyên Gia  -->
+        <div class="news-section">
+            
+            <div class="news-title"> Thành Tựu  </div>
+            <div class="divider"></div> <!-- Đường gạch chia cắt -->
+        
+            <!-- Bài 1 -->
+        <div class="achievement">
+            <h2>Ca Phẫu Thuật Hiểm Nghèo Đầu Tiên Ở Việt Nam</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxRBuyaIGF3wOCITA369i9ryJSWvwkpWDKaw&s" alt="Hình ảnh ca phẫu thuật">
+            <p>Thành công trong ca phẫu thuật ghép tim cho một bệnh nhân gặp nguy hiểm, mốc son đánh dấu bước tiến trong y học Việt Nam.</p>
+
+        </div>
+
+        <!-- Bài 2 -->
+        <div class="achievement">
+            <h2>Chương Trình Tầm Soát Ung Thư Toàn Diện</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO_c0trV3a1m-G6VhvVenRp7w4sBIBYYqQ7Q&s alt=" Chương trình tầm soát">
+            <p>Triển khai tất cả các phương pháp tân tiến nhất để phát hiện sớm các loại ung thư nguy hiểm.</p>
+
+        </div>
+
+        <!-- Bài 3 -->
+        <div class="achievement">
+            <h2>Giải Thưởng "Bệnh Viện Xuất Sắc Nhất"</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStA00V4xNx4VPRitpl9Nd4btX344LV7zm3ag&s" alt="Hình ảnh giải thưởng">
+            <p>Bệnh viện được trao giải thưởng danh giá nhờ những đóng góp trong nâng cao chất lượng dịch vụ y tế.</p>
+            
+        </div>
 
 
+        </div>
+    
+        </div>
 
-
-        <div class="contact">
+        <!-- Contact Section -->
+<div class="contact">
             <div class="contact-section">
-                <h1>Contact</h1>
+                <h1> Contact</h1>
                 <div class="contact-info-1">
                     <div class="contact-box">
                         <i class="fas fa-phone-alt"></i>
@@ -189,7 +176,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>     
+
+        <!-- Footer -->
         <footer>
             <div class="footer-content">
                 <div class="footer-box">
@@ -222,6 +211,6 @@
             </div>
         </footer>
     </div>
-</body>
 
+</body>
 </html>
